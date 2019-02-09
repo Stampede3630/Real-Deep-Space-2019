@@ -8,6 +8,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.smartdashboard.*;
 
 
 
@@ -19,6 +22,7 @@ public class Robot extends TimedRobot {
   public Diagnostics diagnostics;
   Choosers choosers;
   Vision vision;
+  AnalogInput UltrasonicInput;
 
   @Override
   public void robotInit() {
@@ -27,6 +31,7 @@ public class Robot extends TimedRobot {
     diagnostics = new Diagnostics();
     choosers = new Choosers(driveTrain, manipulator, diagnostics);
     vision = new Vision();
+    UltrasonicInput = new AnalogInput(4);
   }
   
   @Override
@@ -71,5 +76,14 @@ public class Robot extends TimedRobot {
  
   @Override
   public void testPeriodic() {
+    double 
+    public double getUSVoltage ()
+    {
+        double UltrasonicVoltage = UltrasonicInput.getVoltage();
+        double UltrasonicCalculated = 250*(UltrasonicVoltage / 5) - 25;
+        psi = Math.round(UltrasonicCalculated);
+        return psi;
+    }
+    SmartDashboard.putNumber("Ultrasonic Voltage", UltrasonicCalculated);
   }
 }
