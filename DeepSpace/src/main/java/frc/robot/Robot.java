@@ -12,16 +12,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
-
 public class Robot extends TimedRobot {
  
 
   public DriveTrain driveTrain;
   public Manipulator manipulator;
   public Diagnostics diagnostics;
-  Choosers choosers;
+  public Choosers choosers;
   Vision vision;
   SendableChooser manipulatorChooser;
+  PathChooser pathChooser = new PathChooser();
 
   @Override
   public void robotInit() {
@@ -39,6 +39,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     diagnostics.toSmartDashboard();
+    pathChooser.stringToPath(SmartDashboard.getString("Path Selected", ""));
   }
 
   
@@ -63,8 +64,10 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() 
   {
     choosers.setDriveMode();
-    choosers.automatedTurnToAngle();
+    //choosers.automatedTurnToAngle();
     choosers.setManipulatorMode();
+
+    choosers.chooserAngle(pathChooser.angle);
 
     driveTrain.drive();
 

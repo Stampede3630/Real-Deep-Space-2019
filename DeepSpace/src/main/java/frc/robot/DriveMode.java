@@ -11,6 +11,6 @@ package frc.robot;
 public interface DriveMode {
 
     public void driveRobot();
+    public boolean getAutoRotate();
 
 }
-
