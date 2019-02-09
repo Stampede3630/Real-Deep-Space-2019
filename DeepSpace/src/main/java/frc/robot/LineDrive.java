@@ -25,6 +25,10 @@ public class LineDrive implements DriveMode {
 //        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
     }
 
+    public boolean getAutoRotate() {
+        return true;
+    }
+
     public void driveRobot()
     {
         tEncoderLValue = robotMap.encoder0.getVoltage();

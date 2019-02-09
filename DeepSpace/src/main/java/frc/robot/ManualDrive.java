@@ -29,6 +29,10 @@ public class ManualDrive implements DriveMode {
 //        driveTrain.turnPID.zController.enable();
     }
 
+    public boolean getAutoRotate() {
+        return autoRotateEnable;
+    }
+
     public void driveRobot()
     {
         xSpeed = robotMap.getLeftX();
