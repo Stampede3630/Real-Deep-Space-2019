@@ -17,15 +17,20 @@ public class ManualDrive implements DriveMode {
     double xSpeed;
     double ySpeed;
     double zRotation;
-    Choosers turnChooser;
+    boolean autoRotateEnable;
     
     public ManualDrive(RobotMap robotMap, DriveTrain driveTrain)
     {
         this.robotMap = robotMap;
         this.driveTrain=driveTrain;
+
 //        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(1);
 //        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
 //        driveTrain.turnPID.zController.enable();
+    }
+
+    public boolean getAutoRotate() {
+        return autoRotateEnable;
     }
 
     public void driveRobot()
@@ -33,10 +38,15 @@ public class ManualDrive implements DriveMode {
         xSpeed = robotMap.getLeftX();
         ySpeed = robotMap.getLeftY();
 
+        if (robotMap.buttonA.get()) {
+            autoRotateEnable = true;
+        }
+
         if(Math.abs(robotMap.getRightX())>0.2)
         {
             driveTrain.turnPID.zController.disable();
             zRotation = robotMap.getRightX();
+            autoRotateEnable = false;
         }
         else
         {

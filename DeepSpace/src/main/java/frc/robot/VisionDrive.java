@@ -17,6 +17,10 @@ public class VisionDrive implements DriveMode{
 //        NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(0);
     }
 
+    public boolean getAutoRotate() {
+        return true;
+    }
+
     public void driveRobot()
     {
         driveTrain.xpid.xController.enable();

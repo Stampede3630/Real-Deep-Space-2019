@@ -11,6 +11,7 @@ public class Choosers
     DriveTrain driveTrain;
     Manipulator manipulator;
     Diagnostics diagnostics;
+    boolean chooserEnable = true;
 
     public Choosers(DriveTrain driveTrain, Manipulator manipulator, Diagnostics diagnostics)
     {
@@ -31,6 +32,22 @@ public class Choosers
         ballTime.start();
         manipulatorModeTime = new Timer();
         manipulatorModeTime.start();
+    }
+
+    public void chooserAngle(double angle) {
+        if (driveTrain.driveMode.getAutoRotate()) {
+            driveTrain.turnPID.zController.setSetpoint(angle);
+            driveTrain.turnSetpoint = angle;
+            driveTrain.turnPID.zController.enable();
+        }
+
+        else {
+            driveTrain.turnPID.zController.disable();
+        }
+    }
+
+    public void chooserState(boolean value) {
+        chooserEnable = value;
     }
 
     public void setDriveMode()
