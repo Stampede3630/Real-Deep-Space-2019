@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -19,6 +20,7 @@ public class Robot extends TimedRobot {
   public Diagnostics diagnostics;
   public Choosers choosers;
   Vision vision;
+  SendableChooser manipulatorChooser;
   PathChooser pathChooser = new PathChooser();
 
   @Override
@@ -28,6 +30,10 @@ public class Robot extends TimedRobot {
     diagnostics = new Diagnostics();
     choosers = new Choosers(driveTrain, manipulator, diagnostics);
     vision = new Vision();
+    manipulatorChooser = new SendableChooser();
+    manipulatorChooser.addDefault("Hatch Forward", "Hatch");
+    manipulatorChooser.addObject("Ball Forward", "Ball");
+    SmartDashboard.putData("Forward Chooser", manipulatorChooser);
   }
   
   @Override
