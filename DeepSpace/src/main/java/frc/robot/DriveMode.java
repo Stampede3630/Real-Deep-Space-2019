@@ -10,7 +10,10 @@ package frc.robot;
 
 public interface DriveMode {
 
+    boolean hatchFront = true;
+    boolean ballFront = false;
     public void driveRobot();
     public boolean getAutoRotate();
+   
 
 }

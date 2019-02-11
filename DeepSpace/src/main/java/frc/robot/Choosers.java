@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Choosers
 {
@@ -36,6 +37,9 @@ public class Choosers
 
     public void chooserAngle(double angle) {
         if (driveTrain.driveMode.getAutoRotate()) {
+            if (flipOrientation()){
+                angle = angle + 180;
+            }
             driveTrain.turnPID.zController.setSetpoint(angle);
             driveTrain.turnSetpoint = angle;
             driveTrain.turnPID.zController.enable();
@@ -48,6 +52,18 @@ public class Choosers
 
     public void chooserState(boolean value) {
         chooserEnable = value;
+    }
+
+    public boolean flipOrientation()
+    {
+        if (SmartDashboard.getData("Foreward Chooser").toString() == "Ball")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void setDriveMode()
