@@ -43,7 +43,7 @@ public class Constants {
     public static final double alphaXOne = 0;
     public static final double alphaYOne = 0;
     public static String limelight = "limelight-one";
-    public static final double cameraMountAngle = 25;
+    public static final double cameraMountAngle = -15;
 
     public static final int timeOutMs = 10;
 
