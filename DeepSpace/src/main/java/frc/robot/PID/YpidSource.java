@@ -8,7 +8,8 @@ import frc.robot.Constants;
 
 public class YpidSource implements PIDSource{
 
-    double yDist, ty;
+    double yDist;
+    double ty = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ty").getDouble(0);
 
     public YpidSource()
     {
