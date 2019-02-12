@@ -31,10 +31,10 @@ public class Ball implements ManipulatorMode {
 
     public void intake () //left trigger
     {
-        if(robotMap.getTrigger()<=-0.2) //change ultrasonic number
+        if(robotMap.getTrigger()<=-0.2&&robotMap.ballStop.getVoltage()<4.0) //change ultrasonic number
         {
-            robotMap.talonBallIntake.set(robotMap.getTrigger());
-            robotMap.talonBallShooter.set(-0.4);
+            robotMap.talonBallIntake.set(-1);
+            robotMap.talonBallShooter.set(1);
         }
         else
         {
@@ -57,6 +57,7 @@ public class Ball implements ManipulatorMode {
             else
             {
                 robotMap.talonBallShooter.set(-robotMap.getTrigger());
+                robotMap.talonBallIntake.set(-0.3);
             }
         }
         else
@@ -69,12 +70,5 @@ public class Ball implements ManipulatorMode {
     public void disengage () 
     {
 
-    }
-
-    public double getUltrasonicDist()
-    {
-        double voltage = robotMap.ultrasonic.getVoltage();
-        double distance = voltage/0.0098;
-        return distance;
     }
 }

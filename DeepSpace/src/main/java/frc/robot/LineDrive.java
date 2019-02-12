@@ -1,10 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -25,9 +18,15 @@ public class LineDrive implements DriveMode {
 //        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
     }
 
+    public boolean getAutoRotate() {
+        return true;
+    }
+
+    
+
     public void driveRobot()
     {
-        tEncoderLValue = robotMap.encoder0.getVoltage();
+        tEncoderLValue = robotMap.ballStop.getVoltage();
         SmartDashboard.putNumber("Encoder 0", tEncoderLValue);
 
         tEncoderMValue = robotMap.encoder1.getVoltage();

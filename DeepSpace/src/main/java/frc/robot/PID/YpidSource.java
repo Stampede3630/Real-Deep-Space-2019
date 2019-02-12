@@ -31,7 +31,7 @@ public class YpidSource implements PIDSource{
 
     public double pidGet()
     {
-        ty = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ty").getDouble(0);
+        ty = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry(Constants.yPIDsource).getDouble(0);
 
 //        yDist = (Constants.h2 - Constants.h1) / Math.tan(0 + ty);
 //        SmartDashboard.putNumber("yDistance", yDist);

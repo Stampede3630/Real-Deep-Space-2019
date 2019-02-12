@@ -30,11 +30,10 @@ public class RobotMap {
 
     public final AHRS ahrs = new AHRS (SPI.Port.kMXP);
 
-    public final AnalogInput encoder0 = new AnalogInput(0);
+    public final AnalogInput ballStop = new AnalogInput(0);
     public final AnalogInput encoder1 = new AnalogInput(1);
 	public final AnalogInput encoder2 = new AnalogInput(2);
 	public final AnalogInput pressureLevel = new AnalogInput(3);
-	public final AnalogInput ultrasonic = new AnalogInput(4);
 
     public final DoubleSolenoid hatchExtend = new DoubleSolenoid(0,2);
     public final DoubleSolenoid hatchDeploy = new DoubleSolenoid(1,3);

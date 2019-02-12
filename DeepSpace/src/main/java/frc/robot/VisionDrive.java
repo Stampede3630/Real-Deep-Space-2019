@@ -13,10 +13,15 @@ public class VisionDrive implements DriveMode{
     {
         this.robotMap = robotMap;
         this.driveTrain = driveTrain;
+        Constants.yPIDsource = "ty";
 
 //        NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(0);
     }
 
+    public boolean getAutoRotate() {
+        return true;
+    }
+    
     public void driveRobot()
     {
         driveTrain.xpid.xController.enable();
@@ -35,7 +40,7 @@ public class VisionDrive implements DriveMode{
         {
             case "limelight-one": robotMap.drive.driveCartesian(-xValue, yValue, zValue);
 
-            case "limelight-two": robotMap.drive.driveCartesian(0, -yValue, xValue); //no sideways motion
+            case "limelight-two": robotMap.drive.driveCartesian(0, -0.5*yValue, -0.5*xValue); //no sideways motion
         }
         
     }

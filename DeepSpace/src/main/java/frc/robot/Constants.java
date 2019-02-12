@@ -44,6 +44,7 @@ public class Constants {
     public static final double alphaXOne = 0;
     public static final double alphaYOne = 0;
     public static String limelight = "limelight-one";
+    public static String yPIDsource = "ty";
 
     public static final int timeOutMs = 10;
 

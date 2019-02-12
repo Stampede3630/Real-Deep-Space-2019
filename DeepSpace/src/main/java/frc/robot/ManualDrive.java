@@ -1,14 +1,8 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 public class ManualDrive implements DriveMode {
 
@@ -17,26 +11,44 @@ public class ManualDrive implements DriveMode {
     double xSpeed;
     double ySpeed;
     double zRotation;
-    Choosers turnChooser;
+    boolean autoRotateEnable;
     
     public ManualDrive(RobotMap robotMap, DriveTrain driveTrain)
     {
         this.robotMap = robotMap;
-        this.driveTrain=driveTrain;
+        this.driveTrain = driveTrain;
+
 //        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(1);
 //        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
 //        driveTrain.turnPID.zController.enable();
     }
 
+    public boolean getAutoRotate() {
+        return autoRotateEnable;
+    }
+
     public void driveRobot()
     {
-        xSpeed = robotMap.getLeftX();
-        ySpeed = robotMap.getLeftY();
+         if (Robot.manipulatorChooser.getSelected().equals( "Ball"))
+         {
+            xSpeed = -1 * robotMap.getLeftX();
+            ySpeed = -1 * robotMap.getLeftY();
+         }
+         else
+         {
+            xSpeed = robotMap.getLeftX();
+            ySpeed = robotMap.getLeftY();
+         }
+
+        if (robotMap.buttonA.get()) {
+            autoRotateEnable = true;
+        }
 
         if(Math.abs(robotMap.getRightX())>0.2)
         {
             driveTrain.turnPID.zController.disable();
             zRotation = robotMap.getRightX();
+            autoRotateEnable = false;
         }
         else
         {

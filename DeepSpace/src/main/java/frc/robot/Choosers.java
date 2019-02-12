@@ -1,6 +1,8 @@
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Choosers
 {
@@ -11,6 +13,8 @@ public class Choosers
     DriveTrain driveTrain;
     Manipulator manipulator;
     Diagnostics diagnostics;
+    boolean chooserEnable = true;
+    String currentManipulator = "";
 
     public Choosers(DriveTrain driveTrain, Manipulator manipulator, Diagnostics diagnostics)
     {
@@ -33,6 +37,37 @@ public class Choosers
         manipulatorModeTime.start();
     }
 
+    public void chooserAngle(double angle) {
+        if (driveTrain.driveMode.getAutoRotate()) {
+            if (flipOrientation()){
+                angle = angle + 180;
+            }
+            driveTrain.turnPID.zController.setSetpoint(angle);
+            driveTrain.turnSetpoint = angle;
+            driveTrain.turnPID.zController.enable();
+        }
+
+        else {
+            driveTrain.turnPID.zController.disable();
+        }
+    }
+
+    public void chooserState(boolean value) {
+        chooserEnable = value;
+    }
+
+    public boolean flipOrientation()
+    {
+        if (Robot.manipulatorChooser.getSelected().equals("Ball"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void setDriveMode()
     {
         if(robotMap.buttonA.get())
@@ -49,7 +84,7 @@ public class Choosers
         }
     }
 
-    public void angleSwitch()
+    public void angleSwitch() //to be replaced
     {
         if(robotMap.backB.get()&&(buttonTime.get()>=0.25))
         {
@@ -110,119 +145,27 @@ public class Choosers
     }
 
     public void setManipulatorMode()
+    
     {
-        if(robotMap.buttonY.get()&&manipulatorModeTime.get()>=0.25)
+        if(!currentManipulator.equals(Robot.manipulatorChooser.getSelected()))
         {
-            ballManipulator = !ballManipulator;
-            manipulatorModeTime.reset();
-            manipulatorModeTime.start();
-            if(ballManipulator)
+            currentManipulator = Robot.manipulatorChooser.getSelected().toString();
+            
+            if(currentManipulator.equals("Ball"))
             {
                 manipulator.manipulatorMode = new Ball(manipulator);
+                NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
+                Constants.limelight = "limelight-one";
             }
-            else if(!ballManipulator)
+            else 
             {
                 manipulator.manipulatorMode = new Hatch(manipulator);
+                NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(1);
+                Constants.limelight = "limelight-two";
             }
+
         }
         diagnostics.ballManipulator = this.ballManipulator;
-    }
-
-    public void chooseAuto(String autoCase, String autoPiece) //we should use this thing for autonomous turning before separate auto parts run
-    {
-/*        switch(autoCase) 
-        {
-            case "LeftFarCS": driveTrain.setpoint = //SmartDashboard.putString("autoMode", "left far cs");
-            
-            case "LeftMidCS": SmartDashboard.putString("autoMode", "left mid cs");
-
-            case "LeftNearCS": SmartDashboard.putString("autoMode", "left near cs");
-
-            case "leftFarRS": SmartDashboard.putString("autoMode", "left far rs");
-
-            case "LeftMidRS":SmartDashboard.putString("autoMode", "left mid rs");
-
-            case "LeftNearRS": SmartDashboard.putString("autoMode", "left near rs");
-
-            case "RightFarRS": SmartDashboard.putString("autoMode", "right far rs");
-
-            case "RightMidRS": SmartDashboard.putString("autoMode", "right mid rs");
-
-            case "RightNearRS": SmartDashboard.putString("autoMode", "right near rs");
-
-            case "RightFarCS": SmartDashboard.putString("autoMode", "right far cs");
-
-            case "RightMidCS": SmartDashboard.putString("autoMode", "right mid cs");
-
-            case "RightNearCS": SmartDashboard.putString("autoMode", "right near cs");
-        }
-*/
-        switch(autoPiece)
-        {
-            case "hatch": 
-                switch(autoCase)  //0 -> leftmost, 1-> closest, 2-> rightmost
-                {
-                    case "LeftFarCS": driveTrain.turnSetpoint = 90;
-                
-                    case "LeftMidCS": driveTrain.turnSetpoint = 90;
-    
-                    case "LeftNearCS": driveTrain.turnSetpoint = 90;
-    
-                    case "leftFarRS": driveTrain.turnSetpoint = -151;
-    
-                    case "LeftNearRS": driveTrain.turnSetpoint = -29;
-    
-                    case "RightFarRS": driveTrain.turnSetpoint = 151;
-    
-                    case "RightNearRS": driveTrain.turnSetpoint = 29;
-    
-                    case "RightFarCS": driveTrain.turnSetpoint = -90;
-    
-                    case "RightMidCS": driveTrain.turnSetpoint = -90;
-    
-                    case "RightNearCS": driveTrain.turnSetpoint = -90;
-
-                    case "LeftFaceCS": driveTrain.turnSetpoint = 0;
-
-                    case "RightFaceCS": driveTrain.turnSetpoint = 0;
-
-                    case "RightMidRS": System.out.println("no hatches here");
-
-                    case "LeftMidRS": System.out.println("no hatches here");
-                }
-
-            case "ball":
-                switch(autoCase) 
-                {
-                    case "LeftFarCS": driveTrain.turnSetpoint = -90;
-                
-                    case "LeftMidCS": driveTrain.turnSetpoint = -90;
-    
-                    case "LeftNearCS": driveTrain.turnSetpoint = -90;
-    
-                    case "LeftMidRS": driveTrain.turnSetpoint = 90;
-    
-                    case "RightMidRS": driveTrain.turnSetpoint = -90;
-    
-                    case "RightFarCS": driveTrain.turnSetpoint = 90;
-    
-                    case "RightMidCS": driveTrain.turnSetpoint = 90;
-    
-                    case "RightNearCS": driveTrain.turnSetpoint = 90;
-
-                    case "LeftFaceCS": driveTrain.turnSetpoint = 180;
-
-                    case "RightFaceCS": driveTrain.turnSetpoint = 180;
-
-                    case "RightFarRS": System.out.println("no balls here");
-
-                    case "RightNearRS": System.out.println("no balls here");
-
-                    case "LeftFarRS": System.out.println("no balls here");
-
-                    case "LeftNearRS": System.out.println("no balls here");
-                }
-            }
     }
 
 }
