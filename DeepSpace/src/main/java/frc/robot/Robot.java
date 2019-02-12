@@ -20,7 +20,7 @@ public class Robot extends TimedRobot {
   public Diagnostics diagnostics;
   public Choosers choosers;
   Vision vision;
-  SendableChooser manipulatorChooser;
+  public static SendableChooser manipulatorChooser;
   PathChooser pathChooser = new PathChooser();
 
   @Override

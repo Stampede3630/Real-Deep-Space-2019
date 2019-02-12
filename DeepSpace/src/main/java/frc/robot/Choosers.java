@@ -13,6 +13,7 @@ public class Choosers
     Manipulator manipulator;
     Diagnostics diagnostics;
     boolean chooserEnable = true;
+    String currentManipulator = "";
 
     public Choosers(DriveTrain driveTrain, Manipulator manipulator, Diagnostics diagnostics)
     {
@@ -56,7 +57,7 @@ public class Choosers
 
     public boolean flipOrientation()
     {
-        if (SmartDashboard.getData("Foreward Chooser").toString() == "Ball")
+        if (SmartDashboard.getData("Forward Chooser").toString().equals("Ball Forward"))
         {
             return true;
         }
@@ -143,20 +144,21 @@ public class Choosers
     }
 
     public void setManipulatorMode()
+    
     {
-        if(robotMap.buttonY.get()&&manipulatorModeTime.get()>=0.25)
+        if(!currentManipulator.equals(Robot.manipulatorChooser.getSelected()))
         {
-            ballManipulator = !ballManipulator;
-            manipulatorModeTime.reset();
-            manipulatorModeTime.start();
-            if(ballManipulator)
+            currentManipulator = Robot.manipulatorChooser.getSelected().toString();
+            System.out.println("setting manipulator to " + currentManipulator);
+            
+            if(currentManipulator.equals("Ball"))
             {
                 manipulator.manipulatorMode = new Ball(manipulator);
             }
-            else if(!ballManipulator)
-            {
+            else {
                 manipulator.manipulatorMode = new Hatch(manipulator);
             }
+
         }
         diagnostics.ballManipulator = this.ballManipulator;
     }

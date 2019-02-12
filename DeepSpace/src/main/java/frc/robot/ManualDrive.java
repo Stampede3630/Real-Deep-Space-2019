@@ -10,11 +10,11 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+
 public class ManualDrive implements DriveMode {
 
     RobotMap robotMap;
     DriveTrain driveTrain;
-    Choosers choosers;
     double xSpeed;
     double ySpeed;
     double zRotation;
@@ -36,9 +36,12 @@ public class ManualDrive implements DriveMode {
 
     public void driveRobot()
     {
-         if (choosers.flipOrientation()){
+        System.out.println(Robot.manipulatorChooser.getSelected());
+         if (Robot.manipulatorChooser.getSelected().equals( "Ball"))
+         {
             xSpeed = -1 * robotMap.getLeftX();
             ySpeed = -1 * robotMap.getLeftY();
+            System.out.println("Ball forward called");
          }
          else
          {
