@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
     manipulatorChooser.addDefault("Hatch Forward", "Hatch");
     manipulatorChooser.addObject("Ball Forward", "Ball");
     SmartDashboard.putData("Forward Chooser", manipulatorChooser);
+    SmartDashboard.putString("Path Selected", "");
   }
   
   @Override
