@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Diagnostics
@@ -24,6 +23,7 @@ public class Diagnostics
         SmartDashboard.putBoolean("toRocket", toRocket);
         SmartDashboard.putNumber("Pressure", getPSI());
         SmartDashboard.putNumber("ballStop", robotMap.ballStop.getVoltage());
+        SmartDashboard.putNumber("ahrs", robotMap.ahrs.getYaw());
     }
 
     public double getPSI()

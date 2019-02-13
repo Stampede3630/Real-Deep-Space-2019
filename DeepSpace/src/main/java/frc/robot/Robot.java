@@ -65,9 +65,9 @@ public class Robot extends TimedRobot {
 
     choosers.angleSwitch();
 
-    driveTrain.drive();
+    choosers.setAction();
 
-    vision.execute();
+    driveTrain.drive();
 
     manipulator.manipulatorExecute();
 

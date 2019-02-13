@@ -13,7 +13,6 @@ public class VisionControls // just a testing class, will be implemented in a di
 {
     
     Timer doublePress = new Timer();
-	SendableChooser cameraMode, lightMode;
 	String camMode = "";
 
 
@@ -21,25 +20,6 @@ public class VisionControls // just a testing class, will be implemented in a di
     public VisionControls()
     {
 		doublePress.start();
-		cameraMode = new SendableChooser();
-		cameraMode.addDefault("driver's camera", "driving");
-		cameraMode.addObject("vision processing", "processing");
-		SmartDashboard.putData(cameraMode);
     }
 
-    public void execute()
-    {
-		if(!cameraMode.getSelected().equals(camMode))
-		{
-			camMode = cameraMode.getSelected().toString();
-			if(camMode.equals("processing"))
-			{
-				NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(0);
-			}
-			else
-			{
-				NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(1);
-			}
-		}
-    }
 }

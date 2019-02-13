@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Ball implements ManipulatorMode {
@@ -31,7 +30,7 @@ public class Ball implements ManipulatorMode {
 
     public void intake () //left trigger
     {
-        if(robotMap.getTrigger()<=-0.2&&robotMap.ballStop.getVoltage()<4.0) //change ultrasonic number
+        if(robotMap.getTrigger()>=0&&robotMap.ballStop.getVoltage()<4.0) //change ultrasonic number
         {
             robotMap.talonBallIntake.set(-0.8);
             robotMap.talonBallShooter.set(1);
@@ -46,17 +45,17 @@ public class Ball implements ManipulatorMode {
     public void deploy (boolean rocketMode) //right trigger
     {
 
-        if(robotMap.getTrigger()>0)
+        if(robotMap.getTrigger()<0)
         {
             SmartDashboard.putNumber("trigger", robotMap.getTrigger()); //works
             if(rocketMode)
             {
-                robotMap.talonBallShooter.set(robotMap.getTrigger());
-                robotMap.talonBallIntake.set(-robotMap.getTrigger()); //does not work
+                robotMap.talonBallShooter.set(-robotMap.getTrigger());
+                robotMap.talonBallIntake.set(robotMap.getTrigger()); //does not work
             }
             else
             {
-                robotMap.talonBallShooter.set(-robotMap.getTrigger());
+                robotMap.talonBallShooter.set(robotMap.getTrigger());
                 robotMap.talonBallIntake.set(-0.3);
             }
         }

@@ -14,7 +14,7 @@ public class Hatch implements ManipulatorMode {
     RobotMap robotMap;
     boolean manipulatorOut;
     Manipulator manipulator;
-    Timer coneIn;
+    Timer coneTime;
 
     public Hatch(Manipulator manipulator) 
     {
@@ -22,7 +22,7 @@ public class Hatch implements ManipulatorMode {
         this.manipulator = manipulator;
         manipulatorOut = false;
 
-        coneIn = new Timer();
+        coneTime = new Timer();
     }
 
     public void engage () 
@@ -44,14 +44,14 @@ public class Hatch implements ManipulatorMode {
     {
         if(robotMap.getTrigger()>=0.75)
         {
-            coneIn.reset();
-            coneIn.start();
+            coneTime.reset();
+            coneTime.start();
             robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
             robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
         }
-        if(coneIn.get()>=1)
+        if(coneTime.get()>=1)
         {
-            coneIn.stop();
+            coneTime.stop();
             robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
         }
     }

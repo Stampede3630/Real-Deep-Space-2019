@@ -1,6 +1,5 @@
 package frc.robot;
 
-import javax.lang.model.util.ElementScanner6;
 
 public class Manipulator
 {
@@ -17,11 +16,11 @@ public class Manipulator
     {
         manipulatorMode.disengage();//left bumper
         manipulatorMode.engage(); //right bumper
-        if(robotMap.getTrigger()>=0)
+        if(robotMap.getTrigger()<=0)
         {
             manipulatorMode.deploy(toRocket); //right trigger
         }
-        else if(robotMap.getTrigger()<=0)
+        else if(robotMap.getTrigger()>=0) //try removing these if-blocks...
         {
             manipulatorMode.intake(); //left trigger
         }

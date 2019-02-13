@@ -43,7 +43,8 @@ public class Choosers
         intakeDeploy = new SendableChooser();
         intakeDeploy.addDefault("deploy", "deploy");
         intakeDeploy.addOption("intake", "intake");
-        SmartDashboard.putData(intakeDeploy);
+        intakeDeploy.addOption("driving", "driving");
+        SmartDashboard.putData("intake/deploy", intakeDeploy);
     }
 
     public void chooserAngle(double angle) {
@@ -89,7 +90,7 @@ public class Choosers
         }
     }
 
-    public void angleSwitch() //to be replaced
+    public void angleSwitch() //implement this later in chooserAngle
     {
         if(robotMap.buttonX.get()&&(buttonTime.get()>=0.25))
         {
@@ -150,7 +151,6 @@ public class Choosers
     }
 
     public void setManipulatorMode()
-    
     {
         if(!currentManipulator.equals(Robot.manipulatorChooser.getSelected()))
         {
@@ -160,12 +160,14 @@ public class Choosers
             {
                 manipulator.manipulatorMode = new Ball(manipulator);
                 NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
+                NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("ledMode").setNumber(1);
                 Constants.limelight = "limelight-one";
             }
             else 
             {
                 manipulator.manipulatorMode = new Hatch(manipulator);
                 NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(1);
+                NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("ledMode").setNumber(1);
                 Constants.limelight = "limelight-two";
             }
 
@@ -185,11 +187,20 @@ public class Choosers
             currentAction = intakeDeploy.getSelected().toString();
             if(currentAction.equals("intake"))
             {
-                NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("pipeline").setNumber(0);
+                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(0);
+                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
+                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(0);
+            }
+            else if(currentAction.equals("deploy"))
+            {
+                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(1);
+                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
+                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(0);
             }
             else
             {
-                NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("pipeline").setNumber(1);
+                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(1);
+                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(1);
             }
         }
     }
