@@ -2,6 +2,7 @@ package frc.robot.PID;
 
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.*;
 import frc.robot.Constants;
 import frc.robot.Robot;
@@ -39,6 +40,8 @@ public class YpidSource implements PIDSource{
         else
         {
         yInput = Constants.fullTargetTa - NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ta").getDouble(0);
+        SmartDashboard.putNumber("ta", yInput);
+        System.out.println("running ball vision");
         }
 
 //        yDist = (Constants.h2 - Constants.h1) / Math.tan(0 + ty);

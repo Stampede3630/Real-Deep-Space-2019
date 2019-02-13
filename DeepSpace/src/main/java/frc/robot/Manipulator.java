@@ -5,7 +5,7 @@ public class Manipulator
 {
     ManipulatorMode manipulatorMode;
     RobotMap robotMap;
-    boolean toRocket;
+    boolean toRocket, autonomous;
 
     public Manipulator()
     {
@@ -18,11 +18,11 @@ public class Manipulator
         manipulatorMode.engage(); //right bumper
         if(robotMap.getTrigger()<=0)
         {
-            manipulatorMode.deploy(toRocket); //right trigger
+            manipulatorMode.deploy(toRocket,autonomous); //right trigger
         }
         else if(robotMap.getTrigger()>=0) //try removing these if-blocks...
         {
-            manipulatorMode.intake(); //left trigger
+            manipulatorMode.intake(autonomous); //left trigger
         }
     }
 }

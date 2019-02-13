@@ -58,7 +58,7 @@ public class VisionDrive implements DriveMode{
         {
             case "limelight-two": robotMap.drive.driveCartesian(-xValue, -yValue, zValue);
 
-            case "limelight-one": robotMap.drive.driveCartesian(xValue, yValue, zValue);
+            case "limelight-one": robotMap.drive.driveCartesian(xValue, yValue, 0);
         }
         
     }

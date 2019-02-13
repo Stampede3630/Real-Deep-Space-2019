@@ -7,12 +7,15 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Ball implements ManipulatorMode {
     
     RobotMap robotMap;
     Manipulator manipulator;
+    Timer shootOut;
 
     
     //not actually talons
@@ -21,6 +24,8 @@ public class Ball implements ManipulatorMode {
         robotMap = RobotMap.getRobotMap();
         this.manipulator = manipulator;
 
+        shootOut = new Timer();
+        shootOut.reset();
     }
 
     public void engage () 
@@ -28,41 +33,76 @@ public class Ball implements ManipulatorMode {
         //get to ball - driver/limelight?
     }
 
-    public void intake () //left trigger
+    public void intake (boolean autonomous) //left trigger
     {
-        if(robotMap.getTrigger()>=0&&robotMap.ballStop.getVoltage()<4.0) //change ultrasonic number
+        if(autonomous)
         {
-            robotMap.talonBallIntake.set(-0.8);
-            robotMap.talonBallShooter.set(1);
+            if(NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("ta").getDouble(0)>=96)
+            {
+                robotMap.talonBallIntake.set(-0.8);
+            }
+            if(robotMap.ballStop.getVoltage()>=4)
+            {
+                robotMap.talonBallIntake.set(0);
+            }
         }
-        else
+        else if(!autonomous)
         {
-            robotMap.talonBallIntake.set(0);
-            robotMap.talonBallShooter.set(0);
+            if(robotMap.getTrigger()>=0&&robotMap.ballStop.getVoltage()<4.0) //change ultrasonic number
+            {
+                robotMap.talonBallIntake.set(-0.8);
+                robotMap.talonBallShooter.set(1);
+            }
+            else
+            {
+                robotMap.talonBallIntake.set(0);
+                robotMap.talonBallShooter.set(0);
+            }
         }
     }
 
-    public void deploy (boolean rocketMode) //right trigger
+    public void deploy (boolean rocketMode, boolean autonomous) //right trigger
     {
-
-        if(robotMap.getTrigger()<0)
+        if(!autonomous)
         {
-            SmartDashboard.putNumber("trigger", robotMap.getTrigger()); //works
-            if(rocketMode)
+            if(robotMap.getTrigger()<0)
+            {
+                SmartDashboard.putNumber("trigger", robotMap.getTrigger()); //works
+                if(rocketMode)
+                {
+                    robotMap.talonBallShooter.set(-robotMap.getTrigger());
+                    robotMap.talonBallIntake.set(robotMap.getTrigger());
+                }
+                else
+                {
+                    robotMap.talonBallShooter.set(robotMap.getTrigger());
+                    robotMap.talonBallIntake.set(-0.3);
+                }
+            }   
+            else
+            {
+                robotMap.talonBallIntake.set(0);
+                robotMap.talonBallShooter.set(0);
+            }
+        }
+        else if(autonomous)
+        {
+            shootOut.start();
+            if(rocketMode&&shootOut.get()<1.5)
             {
                 robotMap.talonBallShooter.set(-robotMap.getTrigger());
-                robotMap.talonBallIntake.set(robotMap.getTrigger()); //does not work
+                robotMap.talonBallIntake.set(robotMap.getTrigger());
             }
-            else
+            if(!rocketMode&&shootOut.get()<1.5)
             {
                 robotMap.talonBallShooter.set(robotMap.getTrigger());
                 robotMap.talonBallIntake.set(-0.3);
             }
-        }
-        else
-        {
-            robotMap.talonBallIntake.set(0);
-            robotMap.talonBallShooter.set(0);
+            if(shootOut.get()>=1.5)
+            {
+                robotMap.talonBallIntake.set(0);
+                robotMap.talonBallShooter.set(0);
+            }
         }
     }
 

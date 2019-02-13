@@ -18,6 +18,7 @@ public class Choosers
     String currentManipulator = "";
     String currentAction = "";
     boolean ballFollowerOn = false;
+    boolean ball = false;
     SendableChooser intakeDeploy;
 
     public Choosers(DriveTrain driveTrain, Manipulator manipulator, Diagnostics diagnostics)
@@ -162,6 +163,7 @@ public class Choosers
                 NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
                 NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("ledMode").setNumber(1);
                 Constants.limelight = "limelight-one";
+                ball = true;
             }
             else 
             {
@@ -169,6 +171,7 @@ public class Choosers
                 NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(1);
                 NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("ledMode").setNumber(1);
                 Constants.limelight = "limelight-two";
+                ball = false;
             }
 
         }
@@ -190,6 +193,14 @@ public class Choosers
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(0);
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(0);
+                if(ball)
+                {
+                    ballFollowerOn = true;
+                }
+                else
+                {
+                    ballFollowerOn = false;
+                }
             }
             else if(currentAction.equals("deploy"))
             {

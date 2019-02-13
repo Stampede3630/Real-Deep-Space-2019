@@ -23,6 +23,7 @@ public class Hatch implements ManipulatorMode {
         manipulatorOut = false;
 
         coneTime = new Timer();
+        coneTime.reset();
     }
 
     public void engage () 
@@ -35,24 +36,42 @@ public class Hatch implements ManipulatorMode {
         }
     }
 
-    public void intake () 
+    public void intake (boolean autonomous) 
     {
         //nothing, for now - just drive to the loading station in LineDrive
     }
 
-    public void deploy (boolean rocketMode) 
+    public void deploy (boolean rocketMode, boolean autonomous) 
     {
-        if(robotMap.getTrigger()>=0.75)
+        if(!autonomous)
         {
-            coneTime.reset();
-            coneTime.start();
-            robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
-            robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
+            if(robotMap.getTrigger()>=0.75)
+            {
+                coneTime.start();
+                robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
+                robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
+            }
+            if(coneTime.get()>=1)
+            {
+                coneTime.stop();
+                coneTime.reset();
+                robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
+            }
         }
-        if(coneTime.get()>=1)
+        else if(autonomous)
         {
-            coneTime.stop();
-            robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
+            if(coneTime.get()==0)
+            {
+                coneTime.start();  
+                robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
+                robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
+            }
+            if(coneTime.get()>=1)
+            {
+                coneTime.stop();
+                coneTime.reset();
+                robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
+            }
         }
     }
 

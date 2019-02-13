@@ -11,8 +11,8 @@ package frc.robot;
  * Add your docs here.
  */
 public interface ManipulatorMode {
-    public void intake();
-    public void deploy(boolean rocketMode);
+    public void intake(boolean autonomous);
+    public void deploy(boolean rocketMode, boolean autonomous);
     public void engage();
     public void disengage();
 }
