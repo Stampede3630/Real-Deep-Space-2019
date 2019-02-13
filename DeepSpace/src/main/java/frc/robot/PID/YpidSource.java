@@ -10,7 +10,7 @@ import frc.robot.Robot;
 public class YpidSource implements PIDSource{
 
     double yDist, yInput;
-    boolean yesTa = Robot.choosers.getBallTarget();
+    private Choosers yesTa = Robot.choosers;
 
 
     public YpidSource()
@@ -33,11 +33,12 @@ public class YpidSource implements PIDSource{
         return radians;
     }
 
-    public double pidGet(Object Robot)
+    public double pidGet()
     {
-        if (!yesTa)
+        if (!Robot.choosers.getBallTarget())
         {
         yInput = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ty").getDouble(0);
+       // yInput = Math.tan(degreesToRadians(75 - NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ty").getDouble(0))) * 13;
         }
         else
         {

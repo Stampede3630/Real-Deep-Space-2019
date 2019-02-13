@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
     manipulatorChooser.addDefault("Hatch Forward", "Hatch");
     manipulatorChooser.addObject("Ball Forward", "Ball");
     SmartDashboard.putData("Forward Chooser", manipulatorChooser);
+    SmartDashboard.putString("Path Selected", "");
   }
   
   @Override
@@ -69,6 +70,8 @@ public class Robot extends TimedRobot {
 
     choosers.chooserAngle(pathChooser.angle);
 
+    //choosers.automatedTurnToAngle();
+
     driveTrain.drive();
 
     vision.execute();
@@ -76,6 +79,7 @@ public class Robot extends TimedRobot {
     manipulator.manipulatorExecute();
 
     diagnostics.toSmartDashboard();
+
   }
 
  

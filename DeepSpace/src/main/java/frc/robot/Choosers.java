@@ -151,16 +151,18 @@ public class Choosers
         if(!currentManipulator.equals(Robot.manipulatorChooser.getSelected()))
         {
             currentManipulator = Robot.manipulatorChooser.getSelected().toString();
-            System.out.println("setting manipulator to " + currentManipulator);
+    
             
             if(currentManipulator.equals("Ball"))
             {
                 manipulator.manipulatorMode = new Ball(manipulator);
                 ballFollowerOn = true;
+                Constants.limelight = "limelight-one";
             }
             else {
                 manipulator.manipulatorMode = new Hatch(manipulator);
                 ballFollowerOn = false;
+                Constants.limelight = "limelight-two";
             }
 
         }

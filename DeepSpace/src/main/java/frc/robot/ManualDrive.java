@@ -24,6 +24,8 @@ public class ManualDrive implements DriveMode {
     {
         this.robotMap = robotMap;
         this.driveTrain = driveTrain;
+        driveTrain.xpid.xController.disable();
+        driveTrain.ypid.yController.disable();
 
 //        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(1);
 //        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
@@ -36,12 +38,10 @@ public class ManualDrive implements DriveMode {
 
     public void driveRobot()
     {
-        System.out.println(Robot.manipulatorChooser.getSelected());
          if (Robot.manipulatorChooser.getSelected().equals( "Ball"))
          {
             xSpeed = -1 * robotMap.getLeftX();
             ySpeed = -1 * robotMap.getLeftY();
-            System.out.println("Ball forward called");
          }
          else
          {

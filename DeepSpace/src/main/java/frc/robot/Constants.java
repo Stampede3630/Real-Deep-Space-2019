@@ -12,18 +12,18 @@ package frc.robot;
  */
 public class Constants {
 
-    public static final double xKP = 0.1;
+    public static final double xKP = 0.07;
     public static final double xKI = 0;
     public static final double xKD = 0;
     public static final double xOutput = 0.7;
     public static final double xTolerance = 1;
     
-    public static final double yKP = 0.22;
+    public static final double yKP = 0.18;
     public static final double yKI = 0;
     public static final double yKD = 0;
     public static final double yOutput = 0.7;
     public static final double yTolerance = 1;
-    public static final double fullTargetTa = 0;
+    public static final double fullTargetTa = 100;
 
     public static final double zKP = 0.03;
     public static final double zKI = 0;
