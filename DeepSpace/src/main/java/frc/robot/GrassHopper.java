@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Timer;
 
 public class GrassHopper {
-    // Create and initialize 4 double soleniods, 2 things that slide the solenionds, and a Timer 
+    // Create and initialize 4 double soleniods, 2 things that slide the pistons, and a Timer 
     //Front refers to the front 2 legs
     //back refers to the back 2 legs
     // hopUp is the execute method
