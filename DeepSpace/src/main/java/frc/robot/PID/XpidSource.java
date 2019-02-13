@@ -44,13 +44,4 @@ public class XpidSource implements PIDSource{
         SmartDashboard.putNumber("X error", xDist);
         return xDist;
     }
-
-    /*public void getDistance()
-    {
-//        double ty = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ty").getDouble(0);
-        tx = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("tx").getDouble(0);
-
-//        double dist = Math.tan(degreesToRadians(tx))*((Constants.h2 - Constants.h1) / Math.tan(degreesToRadians(Constants.alphaYOne + ty)));
-//        SmartDashboard.putNumber("xDistance", dist);
-    }*/
 }
