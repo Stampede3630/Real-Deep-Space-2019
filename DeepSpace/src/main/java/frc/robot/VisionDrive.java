@@ -34,7 +34,7 @@ public class VisionDrive implements DriveMode{
             driveTrain.turnPID.zController.enable();
 
             driveTrain.xpid.xController.setSetpoint(0);
-            driveTrain.ypid.yController.setSetpoint(0);
+            driveTrain.ypid.yController.setSetpoint(40);
             driveTrain.turnPID.zController.setSetpoint(driveTrain.turnSetpoint);
         }
         else
@@ -56,9 +56,9 @@ public class VisionDrive implements DriveMode{
 
         switch(Constants.limelight)
         {
-            case "limelight-two": robotMap.drive.driveCartesian(-xValue, -yValue, zValue);
+            case "limelight-two": robotMap.drive.driveCartesian(-xValue, yValue, zValue);
 
-            case "limelight-one": robotMap.drive.driveCartesian(xValue, yValue, zValue);
+            case "limelight-one": robotMap.drive.driveCartesian(xValue, -yValue, zValue);
         }
         
     }
