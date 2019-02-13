@@ -39,7 +39,7 @@ public class Constants {
     public static final double strafeLeftSpeed = 0.2;
     public static final double strafeRightSpeed = -0.2;
 
-    public static final double h1 = 21.5; //distance from bottom of robot to camera (inches)
+    public static final double h1 = 40.75; //distance from bottom of robot to camera (inches)
     public static final double h2 = 31.50; //distance from bottom of board to far left target (inches)
     public static final double w1 = 13.78; //half of robot distance in x direction (inches)
     public static final double alphaXOne = 0;
@@ -65,6 +65,7 @@ public class Constants {
 	public final static int rStickXAxis = 4;
 	public final static int rStickYAxis = 5;
     public final static double deadzone = 0.2;
+    public final static double cameraMountAngle = -15;
     
 //    public final static double multiplierScaleUp = 1;
     public final static double multiplierScaleDown = 0.8;
