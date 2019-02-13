@@ -14,7 +14,8 @@ public class VisionDrive implements DriveMode{
         this.robotMap = robotMap;
         this.driveTrain = driveTrain;
 
-//        NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(0);
+        Constants.limelight = "limelight-two";
+        NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(0);
     }
 
     public boolean getAutoRotate() {

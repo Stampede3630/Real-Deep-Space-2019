@@ -38,7 +38,7 @@ public class Constants {
     public static final double strafeLeftSpeed = 0.2;
     public static final double strafeRightSpeed = -0.2;
 
-    public static final double h1 = 41.24; //distance from bottom of robot to camera (inches)
+    public static final double h1 = 41.25; //distance from bottom of robot to camera (inches)
     public static final double h2 = 31.50; //distance from bottom of board to far left target (inches)
     public static final double alphaXOne = 0;
     public static final double alphaYOne = 0;

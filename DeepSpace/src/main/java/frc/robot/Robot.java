@@ -20,7 +20,7 @@ public class Robot extends TimedRobot {
   public Diagnostics diagnostics;
   public Choosers choosers;
   Vision vision;
-  SendableChooser manipulatorChooser;
+  SendableChooser driveModeChooser;
   PathChooser pathChooser = new PathChooser();
 
   @Override
@@ -30,10 +30,10 @@ public class Robot extends TimedRobot {
     diagnostics = new Diagnostics();
     choosers = new Choosers(driveTrain, manipulator, diagnostics);
     vision = new Vision();
-    manipulatorChooser = new SendableChooser();
-    manipulatorChooser.addDefault("Hatch Forward", "Hatch");
-    manipulatorChooser.addObject("Ball Forward", "Ball");
-    SmartDashboard.putData("Forward Chooser", manipulatorChooser);
+    driveModeChooser = new SendableChooser();
+    driveModeChooser.addDefault("DriveManual", "Manual");
+    driveModeChooser.addObject("DriveVision", "Vision");
+    SmartDashboard.putData("Drive Mode", driveModeChooser);
     SmartDashboard.putString("Path Selected", "");
   }
   
