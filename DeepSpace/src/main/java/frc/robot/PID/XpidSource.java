@@ -8,9 +8,9 @@ import edu.wpi.first.networktables.*;
 
 public class XpidSource implements PIDSource{
 
-    static double xDist;
-    static double tx = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("tx").getDouble(0);
-    static double ty = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ty").getDouble(0);
+    double xDist;
+    double tx = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("tx").getDouble(0);
+    double ty = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ty").getDouble(0);
 
     public XpidSource()
     {

@@ -13,7 +13,7 @@ public class VisionDrive implements DriveMode{
     {
         this.robotMap = robotMap;
         this.driveTrain = driveTrain;
-
+        
         Constants.limelight = "limelight-two";
         NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(0);
     }
