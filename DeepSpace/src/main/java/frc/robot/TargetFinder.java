@@ -31,13 +31,15 @@ public class TargetFinder {
     public void searchTarget()
     {
         double tv = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("tv").getDouble(0);
-    
         if (tv == 1)
         {
-        //ball follower
+            driveTrain.ypid.yController.setSetpoint(0);
+            driveTrain.xpid.xController.setSetpoint(0);
+            driveTrain.turnPID.zController.disable();
         }
         else 
         {
+            driveTrain.turnPID.zController.enable();
             driveTrain.turnPID.zController.setSetpoint(robotMap.ahrs.getAngle() + 3);
         }
     }

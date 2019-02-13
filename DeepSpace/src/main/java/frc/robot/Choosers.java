@@ -14,6 +14,7 @@ public class Choosers
     Diagnostics diagnostics;
     boolean chooserEnable = true;
     String currentManipulator = "";
+    boolean ballFollowerOn = false;
 
     public Choosers(DriveTrain driveTrain, Manipulator manipulator, Diagnostics diagnostics)
     {
@@ -34,6 +35,7 @@ public class Choosers
         ballTime.start();
         manipulatorModeTime = new Timer();
         manipulatorModeTime.start();
+        
     }
 
     public void chooserAngle(double angle) {
@@ -154,14 +156,22 @@ public class Choosers
             if(currentManipulator.equals("Ball"))
             {
                 manipulator.manipulatorMode = new Ball(manipulator);
+                ballFollowerOn = true;
             }
             else {
                 manipulator.manipulatorMode = new Hatch(manipulator);
+                ballFollowerOn = false;
             }
 
         }
         diagnostics.ballManipulator = this.ballManipulator;
     }
+
+    public boolean getBallTarget()
+    {
+        return ballFollowerOn;
+    }
+
 
     public void chooseAuto(String autoCase, String autoPiece) //we should use this thing for autonomous turning before separate auto parts run
     {

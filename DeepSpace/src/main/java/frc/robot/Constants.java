@@ -23,6 +23,7 @@ public class Constants {
     public static final double yKD = 0;
     public static final double yOutput = 0.7;
     public static final double yTolerance = 1;
+    public static final double fullTargetTa = 0;
 
     public static final double zKP = 0.03;
     public static final double zKI = 0;

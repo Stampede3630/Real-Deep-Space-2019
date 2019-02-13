@@ -18,7 +18,7 @@ public class Robot extends TimedRobot {
   public DriveTrain driveTrain;
   public Manipulator manipulator;
   public Diagnostics diagnostics;
-  public Choosers choosers;
+  public static Choosers choosers;
   Vision vision;
   public static SendableChooser manipulatorChooser;
   PathChooser pathChooser = new PathChooser();
