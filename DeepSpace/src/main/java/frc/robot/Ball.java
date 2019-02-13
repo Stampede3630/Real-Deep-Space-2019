@@ -33,7 +33,7 @@ public class Ball implements ManipulatorMode {
     {
         if(robotMap.getTrigger()<=-0.2&&robotMap.ballStop.getVoltage()<4.0) //change ultrasonic number
         {
-            robotMap.talonBallIntake.set(-1);
+            robotMap.talonBallIntake.set(-0.8);
             robotMap.talonBallShooter.set(1);
         }
         else

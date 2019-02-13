@@ -27,7 +27,6 @@ public class TargetFinder {
     public void searchTarget()
     {
         double tv = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("tv").getDouble(0);
-        Constants.yPIDsource = "ta";
     
         if (tv == 1)
         {

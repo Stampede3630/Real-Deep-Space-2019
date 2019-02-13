@@ -24,7 +24,6 @@ public class Diagnostics
         SmartDashboard.putBoolean("toRocket", toRocket);
         SmartDashboard.putNumber("Pressure", getPSI());
         SmartDashboard.putNumber("ballStop", robotMap.ballStop.getVoltage());
-        SmartDashboard.putString("y PID source", Constants.yPIDsource);
     }
 
     public double getPSI()

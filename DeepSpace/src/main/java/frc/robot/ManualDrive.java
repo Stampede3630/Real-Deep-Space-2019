@@ -55,9 +55,16 @@ public class ManualDrive implements DriveMode {
             driveTrain.turnPID.zController.setSetpoint(driveTrain.turnSetpoint);
             zRotation = driveTrain.turnPID.getZOutput();
         }
-        SmartDashboard.putNumber("ahrs", robotMap.ahrs.getYaw());
-        SmartDashboard.putNumber("ManualDrive zpid setpoint", driveTrain.turnPID.zController.getSetpoint());
-        robotMap.drive.driveCartesian(xSpeed, ySpeed, zRotation);
+
+        if (robotMap.leftStickB.get())
+        {
+            robotMap.drive.driveCartesian(xSpeed, ySpeed, zRotation);
+        }
+
+        else
+        {
+            robotMap.drive.driveCartesian(xSpeed * Constants.multiplierScaleDown, ySpeed * Constants.multiplierScaleDown, zRotation * Constants.multiplierScaleDown);
+        }
     }
 
 }

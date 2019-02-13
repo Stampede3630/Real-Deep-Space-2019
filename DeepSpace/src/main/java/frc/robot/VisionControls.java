@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
 
 public class VisionControls // just a testing class, will be implemented in a different way
@@ -23,6 +24,7 @@ public class VisionControls // just a testing class, will be implemented in a di
 		cameraMode = new SendableChooser();
 		cameraMode.addDefault("driver's camera", "driving");
 		cameraMode.addObject("vision processing", "processing");
+		SmartDashboard.putData(cameraMode);
     }
 
     public void execute()

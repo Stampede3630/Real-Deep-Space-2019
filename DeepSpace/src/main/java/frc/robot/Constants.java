@@ -23,6 +23,7 @@ public class Constants {
     public static final double yKD = 0;
     public static final double yOutput = 0.7;
     public static final double yTolerance = 1;
+    public static final double fullTargetTa = 100;
 
     public static final double zKP = 0.03;
     public static final double zKI = 0;
@@ -44,7 +45,6 @@ public class Constants {
     public static final double alphaXOne = 0;
     public static final double alphaYOne = 0;
     public static String limelight = "limelight-one";
-    public static String yPIDsource = "ty";
 
     public static final int timeOutMs = 10;
 
@@ -64,6 +64,8 @@ public class Constants {
 	public final static int rTriggerAxis = 3;
 	public final static int rStickXAxis = 4;
 	public final static int rStickYAxis = 5;
-	public final static double deadzone = 0.2;
-
+    public final static double deadzone = 0.2;
+    
+//    public final static double multiplierScaleUp = 1;
+    public final static double multiplierScaleDown = 0.8;
 }

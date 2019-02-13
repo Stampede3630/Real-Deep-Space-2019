@@ -19,6 +19,7 @@ public class DriveTrain {
     public Zpid turnPID;
     public Xpid xpid;
     public Ypid ypid;
+    public boolean intake;
 
     public DriveTrain()
     {

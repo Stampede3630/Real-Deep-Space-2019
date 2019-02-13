@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Choosers
@@ -15,6 +16,9 @@ public class Choosers
     Diagnostics diagnostics;
     boolean chooserEnable = true;
     String currentManipulator = "";
+    String currentAction = "";
+    boolean ballFollowerOn = false;
+    SendableChooser intakeDeploy;
 
     public Choosers(DriveTrain driveTrain, Manipulator manipulator, Diagnostics diagnostics)
     {
@@ -35,6 +39,11 @@ public class Choosers
         ballTime.start();
         manipulatorModeTime = new Timer();
         manipulatorModeTime.start();
+
+        intakeDeploy = new SendableChooser();
+        intakeDeploy.addDefault("deploy", "deploy");
+        intakeDeploy.addOption("intake", "intake");
+        SmartDashboard.putData(intakeDeploy);
     }
 
     public void chooserAngle(double angle) {
@@ -78,15 +87,11 @@ public class Choosers
         {
             driveTrain.driveMode = new VisionDrive(robotMap, driveTrain);
         }
-        if(robotMap.buttonX.get())
-        {
-            driveTrain.driveMode =  new LineDrive(robotMap);
-        }
     }
 
     public void angleSwitch() //to be replaced
     {
-        if(robotMap.backB.get()&&(buttonTime.get()>=0.25))
+        if(robotMap.buttonX.get()&&(buttonTime.get()>=0.25))
         {
             buttonTime.reset();
             buttonTime.start();
@@ -166,6 +171,27 @@ public class Choosers
 
         }
         diagnostics.ballManipulator = this.ballManipulator;
+    }
+
+    public boolean getBallTarget()
+    {
+        return ballFollowerOn;
+    }
+
+    public void setAction()
+    {
+        if(!intakeDeploy.getSelected().equals(currentAction))
+        {
+            currentAction = intakeDeploy.getSelected().toString();
+            if(currentAction.equals("intake"))
+            {
+                NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("pipeline").setNumber(0);
+            }
+            else
+            {
+                NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("pipeline").setNumber(1);
+            }
+        }
     }
 
 }
