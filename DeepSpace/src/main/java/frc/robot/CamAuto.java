@@ -6,13 +6,15 @@ public class CamAuto {
 
     RobotMap robotMap = RobotMap.getRobotMap();
     Timer timer = new Timer();
-
+    public CamAuto()
+    {
+        timer.start();
+    }
     public void camTestMethod() {
-        if (timer.get() < 2) {
-            robotMap.drive.driveCartesian(0, 0.4, 0);
-        }
 
-        else if (timer.get() > 2) {
+        robotMap.drive.driveCartesian(0, 0.4, 0);
+
+        if (timer.get() > 5) {
             robotMap.drive.driveCartesian(0, 0, 0);
         }
     }
