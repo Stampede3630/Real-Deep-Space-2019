@@ -8,14 +8,17 @@ public class CamAuto {
     Timer timer = new Timer();
     public CamAuto()
     {
-        timer.start();
+        
     }
     public void camTestMethod() {
 
-        robotMap.drive.driveCartesian(0, 0.4, 0);
-
+        timer.start();
         if (timer.get() > 5) {
             robotMap.drive.driveCartesian(0, 0, 0);
+        }
+
+        else {
+            robotMap.drive.driveCartesian(0, 0.4, 0);
         }
     }
 }
