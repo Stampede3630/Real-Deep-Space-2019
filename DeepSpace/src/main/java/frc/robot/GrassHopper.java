@@ -17,7 +17,7 @@ public class GrassHopper {
     public final WPI_TalonSRX slideTalon;
     RobotMap robotMap;
 
-    GrassHopper()
+    public GrassHopper()
     {
        // Numbers are stand ins
         robotMap = RobotMap.getRobotMap();
