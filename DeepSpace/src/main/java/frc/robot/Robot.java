@@ -15,7 +15,7 @@ public class Robot extends TimedRobot {
   VisionControls vision;
   public static SendableChooser manipulatorChooser;
   PathChooser pathChooser = new PathChooser();
-  CamAuto camAuto = new CamAuto();
+  CamAuto camAuto;
 
   @Override
   public void robotInit() {
@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
   
   @Override
   public void autonomousInit() {
-    
+    camAuto = new CamAuto();
   }
 
   
