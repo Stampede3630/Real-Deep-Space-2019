@@ -66,6 +66,12 @@ public class VisionDrive implements DriveMode{
     public void searchTarget()
     {
         double tv = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("tv").getDouble(0);
+        if(tv>0&&Constants.fullTargetTa - NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ta").getDouble(0)<=2)
+        {
+            driveTrain.ypid.yController.disable();
+            driveTrain.xpid.xController.disable();
+            Robot.manipulator.manipulatorMode.intakeAuto();
+        }
         if (tv>0)
         {
             driveTrain.ypid.yController.setOutputRange(-0.6, 0.6); 
@@ -75,11 +81,15 @@ public class VisionDrive implements DriveMode{
             driveTrain.turnPID.zController.disable();
             driveTrain.xpid.xController.enable();
             driveTrain.ypid.yController.enable();
+
         }
         else 
         {
             driveTrain.turnPID.zController.disable();
-            zValue = 0.6;
+            driveTrain.ypid.yController.disable();
+            driveTrain.xpid.xController.disable();
+            Robot.manipulator.manipulatorMode.intakeAuto();
+//            zValue = 0.6;
             xValue = 0;
             yValue = 0;
         }

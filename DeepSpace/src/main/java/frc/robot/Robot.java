@@ -9,7 +9,7 @@ public class Robot extends TimedRobot {
  
 
   public DriveTrain driveTrain;
-  public Manipulator manipulator;
+  public static Manipulator manipulator;
   public Diagnostics diagnostics;
   public static Choosers choosers;
   VisionControls vision;
@@ -34,6 +34,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     diagnostics.toSmartDashboard();
     pathChooser.stringToPath(SmartDashboard.getString("Path Selected", ""));
+    SmartDashboard.putBoolean("ball follower", choosers.getBallTarget());
   }
 
   

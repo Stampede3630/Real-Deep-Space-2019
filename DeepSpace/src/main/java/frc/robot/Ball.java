@@ -33,41 +33,28 @@ public class Ball implements ManipulatorMode {
         //get to ball - driver/limelight?
     }
 
-    public void intake (boolean autonomous) //left trigger
+    public void intake () //left trigger
     {
-        if(autonomous)
-        {
-            if(NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("ta").getDouble(0)>=96)
+            SmartDashboard.putBoolean("debug intake", robotMap.getTrigger()>0.8&&robotMap.ballStop.getVoltage()<4.0);
+            if(robotMap.getTrigger()>0.8&&robotMap.ballStop.getVoltage()<4.0) //change ultrasonic number
             {
-                robotMap.talonBallIntake.set(-0.8);
-            }
-            if(robotMap.ballStop.getVoltage()>=4)
-            {
-                robotMap.talonBallIntake.set(0);
-            }
-        }
-        else if(!autonomous)
-        {
-            if(robotMap.getTrigger()>=0&&robotMap.ballStop.getVoltage()<4.0) //change ultrasonic number
-            {
+                
+                System.out.println("intake running");
                 robotMap.talonBallIntake.set(-0.8);
                 robotMap.talonBallShooter.set(1);
             }
             else
             {
+                System.out.println("intake stopped");
                 robotMap.talonBallIntake.set(0);
                 robotMap.talonBallShooter.set(0);
             }
-        }
     }
 
-    public void deploy (boolean rocketMode, boolean autonomous) //right trigger
+    public void deploy (boolean rocketMode) //right trigger
     {
-        if(!autonomous)
-        {
-            if(robotMap.getTrigger()<0)
+            if(robotMap.getTrigger()<-0.2)
             {
-                SmartDashboard.putNumber("trigger", robotMap.getTrigger()); //works
                 if(rocketMode)
                 {
                     robotMap.talonBallShooter.set(-robotMap.getTrigger());
@@ -84,30 +71,44 @@ public class Ball implements ManipulatorMode {
                 robotMap.talonBallIntake.set(0);
                 robotMap.talonBallShooter.set(0);
             }
-        }
-        else if(autonomous)
-        {
-            shootOut.start();
-            if(rocketMode&&shootOut.get()<1.5)
-            {
-                robotMap.talonBallShooter.set(-robotMap.getTrigger());
-                robotMap.talonBallIntake.set(robotMap.getTrigger());
-            }
-            if(!rocketMode&&shootOut.get()<1.5)
-            {
-                robotMap.talonBallShooter.set(robotMap.getTrigger());
-                robotMap.talonBallIntake.set(-0.3);
-            }
-            if(shootOut.get()>=1.5)
-            {
-                robotMap.talonBallIntake.set(0);
-                robotMap.talonBallShooter.set(0);
-            }
-        }
     }
 
     public void disengage () 
     {
 
+    }
+
+    public void intakeAuto()
+    {
+        System.out.println("autonomous intake");
+        if(robotMap.ballStop.getVoltage()>=4)
+        {
+            robotMap.talonBallIntake.set(0);
+        }
+        else if(NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("ta").getDouble(0)>=45||NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("tv").getDouble(0)==0)
+        {
+            robotMap.talonBallIntake.set(-1);
+        }
+    }
+
+    public void deployAuto(boolean rocketMode)
+    {
+        shootOut.start();
+
+        if(rocketMode&&shootOut.get()<1.5)
+        {
+            robotMap.talonBallShooter.set(-robotMap.getTrigger());
+            robotMap.talonBallIntake.set(robotMap.getTrigger());
+        }
+        if(!rocketMode&&shootOut.get()<1.5)
+        {
+            robotMap.talonBallShooter.set(robotMap.getTrigger());
+            robotMap.talonBallIntake.set(-0.3);
+        }
+        if(shootOut.get()>=1.5)
+        {
+            robotMap.talonBallIntake.set(0);
+            robotMap.talonBallShooter.set(0);
+        }
     }
 }

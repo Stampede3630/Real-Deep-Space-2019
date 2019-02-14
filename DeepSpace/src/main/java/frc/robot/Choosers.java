@@ -84,10 +84,12 @@ public class Choosers
         if(robotMap.buttonA.get())
         {
             driveTrain.driveMode = new ManualDrive(robotMap, driveTrain);
+            manipulator.autonomous = false;
         }
         if(robotMap.buttonB.get())
         {
             driveTrain.driveMode = new VisionDrive(robotMap, driveTrain);
+            manipulator.autonomous = true;
         }
     }
 

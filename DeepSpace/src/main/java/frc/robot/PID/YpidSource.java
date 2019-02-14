@@ -40,12 +40,10 @@ public class YpidSource implements PIDSource{
         else
         {
         yInput = Constants.fullTargetTa - NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ta").getDouble(0);
-        SmartDashboard.putNumber("ta", yInput);
-        System.out.println("running ball vision");
         }
 
 //        yDist = (Constants.h2 - Constants.h1) / Math.tan(0 + ty);
 //        SmartDashboard.putNumber("yDistance", yDist);
-        return ty;
+        return yInput;
     }
 }

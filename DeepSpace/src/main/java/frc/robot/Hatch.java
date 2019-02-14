@@ -36,42 +36,24 @@ public class Hatch implements ManipulatorMode {
         }
     }
 
-    public void intake (boolean autonomous) 
+    public void intake () 
     {
         //nothing, for now - just drive to the loading station in LineDrive
     }
 
-    public void deploy (boolean rocketMode, boolean autonomous) 
+    public void deploy (boolean rocketMode) 
     {
-        if(!autonomous)
+        if(robotMap.getTrigger()<=-0.75)
         {
-            if(robotMap.getTrigger()>=0.75)
-            {
-                coneTime.start();
-                robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
-                robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
-            }
-            if(coneTime.get()>=1)
-            {
-                coneTime.stop();
-                coneTime.reset();
-                robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
-            }
+            coneTime.start();
+            robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
+            robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
         }
-        else if(autonomous)
-        {
-            if(coneTime.get()==0)
+        if(coneTime.get()>=1)
             {
-                coneTime.start();  
-                robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
-                robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
-            }
-            if(coneTime.get()>=1)
-            {
-                coneTime.stop();
-                coneTime.reset();
-                robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
-            }
+            coneTime.stop();
+            coneTime.reset();
+            robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
         }
     }
 
@@ -80,6 +62,27 @@ public class Hatch implements ManipulatorMode {
         if(robotMap.bumperL.get())
         {
             robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
+        }
+    }
+
+    public void intakeAuto()
+    {
+
+    }
+
+    public void deployAuto(boolean rocketMode)
+    {
+        if(coneTime.get()==0)
+        {
+            coneTime.start();  
+            robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
+            robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
+        }
+        if(coneTime.get()>=1)
+        {                
+            coneTime.stop();
+            coneTime.reset();
+            robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
         }
     }
 
