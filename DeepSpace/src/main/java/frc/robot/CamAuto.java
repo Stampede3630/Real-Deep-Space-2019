@@ -26,12 +26,13 @@ public class CamAuto {
 
         SmartDashboard.putNumber("Timer Value", timer.get());
 
-        while (timer.get() < 1) {
+        if (timer.get() < 1) {
             robotMap.drive.driveCartesian(0, 0.6, 0);
         }
 
-        robotMap.drive.driveCartesian(0, 0, 0);
-        //manipulatorMode.deployAuto(true);
-        //manipulatorMode.engage();
+        else {
+            robotMap.drive.driveCartesian(0, 0, 0);
+            //manipulatorMode.deployAuto(true);
+        }
     }
 }
