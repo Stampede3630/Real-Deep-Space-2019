@@ -47,7 +47,7 @@ public class GrassHopper {
 
     public void slideForward()
     {
-        slideTalon.set(0.4);
+        slideTalon.set(0.4); //we can set this higher, snowBlowers aren't that fast...
     }
 
     public void slideBack()
@@ -57,8 +57,8 @@ public class GrassHopper {
 
     public void hopUp ()
     {
-        climbTimer.reset();
-        climbTimer.start();
+        climbTimer.reset(); //we are reseting this timer every time we call this method
+        climbTimer.start(); //.start() method restarts the timer...
         frontExtend();
         backExtend();
         if (climbTimer.get()>=2)
@@ -76,7 +76,7 @@ public class GrassHopper {
         else if (climbTimer.get()>=7.5)
         {
             backRetract();
-            slideForward();
+            slideForward(); //shall we move this one step higher?
         }
         else if (climbTimer.get()>=9.5)
         {
