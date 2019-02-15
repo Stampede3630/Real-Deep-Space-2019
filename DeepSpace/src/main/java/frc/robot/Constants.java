@@ -68,4 +68,7 @@ public class Constants {
     
 //    public final static double multiplierScaleUp = 1;
     public final static double multiplierScaleDown = 0.8;
+    public final static double rocketBallLaunchUpSpeed = 0.8;
+    public final static double rocketBallLaunchDownSpeed = -0.8;
+    public final static int rocketBallMotorOff = 0;
 }

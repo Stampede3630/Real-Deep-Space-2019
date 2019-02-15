@@ -7,32 +7,23 @@ public class CamAuto {
 
     RobotMap robotMap = RobotMap.getRobotMap();
     Timer timer;
-    ManipulatorMode manipulatorMode;
 
     public CamAuto() {
         timer = new Timer();
         timer.start();
     }
     
-    public void camTestMethod() {        
-        /*
-        if (timer.get() > 2) {
-            robotMap.drive.driveCartesian(0, 0, 0);
-        }
-
-        else {
-            robotMap.drive.driveCartesian(0, 0.4, 0);
-        }*/
-
+    public void camTestMethod() {
         SmartDashboard.putNumber("Timer Value", timer.get());
 
         if (timer.get() < 1) {
-            robotMap.drive.driveCartesian(0, 0.6, 0);
+            robotMap.drive.driveCartesian(0, -0.6, 0);
         }
-
+        
         else {
             robotMap.drive.driveCartesian(0, 0, 0);
-            //manipulatorMode.deployAuto(true);
+            //for ball deploy auto to work isLaunch has to be true
+            Robot.manipulator.manipulatorMode.deployAuto(false);
         }
     }
 }

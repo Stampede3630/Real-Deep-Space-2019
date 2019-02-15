@@ -16,7 +16,7 @@ public class Ball implements ManipulatorMode {
     RobotMap robotMap;
     Manipulator manipulator;
     Timer shootOut;
-
+    boolean isLaunched;
     
     //not actually talons
     public Ball (Manipulator manipulator) 
@@ -26,6 +26,8 @@ public class Ball implements ManipulatorMode {
 
         shootOut = new Timer();
         shootOut.reset();
+        isLaunched = false;
+
     }
 
     public void engage () 
@@ -93,22 +95,31 @@ public class Ball implements ManipulatorMode {
 
     public void deployAuto(boolean rocketMode)
     {
-        shootOut.start();
+        if(!isLaunched)
+        {
+            shootOut.reset();
+            shootOut.start();
+            isLaunched = true;
+            
+        }
 
         if(rocketMode&&shootOut.get()<1.5)
         {
-            robotMap.talonBallShooter.set(-robotMap.getTrigger());
-            robotMap.talonBallIntake.set(robotMap.getTrigger());
+            robotMap.talonBallShooter.set(Constants.rocketBallLaunchDownSpeed);
+            robotMap.talonBallIntake.set(Constants.rocketBallLaunchUpSpeed);//check
+            
         }
         if(!rocketMode&&shootOut.get()<1.5)
         {
-            robotMap.talonBallShooter.set(robotMap.getTrigger());
-            robotMap.talonBallIntake.set(-0.3);
+            robotMap.talonBallShooter.set(Constants.rocketBallLaunchUpSpeed);
+            robotMap.talonBallIntake.set(-0.3);  //why is this 0.3? Please explain yourself. Thank you :).
+            
         }
         if(shootOut.get()>=1.5)
         {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(0);
+            
         }
     }
 }
