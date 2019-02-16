@@ -13,14 +13,17 @@ public class CamAuto {
         timer.start();
     }
     
-    public void camTestMethod() {        
+    public void camTestMethod() {
         SmartDashboard.putNumber("Timer Value", timer.get());
-        if (timer.get() > 2) {
-            robotMap.drive.driveCartesian(0, 0, 0);
-        }
 
+        if (timer.get() < 0.66) {
+            robotMap.drive.driveCartesian(0, 0.6, 0);
+        }
+        
         else {
-            robotMap.drive.driveCartesian(0, 0.4, 0);
+            robotMap.drive.driveCartesian(0, 0, 0);
+            //for ball deploy auto to work isLaunch has to be true
+            //Robot.manipulator.manipulatorMode.deployAuto(false);
         }
     }
 }
