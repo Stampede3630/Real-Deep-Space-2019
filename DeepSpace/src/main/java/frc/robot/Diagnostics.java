@@ -23,6 +23,7 @@ public class Diagnostics
         SmartDashboard.putBoolean("ball manipulator on", ballManipulator);
         SmartDashboard.putBoolean("toRocket", toRocket);
         SmartDashboard.putNumber("Pressure", getPSI());
+
     }
 
     public double getPSI()
