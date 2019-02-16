@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Timer;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class GrassHopper {
     // Create and initialize 4 double soleniods, 2 things that slide the pistons, and a Timer 
@@ -16,6 +18,12 @@ public class GrassHopper {
     DoubleSolenoid solenoidFront;
     public final WPI_TalonSRX slideTalon;
     RobotMap robotMap;
+    AnalogInput lowReedSwitch;
+    AnalogInput medReedSwitch;
+    AnalogInput highReedSwitch;
+    DigitalInput hatchPositionLimitSwitch;
+    DigitalInput middlePositionLimitSwitch;
+    DigitalInput cargoPositionLimitSwitch;
 
     public GrassHopper()
     {
@@ -24,6 +32,14 @@ public class GrassHopper {
         solenoidBack = new DoubleSolenoid(1,2,3);
         solenoidFront = new DoubleSolenoid(1,2,3);
         slideTalon = new WPI_TalonSRX (7);
+        lowReedSwitch = new AnalogInput(0);
+        medReedSwitch = new AnalogInput(1);
+        highReedSwitch = new AnalogInput(2);
+        hatchPositionLimitSwitch = new DigitalInput(3);
+        middlePositionLimitSwitch = new DigitalInput(4);
+        cargoPositionLimitSwitch = new DigitalInput(5);
+
+        //these port numbers are made up and do not mean anything
     }
 
     public void frontExtend()
@@ -55,6 +71,62 @@ public class GrassHopper {
         slideTalon.set(-0.4);
     }
 
+    public boolean extendAllPistons() 
+    {
+        frontExtend();
+        backExtend();
+
+        if (highReedSwitch.getVoltage() == 4.5) {
+            return true;
+        }
+        else return false;
+    }
+
+    public boolean slideCargo()
+    {
+
+        if (cargoPositionLimitSwitch.get() == true) 
+        {
+            slideTalon.set(0);
+            return true;
+        }
+        else
+        {
+            slideTalon.set(0.2); //We don't know if speed should be negative or positive.
+            return false;
+        }
+    }
+
+    public boolean slideHatch()
+    {
+
+        if (hatchPositionLimitSwitch.get() == true)
+        {
+            slideTalon.set(0);
+            return true;
+        }
+
+        else
+        {
+            slideTalon.set(-0.2); //We don't know if speed should be negative or positive.
+            return false;
+        }
+    }
+
+    public boolean slideMiddle()
+    {
+        if (middlePositionLimitSwitch.get() == true)
+        {
+            slideTalon.set(0);
+            return true;
+        }
+
+        else
+        {
+            slideTalon.set(0.2); //We don't know if speed should be negative or positive.
+            return false;
+        }
+    }
     public void hopUp ()
     {
         climbTimer.reset(); //we are reseting this timer every time we call this method
