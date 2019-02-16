@@ -29,7 +29,7 @@ public class NavX {
     }
 
     public void collisionDetector() {
-        if (crashTImer.get() > 2) {
+        if (crashTImer.get() < 2) {
             robotMap.drive.driveCartesian(0, -0.6, 0);
         }
 
