@@ -9,7 +9,7 @@ public class NavX {
 
     AHRS navx;
     
-    boolean collisionDetected;
+    boolean collisionDetected = false;
     
     double lastWorldLinearAccelX = 0;
     double lastWorldLinearAccelY = 0;
@@ -34,7 +34,7 @@ public class NavX {
         currentJerkY = currentWorldLinearAccelY - lastWorldLinearAccelY;
         lastWorldLinearAccelY = currentWorldLinearAccelY;
 
-        if ((Math.abs(currentJerkY) > jerkThreshhold) || currentWorldLinearAccelY == 0) {
+        if ((Math.abs(currentJerkY) > jerkThreshhold)) {
             collisionDetected = true;
             //robotMap.drive.driveCartesian(0, 0, 0);
             System.out.print("Crash boom :)");
@@ -54,6 +54,9 @@ public class NavX {
     }
 
     public void accelerationDiagnostics() {
+        SmartDashboard.putNumber("X acceleration", currentWorldLinearAccelX);
         SmartDashboard.putNumber("Y acceleration", currentWorldLinearAccelY);
+        SmartDashboard.putNumber("X Jerk", currentJerkX);
+        SmartDashboard.putNumber("Y Jerk", currentJerkY);
     }
 }

@@ -16,7 +16,6 @@ public class Robot extends TimedRobot {
   public static SendableChooser manipulatorChooser;
   PathChooser pathChooser = new PathChooser();
   CamAuto camAuto;
-  NavX navx;
 
   @Override
   public void robotInit() {
@@ -25,7 +24,6 @@ public class Robot extends TimedRobot {
     diagnostics = new Diagnostics();
     choosers = new Choosers(driveTrain, manipulator, diagnostics);
     vision = new VisionControls();
-    navx = new NavX();
     manipulatorChooser = new SendableChooser();
     manipulatorChooser.addDefault("Hatch Forward", "Hatch");
     manipulatorChooser.addObject("Ball Forward", "Ball");
@@ -73,9 +71,6 @@ public class Robot extends TimedRobot {
     driveTrain.drive();
 
     manipulator.manipulatorExecute();
-
-    navx.collisionDetector();
-    navx.accelerationDiagnostics();
 
     diagnostics.toSmartDashboard();
   }
