@@ -23,7 +23,11 @@ public class NavX {
     }
 
     public void accelerationNullification() {
-        if (alphaY > 0.2) {
+        if (alphaX > alphaY) {
+            alphaY = 0;
+        }
+
+        else if (alphaY > alphaX) {
             alphaX = 0;
         }
     }
