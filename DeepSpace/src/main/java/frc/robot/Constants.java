@@ -16,19 +16,19 @@ public class Constants {
     public static final double xKI = 0;
     public static final double xKD = 0;
     public static final double xOutput = 0.7;
-    public static final double xTolerance = 1;
+    public static final double xTolerance = 2;
     
-    public static final double yKP = 0.22;
+    public static final double yKP = 0.1;
     public static final double yKI = 0;
     public static final double yKD = 0;
     public static final double yOutput = 0.7;
-    public static final double yTolerance = 1;
+    public static final double yTolerance = 2;
     public static final double fullTargetTa = 100;
 
     public static final double zKP = 0.03;
     public static final double zKI = 0;
     public static final double zKD = 0;
-    public static final double zOutput = 1;
+    public static final double zOutput = 2;
     public static final double zInput = 180;
     public static final double turnTolerance = 2;
 
@@ -45,6 +45,8 @@ public class Constants {
     public static final double alphaXOne = 0;
     public static final double alphaYOne = 0;
     public static String limelight = "limelight-one";
+    public static int pipeline = 0;
+    public static final double pidLowSpeed = 0.2;
 
     public static final int timeOutMs = 10;
 
@@ -70,5 +72,10 @@ public class Constants {
     public final static double multiplierScaleDown = 0.8;
     public final static double rocketBallLaunchUpSpeed = 0.8;
     public final static double rocketBallLaunchDownSpeed = -0.8;
-    public final static int rocketBallMotorOff = 0;
+
+    public static boolean autoDriveFw = false;
+    public static double autoXValue = 0;
+    public static double autoYValue = 0;
+    public static double autoZValue = 0;
+    public static double pathAngle = 0;
 }

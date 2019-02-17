@@ -17,9 +17,14 @@ public class ManualDrive implements DriveMode {
     {
         this.robotMap = robotMap;
         this.driveTrain = driveTrain;
+        Constants.autoDriveFw = false;
 
-//        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(1);
-//        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
+        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("pipeline").setNumber(0);
+        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("pipeline").setNumber(2);
+        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(0);
+        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
+        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("ledMode").setNumber(0);
+        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("ledMode").setNumber(1);
 //        driveTrain.turnPID.zController.enable();
     }
 
@@ -42,6 +47,7 @@ public class ManualDrive implements DriveMode {
 
         if (robotMap.buttonA.get()) {
             autoRotateEnable = true;
+            driveTrain.turnPID.zController.enable();
         }
 
         if(Math.abs(robotMap.getRightX())>0.2)
@@ -52,7 +58,7 @@ public class ManualDrive implements DriveMode {
         }
         else
         {
-            driveTrain.turnPID.zController.setSetpoint(driveTrain.turnSetpoint);
+            driveTrain.turnPID.zController.setSetpoint(Robot.pathChooser.angle);
             zRotation = driveTrain.turnPID.getZOutput();
         }
 

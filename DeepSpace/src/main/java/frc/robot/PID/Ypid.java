@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.PIDBase.Tolerance;
 
 public class Ypid implements PIDOutput{
 
@@ -37,5 +38,19 @@ public class Ypid implements PIDOutput{
         SmartDashboard.putNumber("y PID error", yController.getError());
         SmartDashboard.putNumber("y PID output", yOutput);
         return yOutput;
+    }
+
+    public class MyCustomTolerance implements Tolerance {
+        private final double m_posTolerance;
+        private final double m_velocityLimit;
+        ;  
+        MyCustomTolerance() {
+        m_posTolerance = Constants.xTolerance;
+        m_velocityLimit = Constants.pidLowSpeed; 
+        }
+        @Override
+        public boolean onTarget() {
+        return Math.abs(yController.getError()) <   m_posTolerance  && Math.abs(yController.get()) <  m_velocityLimit;
+        }
     }
 }

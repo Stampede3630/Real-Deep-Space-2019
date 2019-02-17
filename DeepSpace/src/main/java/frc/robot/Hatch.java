@@ -23,7 +23,7 @@ public class Hatch implements ManipulatorMode {
         manipulatorOut = false;
 
         coneTime = new Timer();
-        coneTime.reset();
+//        coneTime.reset();
     }
 
     public void engage () 
@@ -71,18 +71,21 @@ public class Hatch implements ManipulatorMode {
     }
 
     public void deployAuto(boolean rocketMode)
-    {
-        if(coneTime.get()==0)
+    { 
+        if(coneTime.get()==0&&manipulator.startDeploy)
         {
+            manipulator.startDeploy = false;
             coneTime.start();  
             robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
             robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
         }
-        if(coneTime.get()>=1)
-        {                
+        else if(coneTime.get()>=1)
+        {        
+//            System.out.println("deploying hatch");        
+//            System.out.println(robotMap.hatchDeploy.get().toString());
+            robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
             coneTime.stop();
             coneTime.reset();
-            robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
         }
     }
 

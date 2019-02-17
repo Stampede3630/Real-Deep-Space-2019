@@ -63,6 +63,15 @@ public class Choosers
         }
     }
 
+    public double reverseAngle(double angle) {
+        double outputAngle = angle;
+        if (flipOrientation()){
+            outputAngle = angle + 180;
+        }
+        return outputAngle;
+    }
+
+
     public void chooserState(boolean value) {
         chooserEnable = value;
     }
@@ -195,6 +204,7 @@ public class Choosers
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(0);
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(0);
+                Constants.pipeline = 0;
                 if(ball)
                 {
                     ballFollowerOn = true;
@@ -206,12 +216,15 @@ public class Choosers
             }
             else if(currentAction.equals("deploy"))
             {
+                ballFollowerOn = false;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(1);
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(0);
+                Constants.pipeline = 1;
             }
             else
             {
+                ballFollowerOn = false;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("camMode").setNumber(1);
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(1);
             }

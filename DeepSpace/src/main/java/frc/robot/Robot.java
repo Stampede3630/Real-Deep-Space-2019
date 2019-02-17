@@ -8,14 +8,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
  
 
-  public DriveTrain driveTrain;
+  public static DriveTrain driveTrain;
   public static Manipulator manipulator;
   public Diagnostics diagnostics;
   public static Choosers choosers;
   VisionControls vision;
   public static SendableChooser manipulatorChooser;
-  PathChooser pathChooser = new PathChooser();
-  CamAuto camAuto;
+  public static PathChooser pathChooser = new PathChooser();
 
   @Override
   public void robotInit() {
@@ -41,14 +40,14 @@ public class Robot extends TimedRobot {
   
   @Override
   public void autonomousInit() {
-    camAuto = new CamAuto();
+    
   }
 
   
   @Override
   public void autonomousPeriodic() 
   {
-    camAuto.camTestMethod();
+    
   }
 
   @Override
@@ -63,7 +62,7 @@ public class Robot extends TimedRobot {
     //choosers.automatedTurnToAngle();
     choosers.setManipulatorMode();
 
-    choosers.chooserAngle(pathChooser.angle);
+//    choosers.chooserAngle(pathChooser.angle);
 
     choosers.angleSwitch();
 

@@ -6,13 +6,14 @@ public class Manipulator
 {
     ManipulatorMode manipulatorMode;
     RobotMap robotMap;
-    boolean toRocket, autonomous, taskRunning;
+    boolean toRocket, autonomous, taskRunning, startDeploy, isLaunched;
 
     public Manipulator()
     {
         robotMap = RobotMap.getRobotMap();
         autonomous = false;
         taskRunning = false;
+        startDeploy = true;
     }
 
     public void manipulatorExecute()
