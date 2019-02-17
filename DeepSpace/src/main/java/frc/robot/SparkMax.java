@@ -33,4 +33,8 @@ public class SparkMax {
         motor.set(xBox.getY());
         SmartDashboard.putNumber("Motor speed", rpmToRadiansPerSecond(encoder.getVelocity()));
     }
+
+    public void motorRamp(double rpmSpeed) {
+        motor.set(rpmSpeed);
+    }
 }
