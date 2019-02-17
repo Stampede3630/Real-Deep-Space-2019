@@ -12,7 +12,6 @@ public class Robot extends TimedRobot {
   public static Manipulator manipulator;
   public Diagnostics diagnostics;
   public static Choosers choosers;
-  VisionControls vision;
   public static SendableChooser manipulatorChooser;
   public static PathChooser pathChooser = new PathChooser();
 
@@ -22,7 +21,6 @@ public class Robot extends TimedRobot {
     manipulator = new Manipulator();
     diagnostics = new Diagnostics();
     choosers = new Choosers(driveTrain, manipulator, diagnostics);
-    vision = new VisionControls();
     manipulatorChooser = new SendableChooser();
     manipulatorChooser.addDefault("Hatch Forward", "Hatch");
     manipulatorChooser.addObject("Ball Forward", "Ball");

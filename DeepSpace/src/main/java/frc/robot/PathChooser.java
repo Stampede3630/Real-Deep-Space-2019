@@ -21,7 +21,7 @@ public class PathChooser{
     boolean togglePressedY = false;
     boolean toggleOnHatch = false;
     boolean togglePressedX = false;*/
-    double angle;
+    public double angle;
     String right = "";
     String left = "";
     String center = "";
@@ -37,23 +37,27 @@ public class PathChooser{
             case "LeftLS":
                 angle = Robot.choosers.reverseAngle(-180);
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(0);
+                Constants.pipeline = 0;
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 Robot.choosers.ballFollowerOn = false;
                 break;
             case "LeftFarRS":
                 angle = Robot.choosers.reverseAngle(-150);
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(2);
+                Constants.pipeline = 2;
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 Robot.choosers.ballFollowerOn = false;
                 break;
             case "LeftMidRS":
                 angle = Robot.choosers.reverseAngle(-90);
+                Constants.pipeline = 3;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(3);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 Robot.choosers.ballFollowerOn = false;
                 break;
             case "LeftNearRS":
                 angle = Robot.choosers.reverseAngle(-30);
+                Constants.pipeline = 1;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(1);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 currentPipeline = left;
@@ -61,6 +65,7 @@ public class PathChooser{
                 break;
             case "LeftFarCS":
                 angle = Robot.choosers.reverseAngle(90);
+                Constants.pipeline = 1;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(1);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 currentPipeline = left;
@@ -68,6 +73,7 @@ public class PathChooser{
                 break;
             case "LeftMidCS":
                 angle = Robot.choosers.reverseAngle(90);
+                Constants.pipeline = 3;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(3);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 currentPipeline = left;
@@ -75,6 +81,7 @@ public class PathChooser{
                 break;
             case "LeftNearCS":
                 angle = Robot.choosers.reverseAngle(90);
+                Constants.pipeline = 2;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(2);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 currentPipeline = left;
@@ -82,6 +89,7 @@ public class PathChooser{
                 break;
             case "RightFarCS":
                 angle = Robot.choosers.reverseAngle(-90);
+                Constants.pipeline = 2;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(2);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 currentPipeline = right;
@@ -89,6 +97,7 @@ public class PathChooser{
                 break;
             case "RightMidCS":
                 angle = Robot.choosers.reverseAngle(-90);
+                Constants.pipeline = 3;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(3);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 currentPipeline = right;
@@ -96,6 +105,7 @@ public class PathChooser{
                 break;
             case "RightNearCS":
                 angle = Robot.choosers.reverseAngle(-90);
+                Constants.pipeline = 1;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(1);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 currentPipeline = right;
@@ -103,14 +113,15 @@ public class PathChooser{
                 break;
             case "LeftFaceCS":
                 angle = Robot.choosers.reverseAngle(0);
+                Constants.pipeline = 1;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(1);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 currentPipeline = left;
                 Robot.choosers.ballFollowerOn = false;
-                System.out.println("calling leftFaceCS, angle = "+angle);
                 break;
             case "RightFaceCS":
                 angle = Robot.choosers.reverseAngle(0);
+                Constants.pipeline = 2;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(2);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 currentPipeline = right;
@@ -118,6 +129,7 @@ public class PathChooser{
                 break;
             case "RightFarRS":
                 angle = Robot.choosers.reverseAngle(150);
+                Constants.pipeline = 1;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(1);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 currentPipeline = right;
@@ -125,6 +137,7 @@ public class PathChooser{
                 break;
             case "RightMidRS":
                 angle = Robot.choosers.reverseAngle(90);
+                Constants.pipeline = 3;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(3);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 currentPipeline = right;
@@ -132,6 +145,7 @@ public class PathChooser{
                 break;
             case "RightNearRS":
                 angle = Robot.choosers.reverseAngle(30);
+                Constants.pipeline = 2;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(2);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 currentPipeline = right;
@@ -139,11 +153,13 @@ public class PathChooser{
                 break;
             case "RightLS":
                 angle = Robot.choosers.reverseAngle(-180);
+                Constants.pipeline = 0;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(0);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 Robot.choosers.ballFollowerOn = false;
                 break;
             case "GrabBall":
+                Constants.pipeline = 0;
                 NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(0);
 //                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
                 Robot.choosers.ballFollowerOn = true;

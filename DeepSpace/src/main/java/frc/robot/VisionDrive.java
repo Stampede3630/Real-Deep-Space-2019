@@ -41,8 +41,8 @@ public class VisionDrive implements DriveMode{
     public void driveRobot()
     {
         if (!Robot.choosers.getBallTarget()){
-            driveTrain.xpid.xController.setOutputRange(-1, 1);
-            driveTrain.ypid.yController.setOutputRange(-1, 1);
+            driveTrain.xpid.xController.setOutputRange(-0.6, 0.6);
+            driveTrain.ypid.yController.setOutputRange(-0.6, 0.6);
 
 //            driveTrain.ypid.yController.disable();
 //            driveTrain.turnPID.zController.disable();
@@ -195,7 +195,7 @@ public class VisionDrive implements DriveMode{
                 if(driveFw.get()>0.55) //64
                 {
                     yValue = 0;
-                    Robot.manipulator.manipulatorMode.deployAuto(false);
+                    Robot.manipulator.manipulatorMode.intakeAuto();
                 }
                 else
                 {
