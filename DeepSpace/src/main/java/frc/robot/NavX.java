@@ -22,8 +22,15 @@ public class NavX {
         alphaY = (navx.getRawGyroY() * (Math.PI / 180)) / time;
     }
 
+    public void accelerationNullification() {
+        if (alphaY > 0.2) {
+            alphaX = 0;
+        }
+    }
+
     public void accelerationDiagnostics() {
         angularAccelerationCalculations();
+        accelerationNullification();
         SmartDashboard.putNumber("ForwardBackward acceleration", alphaY);
         SmartDashboard.putNumber("LeftRight acceleration", alphaX);
     }
