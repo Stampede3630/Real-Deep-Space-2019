@@ -32,9 +32,10 @@ public class SparkMax {
     public void teleopPeriodic() {
         motor.set(xBox.getY());
         SmartDashboard.putNumber("Motor speed", rpmToRadiansPerSecond(encoder.getVelocity()));
+        SmartDashboard.putNumber("Linear Velocity", rpmToRadiansPerSecond(encoder.getVelocity()) * Constants.neoMotorRadius);
     }
 
     public void motorRamp(double rpmSpeed) {
-        motor.set(rpmSpeed);
+        motor.set(rpmToRadiansPerSecond(rpmSpeed));
     }
 }
