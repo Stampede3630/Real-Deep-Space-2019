@@ -23,11 +23,11 @@ public class NavX {
     }
 
     public void accelerationNullification() {
-        if (alphaX > alphaY) {
+        if (Math.abs(alphaX) > Math.abs(alphaY)) {
             alphaY = 0;
         }
 
-        else if (alphaY > alphaX) {
+        else if (Math.abs(alphaY) > Math.abs(alphaX)) {
             alphaX = 0;
         }
     }
