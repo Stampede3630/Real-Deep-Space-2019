@@ -16,6 +16,7 @@ public class Robot extends TimedRobot {
   public static SendableChooser manipulatorChooser;
   PathChooser pathChooser = new PathChooser();
   CamAuto camAuto;
+  NavX navx = new NavX();
 
   @Override
   public void robotInit() {
@@ -71,6 +72,9 @@ public class Robot extends TimedRobot {
     driveTrain.drive();
 
     manipulator.manipulatorExecute();
+
+    navx.velocityNullification();
+    navx.velocityDiagnostics();
 
     diagnostics.toSmartDashboard();
   }

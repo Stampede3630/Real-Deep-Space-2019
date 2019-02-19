@@ -9,33 +9,30 @@ public class NavX {
 
     AHRS navx;
     
-    double alphaX;
-    double alphaY;
+    double velocityX;
+    double velocityY;
     final double time = 0.02;
     
     public NavX() {
         navx = new AHRS(SPI.Port.kMXP);
     }
 
-    public void angularAccelerationCalculations() {
-        alphaX = (navx.getRawGyroX() * (Math.PI / 180)) / time;
-        alphaY = (navx.getRawGyroY() * (Math.PI / 180)) / time;
-    }
+    public void velocityNullification() {
 
-    public void accelerationNullification() {
-        if (Math.abs(alphaX) > Math.abs(alphaY)) {
-            alphaY = 0;
+        velocityX = navx.getVelocityX();
+        velocityY = navx.getVelocityY();
+
+        if (Math.abs(velocityY) > 0) {
+            velocityX = 0;
         }
 
-        else if (Math.abs(alphaY) > Math.abs(alphaX)) {
-            alphaX = 0;
+        else if (Math.abs(velocityX) > 0) {
+            velocityY = 0;
         }
     }
 
-    public void accelerationDiagnostics() {
-        angularAccelerationCalculations();
-        accelerationNullification();
-        SmartDashboard.putNumber("ForwardBackward acceleration", alphaY);
-        SmartDashboard.putNumber("LeftRight acceleration", alphaX);
+    public void velocityDiagnostics() {
+        SmartDashboard.putNumber("ForwardBackward velocity", navx.getVelocityY());
+        SmartDashboard.putNumber("LeftRight velocty", navx.getVelocityX());
     }
 }
