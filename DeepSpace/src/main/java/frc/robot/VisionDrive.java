@@ -20,11 +20,18 @@ public class VisionDrive implements DriveMode{
         driveTrain.turnPID.zController.enable();
     }
 
+<<<<<<< HEAD
     public boolean getAutoRotate() 
     {
         return true;
     }
     
+=======
+    public boolean getAutoRotate() {
+        return true;
+    }
+
+>>>>>>> master
     public void driveRobot()
     {
         zValue = driveTrain.turnPID.getTurnOutput();

@@ -16,16 +16,11 @@ public class ManualDrive implements DriveMode {
     public ManualDrive(RobotMap robotMap, DriveTrain driveTrain)
     {
         this.robotMap = robotMap;
-        this.driveTrain = driveTrain;
+        this.driveTrain=driveTrain;
 
-/*        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("pipeline").setNumber(0);
-        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("pipeline").setNumber(4);
-        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(0);
-        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(0);
-        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("ledMode").setNumber(0);
-        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("ledMode").setNumber(0);
-*/ 
-        //put this somewhere else - separate method
+//        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(1);
+//        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
+//        driveTrain.turnPID.zController.enable();
     }
 
     public boolean getAutoRotate() {
@@ -48,6 +43,10 @@ public class ManualDrive implements DriveMode {
         if (robotMap.buttonA.get()) {
             autoRotateEnable = true;
             driveTrain.turnPID.zController.enable();
+        }
+
+        if (robotMap.buttonA.get()) {
+            autoRotateEnable = true;
         }
 
         if(Math.abs(robotMap.getRightX())>0.2)

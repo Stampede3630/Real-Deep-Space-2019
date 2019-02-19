@@ -41,6 +41,18 @@ public class Choosers
         return outputAngle;
     }
 
+    public void chooserAngle(double angle) {
+        if (driveTrain.driveMode.getAutoRotate()) {
+            driveTrain.turnPID.zController.setSetpoint(angle);
+            driveTrain.turnSetpoint = angle;
+            driveTrain.turnPID.zController.enable();
+        }
+
+        else {
+            driveTrain.turnPID.zController.disable();
+        }
+    }
+
     public void setDriveMode()
     {
         if(Constants.lostTarget)
