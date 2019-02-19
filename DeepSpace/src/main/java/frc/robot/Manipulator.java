@@ -1,29 +1,26 @@
 package frc.robot;
 
-import javax.lang.model.util.ElementScanner6;
-
 public class Manipulator
 {
     ManipulatorMode manipulatorMode;
     RobotMap robotMap;
-    boolean toRocket;
 
     public Manipulator()
     {
         robotMap = RobotMap.getRobotMap();
     }
 
-    public void manipulatorExecute()
+    public void manipulatorPeriodic()
     {
         manipulatorMode.disengage();//left bumper
         manipulatorMode.engage(); //right bumper
+        if(robotMap.getTrigger()<=0)
+        {
+            manipulatorMode.deploy(Constants.toRocket); //left trigger
+        }
         if(robotMap.getTrigger()>=0)
         {
-            manipulatorMode.deploy(toRocket); //right trigger
-        }
-        else if(robotMap.getTrigger()<=0)
-        {
-            manipulatorMode.intake(); //left trigger
+            manipulatorMode.intake(); //right trigger
         }
     }
 }

@@ -1,14 +1,8 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 public class ManualDrive implements DriveMode {
 
@@ -35,8 +29,21 @@ public class ManualDrive implements DriveMode {
 
     public void driveRobot()
     {
-        xSpeed = robotMap.getLeftX();
-        ySpeed = robotMap.getLeftY();
+        if (Robot.manipulatorChooser.getSelected().equals( "Ball")) //grab the value from Constants
+        {
+            xSpeed = -robotMap.getLeftX();
+            ySpeed = -robotMap.getLeftY();
+        }
+        else
+        {
+            xSpeed = robotMap.getLeftX();
+            ySpeed = robotMap.getLeftY();
+        }
+
+        if (robotMap.buttonA.get()) {
+            autoRotateEnable = true;
+            driveTrain.turnPID.zController.enable();
+        }
 
         if (robotMap.buttonA.get()) {
             autoRotateEnable = true;
@@ -50,12 +57,18 @@ public class ManualDrive implements DriveMode {
         }
         else
         {
-            driveTrain.turnPID.zController.setSetpoint(driveTrain.turnSetpoint);
-            zRotation = driveTrain.turnPID.getZOutput();
+            driveTrain.turnPID.zController.setSetpoint(Constants.robotAngle);
+            zRotation = driveTrain.turnPID.getTurnOutput();
         }
-        SmartDashboard.putNumber("ahrs", robotMap.ahrs.getYaw());
-        SmartDashboard.putNumber("ManualDrive zpid setpoint", driveTrain.turnPID.zController.getSetpoint());
-        robotMap.drive.driveCartesian(xSpeed, ySpeed, zRotation);
+
+        if (robotMap.leftStickB.get())
+        {
+            robotMap.drive.driveCartesian(xSpeed, ySpeed, zRotation);
+        }
+        else
+        {
+            robotMap.drive.driveCartesian(xSpeed * Constants.normalSpeed, ySpeed * Constants.normalSpeed, zRotation * Constants.normalSpeed);
+        }
     }
 
 }

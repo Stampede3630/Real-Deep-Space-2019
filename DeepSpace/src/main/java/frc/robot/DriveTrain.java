@@ -7,30 +7,30 @@
 
 package frc.robot;
 
-import frc.robot.PID.Ypid;
-import frc.robot.PID.Zpid;
-import frc.robot.PID.Xpid;
+import frc.robot.PID.*;
+import frc.robot.PID.ForwardPid;
 
 public class DriveTrain {
 
     RobotMap robotMap;
     DriveMode driveMode;
     public double turnSetpoint;
-    public Zpid turnPID;
-    public Xpid xpid;
-    public Ypid ypid;
+    public TurnPid turnPID;
+    public StrafePid strafePID;
+    public ForwardPid forwardPID;
+    public boolean intake;
 
     public DriveTrain()
     {
         robotMap = RobotMap.getRobotMap();
-        turnPID = new Zpid();
-        turnPID.zpidSetup();
+        turnPID = new TurnPid();
+        turnPID.turnPidSetup();
 
-        xpid = new Xpid();
-        xpid.xpidSetup();
+        strafePID = new StrafePid();
+        strafePID.strafePidSetup();
 
-        ypid = new Ypid();
-        ypid.ypidSetup();
+        forwardPID = new ForwardPid();
+        forwardPID.forwardPidSetup();
     }
 
     public void drive()

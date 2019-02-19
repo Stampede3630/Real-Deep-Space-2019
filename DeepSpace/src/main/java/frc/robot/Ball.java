@@ -7,34 +7,29 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class Ball implements ManipulatorMode {
     
     RobotMap robotMap;
     Manipulator manipulator;
-
     
-    //not actually talons
     public Ball (Manipulator manipulator) 
     {
         robotMap = RobotMap.getRobotMap();
         this.manipulator = manipulator;
-
     }
 
     public void engage () 
     {
-        //get to ball - driver/limelight?
+
     }
 
-    public void intake () //left trigger
+    public void intake () //right trigger
     {
-        if(robotMap.getTrigger()<=-0.2) //change ultrasonic number
+        if(robotMap.getTrigger()>0.2&&robotMap.ballStop.getVoltage()<4.0)
         {
-            robotMap.talonBallIntake.set(robotMap.getTrigger());
-            robotMap.talonBallShooter.set(-0.4);
+                
+            robotMap.talonBallIntake.set(-0.8);
+            robotMap.talonBallShooter.set(1);
         }
         else
         {
@@ -43,22 +38,21 @@ public class Ball implements ManipulatorMode {
         }
     }
 
-    public void deploy (boolean rocketMode) //right trigger
+    public void deploy (boolean rocketMode) //left trigger
     {
-
-        if(robotMap.getTrigger()>0)
+        if(robotMap.getTrigger()<-0.2)
         {
-            SmartDashboard.putNumber("trigger", robotMap.getTrigger()); //works
             if(rocketMode)
             {
-                robotMap.talonBallShooter.set(robotMap.getTrigger());
-                robotMap.talonBallIntake.set(-robotMap.getTrigger()); //does not work
+                robotMap.talonBallShooter.set(-robotMap.getTrigger());
+                robotMap.talonBallIntake.set(robotMap.getTrigger());
             }
             else
             {
-                robotMap.talonBallShooter.set(-robotMap.getTrigger());
+                robotMap.talonBallShooter.set(robotMap.getTrigger());
+                robotMap.talonBallIntake.set(-0.3);
             }
-        }
+        }   
         else
         {
             robotMap.talonBallIntake.set(0);
@@ -71,10 +65,15 @@ public class Ball implements ManipulatorMode {
 
     }
 
-    public double getUltrasonicDist()
+    public void intakeAuto()
     {
-        double voltage = robotMap.ultrasonic.getVoltage();
-        double distance = voltage/0.0098;
-        return distance;
+        if(robotMap.ballStop.getVoltage()>=4)
+        {
+            robotMap.talonBallIntake.set(0);
+        }
+        else if(Constants.ta>=45||Constants.tv==0)
+        {
+            robotMap.talonBallIntake.set(-1);
+        }
     }
 }

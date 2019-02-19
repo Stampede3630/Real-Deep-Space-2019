@@ -1,50 +1,46 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot 
+{
  
 
-  public DriveTrain driveTrain;
-  public Manipulator manipulator;
+  public static DriveTrain driveTrain;
+  public static Manipulator manipulator;
   public Diagnostics diagnostics;
-  public Choosers choosers;
-  Vision vision;
-  SendableChooser manipulatorChooser;
-  PathChooser pathChooser = new PathChooser();
+  public static Choosers choosers;
+  public static SendableChooser manipulatorChooser;
+  public static PathChooser pathChooser = new PathChooser();
+  public static GrassHopper magicWillHappen = new GrassHopper();
 
   @Override
-  public void robotInit() {
+  public void robotInit() 
+  {
     driveTrain = new DriveTrain();
     manipulator = new Manipulator();
     diagnostics = new Diagnostics();
-    choosers = new Choosers(driveTrain, manipulator, diagnostics);
-    vision = new Vision();
+    choosers = new Choosers(driveTrain, manipulator);
     manipulatorChooser = new SendableChooser();
     manipulatorChooser.addDefault("Hatch Forward", "Hatch");
     manipulatorChooser.addObject("Ball Forward", "Ball");
     SmartDashboard.putData("Forward Chooser", manipulatorChooser);
+    SmartDashboard.putString("Path Selected", "");
   }
   
   @Override
-  public void robotPeriodic() {
+  public void robotPeriodic() 
+  {
     diagnostics.toSmartDashboard();
     pathChooser.stringToPath(SmartDashboard.getString("Path Selected", ""));
   }
 
   
   @Override
-  public void autonomousInit() {
+  public void autonomousInit() 
+  {
     
   }
 
@@ -56,7 +52,8 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopInit() {
+  public void teleopInit() 
+  {
 
   }
 
@@ -67,19 +64,25 @@ public class Robot extends TimedRobot {
     //choosers.automatedTurnToAngle();
     choosers.setManipulatorMode();
 
-    choosers.chooserAngle(pathChooser.angle);
+//    choosers.chooserAngle(pathChooser.angle);
+
+//    choosers.angleSwitch();
+
+//    choosers.setAction();
 
     driveTrain.drive();
 
-    vision.execute();
+    manipulator.manipulatorPeriodic();
 
-    manipulator.manipulatorExecute();
+    choosers.letterButtons();
 
-    diagnostics.toSmartDashboard();
+//    diagnostics.toSmartDashboard();
   }
 
  
   @Override
-  public void testPeriodic() {
+  public void testPeriodic() 
+  {
+    magicWillHappen.hopUpTest();
   }
 }

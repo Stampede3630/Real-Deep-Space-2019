@@ -14,7 +14,7 @@ public class Hatch implements ManipulatorMode {
     RobotMap robotMap;
     boolean manipulatorOut;
     Manipulator manipulator;
-    Timer coneIn;
+    Timer circleTimer;
 
     public Hatch(Manipulator manipulator) 
     {
@@ -22,12 +22,11 @@ public class Hatch implements ManipulatorMode {
         this.manipulator = manipulator;
         manipulatorOut = false;
 
-        coneIn = new Timer();
+        circleTimer = new Timer();
     }
 
-    public void engage () 
+    public void engage() //slide out
     {
-        //extend hatch deploy thing
         if(robotMap.bumperR.get())
         {
             manipulatorOut = true;
@@ -35,33 +34,38 @@ public class Hatch implements ManipulatorMode {
         }
     }
 
-    public void intake () 
+    public void intake() 
     {
-        //nothing, for now - just drive to the loading station in LineDrive
+
     }
 
-    public void deploy (boolean rocketMode) 
+    public void deploy(boolean rocketMode) //left trigger
     {
-        if(robotMap.getTrigger()>=0.75)
+        if(robotMap.getTrigger()<=-0.75)
         {
-            coneIn.reset();
-            coneIn.start();
+            circleTimer.start();
             robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
             robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
         }
-        if(coneIn.get()>=1)
+        if(circleTimer.get()>=1)
         {
-            coneIn.stop();
+            circleTimer.stop();
+            circleTimer.reset();
             robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
         }
     }
 
-    public void disengage () 
+    public void disengage() //slide in
     {
         if(robotMap.bumperL.get())
         {
             robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
         }
+    }
+
+    public void intakeAuto()
+    {
+
     }
 
 }

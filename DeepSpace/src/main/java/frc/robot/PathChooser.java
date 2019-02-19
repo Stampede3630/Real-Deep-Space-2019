@@ -1,96 +1,135 @@
 package frc.robot;
 
-/*import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.PID.Zpid;*/
+public class PathChooser 
+{
+    public PathChooser() 
+    {
 
-public class PathChooser{
-
-    /*RobotMap robotMap;
-    Zpid turnPID;
-    boolean toRocket;
-    Timer buttonTime;
-    boolean rocketShuttleChooser;
-    boolean hatchBallChooser;
-    boolean toggleOnRocket = false;
-    boolean togglePressedY = false;
-    boolean toggleOnHatch = false;
-    boolean togglePressedX = false;*/
-    double angle;
-    String right = "";
-    String left = "";
-    String center = "";
-    String currentPipeline = "";
-
-    public PathChooser() {
-        
     }
 
-    public void stringToPath(String mode) {
+    public void stringToPath(String mode) //0 - closest(intake), 1-leftmost 2-rightmost 3-closest(deploy)
+    { 
         switch (mode) {
+            case "LeftLS":
+                Constants.robotAngle = Robot.choosers.reverseAngle(-180);
+                Constants.pipelineNumber = Constants.closestIntake;
+                Constants.pipeline = "intake";
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
+                break;
             case "LeftFarRS":
-                angle = 45;
-                currentPipeline = left;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-150);
+                Constants.pipelineNumber = Constants.rightmost;
+                Constants.pipeline = "deploy";
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = true;
                 break;
             case "LeftMidRS":
-                angle = -90;
-                currentPipeline = left;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.closestDeploy;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = true;
                 break;
             case "LeftNearRS":
-                angle = 135;
-                currentPipeline = left;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-30);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.leftmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = true;
                 break;
             case "LeftFarCS":
-                angle = 90;
-                currentPipeline = left;
+                Constants.robotAngle = Robot.choosers.reverseAngle(90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.leftmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "LeftMidCS":
-                angle = 90;
-                currentPipeline = left;
+                Constants.robotAngle = Robot.choosers.reverseAngle(90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.closestDeploy;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "LeftNearCS":
-                angle = 90;
-                currentPipeline = left;
+                Constants.robotAngle = Robot.choosers.reverseAngle(90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.rightmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "RightFarCS":
-                angle = -90;
-                currentPipeline = right;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.rightmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "RightMidCS":
-                angle = -90;
-                currentPipeline = right;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.closestDeploy;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "RightNearCS":
-                angle = -90;
-                currentPipeline = right;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.leftmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "LeftFaceCS":
-                angle = 0;
-                currentPipeline = left;
+                Constants.robotAngle = Robot.choosers.reverseAngle(0);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.leftmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "RightFaceCS":
-                angle = 0;
-                currentPipeline = right;
+                Constants.robotAngle = Robot.choosers.reverseAngle(0);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.rightmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "RightFarRS":
-                angle = -45;
-                currentPipeline = right;
+                Constants.robotAngle = Robot.choosers.reverseAngle(150);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.leftmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = true;
                 break;
             case "RightMidRS":
-                angle = -90;
-                currentPipeline = right;
+                Constants.robotAngle = Robot.choosers.reverseAngle(90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.closestDeploy;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = true;
                 break;
             case "RightNearRS":
-                angle = -135;
-                currentPipeline = right;
+                Constants.robotAngle = Robot.choosers.reverseAngle(30);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.rightmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = true;
                 break;
-            case "getBall":
+            case "RightLS":
+                Constants.robotAngle = Robot.choosers.reverseAngle(-180);
+                Constants.pipeline = "intake";
+                Constants.pipelineNumber = Constants.closestIntake;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
-            case "getHatch":
+            case "GrabBall":
+                Constants.pipeline = "intake";
+                Constants.pipelineNumber = Constants.closestIntake;
+                Constants.ballFollowerOn = true;
+                Constants.toRocket = false;
                 break;
             default:
-                angle = 0;
+                Constants.robotAngle = Robot.choosers.reverseAngle(0);
                 break;      
         }
         // set limelight pipeline

@@ -15,4 +15,5 @@ public interface ManipulatorMode {
     public void deploy(boolean rocketMode);
     public void engage();
     public void disengage();
+    public void intakeAuto();
 }
