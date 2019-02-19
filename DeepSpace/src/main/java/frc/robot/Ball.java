@@ -7,71 +7,57 @@
 
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class Ball implements ManipulatorMode {
     
     RobotMap robotMap;
     Manipulator manipulator;
-    Timer shootOut;
-    boolean isLaunched;
-
     
-    //not actually talons
     public Ball (Manipulator manipulator) 
     {
         robotMap = RobotMap.getRobotMap();
         this.manipulator = manipulator;
-
-        shootOut = new Timer();
-        shootOut.reset();
     }
 
     public void engage () 
     {
-        //get to ball - driver/limelight?
+
     }
 
-    public void intake () //left trigger
+    public void intake () //right trigger
     {
-            SmartDashboard.putBoolean("debug intake", robotMap.getTrigger()>0.8&&robotMap.ballStop.getVoltage()<4.0);
-            if(robotMap.getTrigger()>0.8&&robotMap.ballStop.getVoltage()<4.0) //change ultrasonic number
-            {
+        if(robotMap.getTrigger()>0.2&&robotMap.ballStop.getVoltage()<4.0)
+        {
                 
-                System.out.println("intake running");
-                robotMap.talonBallIntake.set(-0.8);
-                robotMap.talonBallShooter.set(1);
-            }
-            else
-            {
-                System.out.println("intake stopped");
-                robotMap.talonBallIntake.set(0);
-                robotMap.talonBallShooter.set(0);
-            }
+            robotMap.talonBallIntake.set(-0.8);
+            robotMap.talonBallShooter.set(1);
+        }
+        else
+        {
+            robotMap.talonBallIntake.set(0);
+            robotMap.talonBallShooter.set(0);
+        }
     }
 
-    public void deploy (boolean rocketMode) //right trigger
+    public void deploy (boolean rocketMode) //left trigger
     {
-            if(robotMap.getTrigger()<-0.2)
+        if(robotMap.getTrigger()<-0.2)
+        {
+            if(rocketMode)
             {
-                if(rocketMode)
-                {
-                    robotMap.talonBallShooter.set(-robotMap.getTrigger());
-                    robotMap.talonBallIntake.set(robotMap.getTrigger());
-                }
-                else
-                {
-                    robotMap.talonBallShooter.set(robotMap.getTrigger());
-                    robotMap.talonBallIntake.set(-0.3);
-                }
-            }   
+                robotMap.talonBallShooter.set(-robotMap.getTrigger());
+                robotMap.talonBallIntake.set(robotMap.getTrigger());
+            }
             else
             {
-                robotMap.talonBallIntake.set(0);
-                robotMap.talonBallShooter.set(0);
+                robotMap.talonBallShooter.set(robotMap.getTrigger());
+                robotMap.talonBallIntake.set(-0.3);
             }
+        }   
+        else
+        {
+            robotMap.talonBallIntake.set(0);
+            robotMap.talonBallShooter.set(0);
+        }
     }
 
     public void disengage () 
@@ -81,42 +67,13 @@ public class Ball implements ManipulatorMode {
 
     public void intakeAuto()
     {
-        System.out.println("autonomous intake");
         if(robotMap.ballStop.getVoltage()>=4)
         {
             robotMap.talonBallIntake.set(0);
         }
-        else if(NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("ta").getDouble(0)>=45||NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("tv").getDouble(0)==0)
+        else if(Constants.ta>=45||Constants.tv==0)
         {
             robotMap.talonBallIntake.set(-1);
-        }
-    }
-
-    public void deployAuto(boolean rocketMode)
-    {
-
-        if(!manipulator.isLaunched)
-        {
-            shootOut.reset();
-            shootOut.start();
-            manipulator.isLaunched = true;
-        }
-
-        if(rocketMode&&shootOut.get()<1)
-        {
-            robotMap.talonBallShooter.set(Constants.rocketBallLaunchDownSpeed);
-            robotMap.talonBallIntake.set(Constants.rocketBallLaunchUpSpeed);//check
-
-        }
-        else if(!rocketMode&&shootOut.get()<1)
-        {
-            robotMap.talonBallShooter.set(Constants.rocketBallLaunchDownSpeed);
-            robotMap.talonBallIntake.set(-0.3);
-        }
-        if(shootOut.get()>=1.5)
-        {
-            robotMap.talonBallIntake.set(0);
-            robotMap.talonBallShooter.set(0);
         }
     }
 }

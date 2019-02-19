@@ -5,7 +5,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot 
+{
  
 
   public static DriveTrain driveTrain;
@@ -14,13 +15,15 @@ public class Robot extends TimedRobot {
   public static Choosers choosers;
   public static SendableChooser manipulatorChooser;
   public static PathChooser pathChooser = new PathChooser();
+  public static GrassHopper magicWillHappen = new GrassHopper();
 
   @Override
-  public void robotInit() {
+  public void robotInit() 
+  {
     driveTrain = new DriveTrain();
     manipulator = new Manipulator();
     diagnostics = new Diagnostics();
-    choosers = new Choosers(driveTrain, manipulator, diagnostics);
+    choosers = new Choosers(driveTrain, manipulator);
     manipulatorChooser = new SendableChooser();
     manipulatorChooser.addDefault("Hatch Forward", "Hatch");
     manipulatorChooser.addObject("Ball Forward", "Ball");
@@ -29,15 +32,16 @@ public class Robot extends TimedRobot {
   }
   
   @Override
-  public void robotPeriodic() {
+  public void robotPeriodic() 
+  {
     diagnostics.toSmartDashboard();
     pathChooser.stringToPath(SmartDashboard.getString("Path Selected", ""));
-    SmartDashboard.putBoolean("ball follower", choosers.getBallTarget());
   }
 
   
   @Override
-  public void autonomousInit() {
+  public void autonomousInit() 
+  {
     
   }
 
@@ -49,7 +53,8 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopInit() {
+  public void teleopInit() 
+  {
 
   }
 
@@ -62,19 +67,23 @@ public class Robot extends TimedRobot {
 
 //    choosers.chooserAngle(pathChooser.angle);
 
-    choosers.angleSwitch();
+//    choosers.angleSwitch();
 
-    choosers.setAction();
+//    choosers.setAction();
 
     driveTrain.drive();
 
-    manipulator.manipulatorExecute();
+    manipulator.manipulatorPeriodic();
 
-    diagnostics.toSmartDashboard();
+    choosers.letterButtons();
+
+//    diagnostics.toSmartDashboard();
   }
 
  
   @Override
-  public void testPeriodic() {
+  public void testPeriodic() 
+  {
+    magicWillHappen.hopUpTest();
   }
 }

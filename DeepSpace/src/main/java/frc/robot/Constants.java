@@ -10,44 +10,44 @@ package frc.robot;
 /**
  * Add your docs here.
  */
-public class Constants {
+public class Constants 
+{
 
-    public static final double xKP = 0.1;
-    public static final double xKI = 0;
-    public static final double xKD = 0;
-    public static final double xOutput = 0.7;
-    public static final double xTolerance = 2;
+    public static final double strafeKP = 0.1;
+    public static final double strafeKI = 0;
+    public static final double strafeKD = 0;
+    public static final double strafeOutput = 0.6;
+    public static final double strafeTolerance = 2;
     
-    public static final double yKP = 0.1;
-    public static final double yKI = 0;
-    public static final double yKD = 0;
-    public static final double yOutput = 0.7;
-    public static final double yTolerance = 2;
+    public static final double forwardKP = 0.1;
+    public static final double forwardKI = 0;
+    public static final double forwardKD = 0;
+    public static final double forwardOutput = 0.6;
+    public static final double forwardTolerance = 2;
     public static final double fullTargetTa = 100;
 
-    public static final double zKP = 0.03;
-    public static final double zKI = 0;
-    public static final double zKD = 0;
-    public static final double zOutput = 2;
-    public static final double zInput = 180;
+    public static final double turnKP = 0.03;
+    public static final double turnKI = 0;
+    public static final double turnKD = 0;
+    public static final double turnOutput = 1;
     public static final double turnTolerance = 2;
 
+    public static final double pidLowSpeed = 0.1;
+/*
     public static final double midVoltage = 2.5;
     public static final double driveForwardSpeed = -0.3;
     public static final double rotateLeftSpeed = -0;
     public static final double rotateRightSpeed = 0;
     public static final double strafeLeftSpeed = 0.2;
     public static final double strafeRightSpeed = -0.2;
-
+*/
+/*
     public static final double h1 = 21.5; //distance from bottom of robot to camera (inches)
     public static final double h2 = 31.50; //distance from bottom of board to far left target (inches)
     public static final double w1 = 13.78; //half of robot distance in x direction (inches)
     public static final double alphaXOne = 0;
     public static final double alphaYOne = 0;
-    public static String limelight = "limelight-one";
-    public static int pipeline = 0;
-    public static final double pidLowSpeed = 0.2;
-
+*/
     public static final int timeOutMs = 10;
 
     public final static int aButton = 1;
@@ -69,13 +69,28 @@ public class Constants {
     public final static double deadzone = 0.2;
     
 //    public final static double multiplierScaleUp = 1;
-    public final static double multiplierScaleDown = 0.8;
+    public final static double normalSpeed = 0.8;
     public final static double rocketBallLaunchUpSpeed = 0.8;
     public final static double rocketBallLaunchDownSpeed = -0.8;
 
-    public static boolean autoDriveFw = false;
-    public static double autoXValue = 0;
-    public static double autoYValue = 0;
-    public static double autoZValue = 0;
-    public static double pathAngle = 0;
+    public static final double closestIntake = 0;
+    public static final double leftmost = 1;
+    public static final double rightmost = 2;
+    public static final double closestDeploy = 3;
+    public static final double hatchDriving = 4;
+    public static final String hatchLimelight = "limelight-two";
+    public static final String ballLimelight = "limelight-one";
+
+    public static boolean lostTarget = false;
+    public static String limelight = hatchLimelight;
+    public static String pipeline = "deploy";
+    public static double pipelineNumber = 0;
+    public static double robotAngle = 0;
+    public static boolean toRocket = false;
+    public static boolean ballFollowerOn = false;
+    public static boolean ballManipulator = false;
+    public static double tx = 0;
+    public static double ty = 0;
+    public static double ta = 0;
+    public static double tv = 0;
 }

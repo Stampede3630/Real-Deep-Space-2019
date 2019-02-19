@@ -1,171 +1,135 @@
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+public class PathChooser 
+{
+    public PathChooser() 
+    {
 
-/*import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.PID.Zpid;*/
-
-public class PathChooser{
-
-    /*RobotMap robotMap;
-    Zpid turnPID;
-    boolean toRocket;
-    Timer buttonTime;
-    boolean rocketShuttleChooser;
-    boolean hatchBallChooser;
-    boolean toggleOnRocket = false;
-    boolean togglePressedY = false;
-    boolean toggleOnHatch = false;
-    boolean togglePressedX = false;*/
-    public double angle;
-    String right = "";
-    String left = "";
-    String center = "";
-    String currentPipeline = "";
-    Timer driveFw;
-
-    public PathChooser() {
-        driveFw = new Timer();
     }
 
-    public void stringToPath(String mode) { //0 - closest(intake), 1-leftmost 2-rightmost 3-closest(deploy)
+    public void stringToPath(String mode) //0 - closest(intake), 1-leftmost 2-rightmost 3-closest(deploy)
+    { 
         switch (mode) {
             case "LeftLS":
-                angle = Robot.choosers.reverseAngle(-180);
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(0);
-                Constants.pipeline = 0;
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-180);
+                Constants.pipelineNumber = Constants.closestIntake;
+                Constants.pipeline = "intake";
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "LeftFarRS":
-                angle = Robot.choosers.reverseAngle(-150);
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(2);
-                Constants.pipeline = 2;
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-150);
+                Constants.pipelineNumber = Constants.rightmost;
+                Constants.pipeline = "deploy";
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = true;
                 break;
             case "LeftMidRS":
-                angle = Robot.choosers.reverseAngle(-90);
-                Constants.pipeline = 3;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(3);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.closestDeploy;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = true;
                 break;
             case "LeftNearRS":
-                angle = Robot.choosers.reverseAngle(-30);
-                Constants.pipeline = 1;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(1);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                currentPipeline = left;
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-30);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.leftmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = true;
                 break;
             case "LeftFarCS":
-                angle = Robot.choosers.reverseAngle(90);
-                Constants.pipeline = 1;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(1);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                currentPipeline = left;
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.leftmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "LeftMidCS":
-                angle = Robot.choosers.reverseAngle(90);
-                Constants.pipeline = 3;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(3);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                currentPipeline = left;
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.closestDeploy;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "LeftNearCS":
-                angle = Robot.choosers.reverseAngle(90);
-                Constants.pipeline = 2;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(2);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                currentPipeline = left;
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.rightmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "RightFarCS":
-                angle = Robot.choosers.reverseAngle(-90);
-                Constants.pipeline = 2;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(2);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                currentPipeline = right;
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.rightmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "RightMidCS":
-                angle = Robot.choosers.reverseAngle(-90);
-                Constants.pipeline = 3;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(3);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                currentPipeline = right;
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.closestDeploy;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "RightNearCS":
-                angle = Robot.choosers.reverseAngle(-90);
-                Constants.pipeline = 1;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(1);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                currentPipeline = right;
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.leftmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "LeftFaceCS":
-                angle = Robot.choosers.reverseAngle(0);
-                Constants.pipeline = 1;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(1);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                currentPipeline = left;
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(0);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.leftmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "RightFaceCS":
-                angle = Robot.choosers.reverseAngle(0);
-                Constants.pipeline = 2;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(2);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                currentPipeline = right;
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(0);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.rightmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "RightFarRS":
-                angle = Robot.choosers.reverseAngle(150);
-                Constants.pipeline = 1;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(1);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                currentPipeline = right;
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(150);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.leftmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = true;
                 break;
             case "RightMidRS":
-                angle = Robot.choosers.reverseAngle(90);
-                Constants.pipeline = 3;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(3);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                currentPipeline = right;
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(90);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.closestDeploy;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = true;
                 break;
             case "RightNearRS":
-                angle = Robot.choosers.reverseAngle(30);
-                Constants.pipeline = 2;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(2);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                currentPipeline = right;
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(30);
+                Constants.pipeline = "deploy";
+                Constants.pipelineNumber = Constants.rightmost;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = true;
                 break;
             case "RightLS":
-                angle = Robot.choosers.reverseAngle(-180);
-                Constants.pipeline = 0;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(0);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                Robot.choosers.ballFollowerOn = false;
+                Constants.robotAngle = Robot.choosers.reverseAngle(-180);
+                Constants.pipeline = "intake";
+                Constants.pipelineNumber = Constants.closestIntake;
+                Constants.ballFollowerOn = false;
+                Constants.toRocket = false;
                 break;
             case "GrabBall":
-                Constants.pipeline = 0;
-                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(0);
-//                NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ledMode").setNumber(0);
-                Robot.choosers.ballFollowerOn = true;
+                Constants.pipeline = "intake";
+                Constants.pipelineNumber = Constants.closestIntake;
+                Constants.ballFollowerOn = true;
+                Constants.toRocket = false;
                 break;
             default:
-                angle = Robot.choosers.reverseAngle(0);
+                Constants.robotAngle = Robot.choosers.reverseAngle(0);
                 break;      
         }
         // set limelight pipeline

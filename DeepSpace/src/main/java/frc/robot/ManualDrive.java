@@ -17,15 +17,15 @@ public class ManualDrive implements DriveMode {
     {
         this.robotMap = robotMap;
         this.driveTrain = driveTrain;
-        Constants.autoDriveFw = false;
 
-        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("pipeline").setNumber(0);
-        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("pipeline").setNumber(2);
+/*        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("pipeline").setNumber(0);
+        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("pipeline").setNumber(4);
         NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(0);
-        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
+        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(0);
         NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("ledMode").setNumber(0);
-        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("ledMode").setNumber(1);
-//        driveTrain.turnPID.zController.enable();
+        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("ledMode").setNumber(0);
+*/ 
+        //put this somewhere else - separate method
     }
 
     public boolean getAutoRotate() {
@@ -34,16 +34,16 @@ public class ManualDrive implements DriveMode {
 
     public void driveRobot()
     {
-         if (Robot.manipulatorChooser.getSelected().equals( "Ball"))
-         {
-            xSpeed = -1 * robotMap.getLeftX();
-            ySpeed = -1 * robotMap.getLeftY();
-         }
-         else
-         {
+        if (Robot.manipulatorChooser.getSelected().equals( "Ball")) //grab the value from Constants
+        {
+            xSpeed = -robotMap.getLeftX();
+            ySpeed = -robotMap.getLeftY();
+        }
+        else
+        {
             xSpeed = robotMap.getLeftX();
             ySpeed = robotMap.getLeftY();
-         }
+        }
 
         if (robotMap.buttonA.get()) {
             autoRotateEnable = true;
@@ -58,18 +58,17 @@ public class ManualDrive implements DriveMode {
         }
         else
         {
-            driveTrain.turnPID.zController.setSetpoint(Robot.pathChooser.angle);
-            zRotation = driveTrain.turnPID.getZOutput();
+            driveTrain.turnPID.zController.setSetpoint(Constants.robotAngle);
+            zRotation = driveTrain.turnPID.getTurnOutput();
         }
 
         if (robotMap.leftStickB.get())
         {
             robotMap.drive.driveCartesian(xSpeed, ySpeed, zRotation);
         }
-
         else
         {
-            robotMap.drive.driveCartesian(xSpeed * Constants.multiplierScaleDown, ySpeed * Constants.multiplierScaleDown, zRotation * Constants.multiplierScaleDown);
+            robotMap.drive.driveCartesian(xSpeed * Constants.normalSpeed, ySpeed * Constants.normalSpeed, zRotation * Constants.normalSpeed);
         }
     }
 

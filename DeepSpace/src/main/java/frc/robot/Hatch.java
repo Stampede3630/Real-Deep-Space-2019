@@ -14,7 +14,7 @@ public class Hatch implements ManipulatorMode {
     RobotMap robotMap;
     boolean manipulatorOut;
     Manipulator manipulator;
-    Timer coneTime;
+    Timer circleTimer;
 
     public Hatch(Manipulator manipulator) 
     {
@@ -22,13 +22,11 @@ public class Hatch implements ManipulatorMode {
         this.manipulator = manipulator;
         manipulatorOut = false;
 
-        coneTime = new Timer();
-//        coneTime.reset();
+        circleTimer = new Timer();
     }
 
-    public void engage () 
+    public void engage() //slide out
     {
-        //extend hatch deploy thing
         if(robotMap.bumperR.get())
         {
             manipulatorOut = true;
@@ -36,28 +34,28 @@ public class Hatch implements ManipulatorMode {
         }
     }
 
-    public void intake () 
+    public void intake() 
     {
-        //nothing, for now - just drive to the loading station in LineDrive
+
     }
 
-    public void deploy (boolean rocketMode) 
+    public void deploy(boolean rocketMode) //left trigger
     {
         if(robotMap.getTrigger()<=-0.75)
         {
-            coneTime.start();
+            circleTimer.start();
             robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
             robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
         }
-        if(coneTime.get()>=1)
-            {
-            coneTime.stop();
-            coneTime.reset();
+        if(circleTimer.get()>=1)
+        {
+            circleTimer.stop();
+            circleTimer.reset();
             robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
         }
     }
 
-    public void disengage () 
+    public void disengage() //slide in
     {
         if(robotMap.bumperL.get())
         {
@@ -68,25 +66,6 @@ public class Hatch implements ManipulatorMode {
     public void intakeAuto()
     {
 
-    }
-
-    public void deployAuto(boolean rocketMode)
-    { 
-        if(coneTime.get()==0&&manipulator.startDeploy)
-        {
-            manipulator.startDeploy = false;
-            coneTime.start();  
-            robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
-            robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
-        }
-        else if(coneTime.get()>=1)
-        {        
-//            System.out.println("deploying hatch");        
-//            System.out.println(robotMap.hatchDeploy.get().toString());
-            robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
-            coneTime.stop();
-            coneTime.reset();
-        }
     }
 
 }
