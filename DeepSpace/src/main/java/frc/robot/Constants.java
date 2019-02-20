@@ -64,6 +64,4 @@ public class Constants {
 	public final static int rStickXAxis = 4;
 	public final static int rStickYAxis = 5;
     public final static double deadzone = 0.2;
-    
-    public final static double neoMotorRadius = 0.03;
 }
