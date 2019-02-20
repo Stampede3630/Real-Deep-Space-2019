@@ -83,6 +83,9 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic() 
   {
-    magicWillHappen.hopUpTest();
+   magicWillHappen.hopUpTest();
+
+
+
   }
 }

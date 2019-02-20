@@ -16,191 +16,183 @@ public class GrassHopper {
     // hopUp is the execute method
 
     Timer climbTimer = new Timer();
-    DoubleSolenoid solenoidBack;
-    DoubleSolenoid solenoidFront;
-    public final WPI_TalonSRX slideTalon;
     RobotMap robotMap;
-    AnalogInput lowReedSwitch;
-    AnalogInput medReedSwitch;
-    AnalogInput highReedSwitch;
-    DigitalInput hatchPositionLimitSwitch;
-    DigitalInput middlePositionLimitSwitch;
-    DigitalInput cargoPositionLimitSwitch;
-    XboxController controller;
+    XboxController controllerTwo;
     boolean emergencyStop;
+    boolean extendAllPistonsComplete = false;
+    boolean slideCargoComplete = false;
+    boolean frontRetractComplete = false;
+    boolean backRetractComplete = false;
+    boolean robotIsStillAlive = false;
+    boolean miracleOccurred = false;
 
     public GrassHopper()
     {
-        controller = new XboxController(1);
+        controllerTwo = new XboxController(1);
         emergencyStop = false;
-
-       // Numbers are stand ins
         robotMap = RobotMap.getRobotMap();
-//        solenoidBack = new DoubleSolenoid(1,2,3);
-//        solenoidFront = new DoubleSolenoid(1,2,3);
-        slideTalon = new WPI_TalonSRX (7);
-//        lowReedSwitch = new AnalogInput(0);
-//        medReedSwitch = new AnalogInput(1);
-//        highReedSwitch = new AnalogInput(2);
-        hatchPositionLimitSwitch = new DigitalInput(3);
-        middlePositionLimitSwitch = new DigitalInput(4);
-        cargoPositionLimitSwitch = new DigitalInput(5);
-
-        //these port numbers are made up and do not mean anything
     }
 
     public void frontExtend()
     {
-        solenoidFront.set(DoubleSolenoid.Value.kForward);
+        robotMap.solenoidFront.set(DoubleSolenoid.Value.kForward);
     }
 
     public void frontRetract()
     {
-        solenoidFront.set(DoubleSolenoid.Value.kReverse);
+        robotMap.solenoidFront.set(DoubleSolenoid.Value.kReverse);
+        if(robotMap.lowReedSwitch.getVoltage() >= 4.5)
+        {
+            frontRetractComplete = true;
+        }
     }
     public void backExtend()
     {
-        solenoidBack.set(DoubleSolenoid.Value.kForward);
+        robotMap.solenoidBack.set(DoubleSolenoid.Value.kForward);
     }
 
     public void backRetract()
     {
-        solenoidBack.set(DoubleSolenoid.Value.kReverse);
+        robotMap.solenoidBack.set(DoubleSolenoid.Value.kReverse);
     }
 
     public void slideForward()
     {
-        slideTalon.set(0.4); //we can set this higher, snowBlowers aren't that fast...
+        robotMap.slideTalon.set(0.4); //we can set this higher, snowBlowers aren't that fast...
     }
 
     public void slideBack()
     {
-        slideTalon.set(-0.4);
+        robotMap.slideTalon.set(-0.4);
     }
 
-    public boolean extendAllPistons() 
+    public void extendAllPistons() 
     {
         frontExtend();
         backExtend();
-
-        if (highReedSwitch.getVoltage() >= 4.5) {
-            return true;
+        if(robotMap.highReedSwitch.getVoltage() <= 4.5)
+        {
+            extendAllPistonsComplete = true;
         }
-        else return false;
     }
 
-    public boolean slideCargo()
+    public void slideCargo()
     {
-
-        if (cargoPositionLimitSwitch.get() == true) 
+        robotMap.slideTalon.set(-0.2);
+        if (robotMap.cargoPositionLimitSwitch.get() == true) 
         {
-            slideTalon.set(0);
-            return true;
-        }
-        else
-        {
-            slideTalon.set(0.2); //We don't know if speed should be negative or positive.
-            return false;
+            slideCargoComplete = true;
         }
     }
 
     public boolean slideHatch()
     {
 
-        if (hatchPositionLimitSwitch.get() == true)
+        if (robotMap.hatchPositionLimitSwitch.get() == true)
         {
-            slideTalon.set(0);
+            robotMap.slideTalon.set(0);
             return true;
         }
 
         else
         {
-            slideTalon.set(-0.2); //We don't know if speed should be negative or positive.
+            robotMap.slideTalon.set(-0.2); //We don't know if speed should be negative or positive.
             return false;
         }
     }
-
+    /*
     public boolean slideMiddle()
     {
-        if (middlePositionLimitSwitch.get() == true)
+        if (robotMap.middlePositionLimitSwitch.get() == true)
         {
-            slideTalon.set(0);
+            robotMap.slideTalon.set(0);
             return true;
         }
 
         else
         {
-            slideTalon.set(0.2); //We don't know if speed should be negative or positive.
+            robotMap.slideTalon.set(0.2); //We don't know if speed should be negative or positive.
             return false;
         }
+        
     }
+    */
     public void hopUp ()
     {
-        climbTimer.reset(); //we are reseting this timer every time we call this method
-        climbTimer.start(); //.start() method restarts the timer...
-        frontExtend();
-        backExtend();
-        if (climbTimer.get()>=2)
+        //climbTimer.reset(); //we are reseting this timer every time we call this method
+        //climbTimer.start(); //.start() method restarts the timer...
+
+        if (!extendAllPistonsComplete)
         {
-            slideBack();
+           extendAllPistons();
         }
-        else if (climbTimer.get()>=4)
+        else if (extendAllPistonsComplete && !slideCargoComplete && !emergencyStop)
+        {
+            slideCargo();
+        }
+        else if (extendAllPistonsComplete && slideCargoComplete && !frontRetractComplete && !emergencyStop)
         {
             frontRetract();
         }
-        else if (climbTimer.get()>=6)
+        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && !robotIsStillAlive && !emergencyStop)
         {
-            robotMap.drive.driveCartesian(0, 0.4, 0);
+           robotMap.drive.driveCartesian(0, 0.4, 0);
+           Timer.delay(1); //hella dangerous
+           robotMap.drive.driveCartesian(0, 0, 0);
+           robotIsStillAlive = true;
         }
-        else if (climbTimer.get()>=7.5)
+        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && robotIsStillAlive && !backRetractComplete && !emergencyStop )
         {
             backRetract();
-            slideForward(); //shall we move this one step higher?
+            Timer.delay(5); //hella dangerous
+            backRetractComplete = true;
         }
-        else if (climbTimer.get()>=9.5)
+        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && robotIsStillAlive && backRetractComplete  && !miracleOccurred && !emergencyStop )
         {
             robotMap.drive.driveCartesian(0, 0.4, 0);
+           Timer.delay(1); //hella dangerous
+           robotMap.drive.driveCartesian(0, 0, 0);
+           miracleOccurred = true;
         }
-        else if (climbTimer.get()>11)
+        if(controllerTwo.getStartButton()||controllerTwo.getBackButton())
         {
-            climbTimer.reset();
-            climbTimer.stop();
+            emergencyStop = true;
         }
     }
     public void hopUpTest()
     {
         if(!emergencyStop)
         {
-            slideTalon.set(controller.getX(Hand.kRight));
-            robotMap.drive.driveCartesian(0, controller.getY(Hand.kLeft)*0.6, 0);
+            robotMap.slideTalon.set(controllerTwo.getX(Hand.kRight));
+            robotMap.drive.driveCartesian(0, controllerTwo.getY(Hand.kLeft)*0.6, 0);
         }
         else
         {
-            slideTalon.set(0);
+            robotMap.slideTalon.set(0);
             robotMap.drive.driveCartesian(0, 0, 0);
         }
-        if(controller.getYButton())
+        if(controllerTwo.getYButton())
         {
             frontExtend();
             backExtend();
         }    
-        if(controller.getAButton())
+        if(controllerTwo.getAButton())
         {
             frontRetract();
             backRetract();
         }
-        if(controller.getXButton())
+        if(controllerTwo.getXButton())
         {
             frontRetract();
         }        
-        if(controller.getBButton())
+        if(controllerTwo.getBButton())
         {
             backRetract();
         }
-        if(controller.getStartButton()||controller.getBackButton())
+        if(controllerTwo.getStartButton()||controllerTwo.getBackButton())
         {
-            solenoidBack.set(Value.kOff);
-            solenoidFront.set(Value.kOff);
+            robotMap.solenoidBack.set(Value.kOff);
+            robotMap.solenoidFront.set(Value.kOff);
             emergencyStop = true;
         }
     }

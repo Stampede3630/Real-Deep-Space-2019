@@ -19,26 +19,40 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 public class RobotMap {
     
     public final WPI_TalonSRX talonFL =  new WPI_TalonSRX (4); //4
-    public final WPI_TalonSRX talonFR =  new WPI_TalonSRX (3); //2
-    public final WPI_TalonSRX talonBL =  new WPI_TalonSRX (2); 
-    public final WPI_TalonSRX talonBR =  new WPI_TalonSRX (1);
-	public final WPI_TalonSRX talonBallIntake = new WPI_TalonSRX (5);
-	public final WPI_TalonSRX talonBallShooter = new WPI_TalonSRX(6);
+    public final WPI_TalonSRX talonFR =  new WPI_TalonSRX (3); //3
+    public final WPI_TalonSRX talonBL =  new WPI_TalonSRX (2); //2
+	public final WPI_TalonSRX talonBR =  new WPI_TalonSRX (1); //1
+	//public final WPI_TalonSRX talonBallIntake = new WPI_TalonSRX (5); //5
+	public final CANSparkMax talonBallIntake = new CANSparkMax(10, MotorType.kBrushless);
+	public final WPI_TalonSRX talonBallShooter = new WPI_TalonSRX(6); //6
 //	public final CANSparkMax talonBallShooter = new CANSparkMax(1, MotorType.kBrushless);
 
     public final MecanumDrive drive = new MecanumDrive(talonFL, talonBL, talonFR, talonBR);
 
     public final AHRS ahrs = new AHRS (SPI.Port.kMXP);
 
-    public final AnalogInput ballStop = new AnalogInput(0);
-    public final AnalogInput encoder1 = new AnalogInput(1);
-	public final AnalogInput encoder2 = new AnalogInput(2);
-	public final AnalogInput pressureLevel = new AnalogInput(3);
+    public final AnalogInput ballStop = new AnalogInput(3); //0
+   //public final AnalogInput encoder1 = new AnalogInput(11);
+	//public final AnalogInput encoder2 = new AnalogInput(12);
+	public final AnalogInput pressureLevel = new AnalogInput(0); //3
 
-    public final DoubleSolenoid hatchExtend = new DoubleSolenoid(0,2);
-    public final DoubleSolenoid hatchDeploy = new DoubleSolenoid(1,3);
+    public final DoubleSolenoid hatchExtend = new DoubleSolenoid(0,1); //0,2
+    public final DoubleSolenoid hatchDeploy = new DoubleSolenoid(2,3); // 1,3
 
     public final Compressor mainC = new Compressor(0);
+
+	//GrassHopper
+	public final AnalogInput  lowReedSwitch = new AnalogInput(2); 
+	//public final AnalogInput medReedSwitch = new AnalogInput();
+	public final AnalogInput highReedSwitch = new AnalogInput(1);
+	
+	public final DigitalInput hatchPositionLimitSwitch = new DigitalInput(10);
+	//public final DigitalInput middlePositionLimitSwitch = new DigitalInput();
+	public final DigitalInput cargoPositionLimitSwitch = new DigitalInput(0); //?????????
+
+	public final DoubleSolenoid solenoidBack = new DoubleSolenoid(6,7);
+	public final DoubleSolenoid solenoidFront = new DoubleSolenoid(4,5);
+	public final WPI_TalonSRX slideTalon = new WPI_TalonSRX(5);
 
 
     //XboxController
@@ -66,7 +80,7 @@ public class RobotMap {
 		talonSetup(talonBL);
 		talonSetup(talonBR);
 		talonSetup(talonFR);
-		talonSetup(talonBallIntake);
+		//talonSetup(talonBallIntake);
 		talonSetup(talonBallShooter);
     }
     

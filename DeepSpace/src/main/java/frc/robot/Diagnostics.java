@@ -23,6 +23,10 @@ public class Diagnostics
         SmartDashboard.putNumber("ballStop", robotMap.ballStop.getVoltage());
         SmartDashboard.putNumber("ahrs", robotMap.ahrs.getYaw());
         SmartDashboard.putBoolean("ball follower", Constants.ballFollowerOn);
+        SmartDashboard.putBoolean("hatchGrasshopperLimit", robotMap.hatchPositionLimitSwitch.get());
+        SmartDashboard.putBoolean("cargoGrasshopperLimit", robotMap.cargoPositionLimitSwitch.get());
+        SmartDashboard.putNumber("highReedSwitch",robotMap.highReedSwitch.getVoltage());
+        SmartDashboard.putNumber("lowReedSwitch", robotMap.lowReedSwitch.getVoltage());
     }
 
     public double getPSI()
