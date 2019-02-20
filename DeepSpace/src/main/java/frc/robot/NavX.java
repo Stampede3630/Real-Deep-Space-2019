@@ -9,8 +9,8 @@ public class NavX {
 
     AHRS navx;
     
-    double velocityX;
-    double velocityY;
+    double accelerationX;
+    double accelerationY;
     final double time = 0.02;
     
     public NavX() {
@@ -19,20 +19,20 @@ public class NavX {
 
     public void velocityNullification() {
 
-        velocityX = navx.getVelocityX();
-        velocityY = navx.getVelocityY();
+        accelerationX = navx.getWorldLinearAccelX();
+        accelerationY = navx.getWorldLinearAccelY();
 
-        if (Math.abs(velocityY) > 0) {
-            velocityX = 0;
+        if (Math.abs(accelerationY) > 0) {
+            accelerationX = 0;
         }
 
-        else if (Math.abs(velocityX) > 0) {
-            velocityY = 0;
+        else if (Math.abs(accelerationX) > 0) {
+            accelerationY = 0;
         }
     }
 
     public void velocityDiagnostics() {
-        SmartDashboard.putNumber("ForwardBackward velocity", navx.getVelocityY());
-        SmartDashboard.putNumber("LeftRight velocty", navx.getVelocityX());
+        SmartDashboard.putNumber("LeftRight velocty", navx.getWorldLinearAccelX());
+        SmartDashboard.putNumber("ForwardBackward velocity", navx.getWorldLinearAccelY());
     }
 }
