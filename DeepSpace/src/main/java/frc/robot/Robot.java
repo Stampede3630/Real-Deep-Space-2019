@@ -17,6 +17,7 @@ public class Robot extends TimedRobot {
   PathChooser pathChooser = new PathChooser();
   CamAuto camAuto;
   NavX navx = new NavX();
+  NeoTesting neoTesting = new NeoTesting();
 
   @Override
   public void robotInit() {
@@ -82,5 +83,6 @@ public class Robot extends TimedRobot {
  
   @Override
   public void testPeriodic() {
+    neoTesting.neoSpin();
   }
 }
