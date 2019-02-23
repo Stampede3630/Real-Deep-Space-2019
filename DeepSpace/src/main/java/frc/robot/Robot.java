@@ -15,31 +15,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
  
 
-  public DriveTrain driveTrain;
-  public Manipulator manipulator;
-  public Diagnostics diagnostics;
-  public Choosers choosers;
-  Vision vision;
-  SendableChooser manipulatorChooser;
-  PathChooser pathChooser = new PathChooser();
-
+  public DriveRobot driveRobot;
+  
   @Override
   public void robotInit() {
-    driveTrain = new DriveTrain();
-    manipulator = new Manipulator();
-    diagnostics = new Diagnostics();
-    choosers = new Choosers(driveTrain, manipulator, diagnostics);
-    vision = new Vision();
-    manipulatorChooser = new SendableChooser();
-    manipulatorChooser.addDefault("Hatch Forward", "Hatch");
-    manipulatorChooser.addObject("Ball Forward", "Ball");
-    SmartDashboard.putData("Forward Chooser", manipulatorChooser);
+    driveRobot = new DriveRobot();
   }
   
   @Override
   public void robotPeriodic() {
-    diagnostics.toSmartDashboard();
-    pathChooser.stringToPath(SmartDashboard.getString("Path Selected", ""));
+    
   }
 
   
@@ -63,19 +48,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() 
   {
-    choosers.setDriveMode();
-    //choosers.automatedTurnToAngle();
-    choosers.setManipulatorMode();
-
-    choosers.chooserAngle(pathChooser.angle);
-
-    driveTrain.drive();
-
-    vision.execute();
-
-    manipulator.manipulatorExecute();
-
-    diagnostics.toSmartDashboard();
+    driveRobot.drivePeriodic();
   }
 
  
