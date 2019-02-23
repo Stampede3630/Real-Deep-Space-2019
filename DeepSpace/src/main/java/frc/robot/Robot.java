@@ -22,6 +22,7 @@ public class Robot extends TimedRobot {
   Vision vision;
   SendableChooser manipulatorChooser;
   PathChooser pathChooser = new PathChooser();
+  SparkMax motor = new SparkMax();
 
   @Override
   public void robotInit() {
@@ -74,6 +75,8 @@ public class Robot extends TimedRobot {
     vision.execute();
 
     manipulator.manipulatorExecute();
+
+    motor.goalShot(594.4, motor.mediumGoalHeight, motor.motor);
 
     diagnostics.toSmartDashboard();
   }
