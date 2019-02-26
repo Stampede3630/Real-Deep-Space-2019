@@ -20,7 +20,7 @@ public class Diagnostics
         SmartDashboard.putBoolean("ball manipulator on", Constants.ballManipulator);
         SmartDashboard.putBoolean("toRocket", Constants.toRocket);
         SmartDashboard.putNumber("Pressure", getPSI());
-        SmartDashboard.putNumber("ballStop", robotMap.ballStop.getVoltage());
+        SmartDashboard.putNumber("ballStopTop", robotMap.ballStopTop.getVoltage());
         SmartDashboard.putNumber("ahrs", robotMap.ahrs.getYaw());
         SmartDashboard.putBoolean("ball follower", Constants.ballFollowerOn);
         SmartDashboard.putBoolean("hatchGrasshopperLimit", robotMap.hatchPositionLimitSwitch.get());
