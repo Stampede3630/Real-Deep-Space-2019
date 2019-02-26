@@ -60,16 +60,29 @@ public class Ball implements ManipulatorMode {
             robotMap.talonBallShooter.set(0);
         }
         */
-        if(robotMap.ballStop.getVoltage()>4.0)
+        if(robotMap.getTrigger()>0.2&&robotMap.ballStopTop.getVoltage()<4.0 && Constants.ballTop) 
+        {
+                
+            robotMap.talonBallIntake.set(-1);
+            robotMap.talonBallShooter.set(0);
+        }
+
+//        else if (robotMap.getTrigger()>0.2&&robotMap.ballStopBottom.getVoltage()<4.0 && Constants.ballBottom)
+        else if(robotMap.getTrigger()>0.2&&robotMap.ballStopTop.getVoltage()<4.0 && Constants.ballTop)
+        {
+            robotMap.talonBallIntake.set(0);
+            robotMap.talonBallShooter.set(1);
+        }
+     /*   else if(robotMap.getTrigger()>0.2&&robotMap.ballStopBottom.getVoltage()<4.0)
+        {
+            robotMap.talonBallIntake.set(1);
+            robotMap.talonBallShooter.set(-1);
+        }*/
+        else
         {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(0);
-        }
-        else if(robotMap.getTrigger()>0.2&&robotMap.ballStop.getVoltage()<4.0)
-        {
-            robotMap.talonBallIntake.set(-1);
-            robotMap.talonBallShooter.set(0.8);
-        }
+        } 
     }
 
     public void deploy (boolean rocketMode) //left trigger
@@ -101,7 +114,7 @@ public class Ball implements ManipulatorMode {
 
     public void intakeAuto()
     {
-        if(robotMap.ballStop.getVoltage()>=4)
+        if(robotMap.ballStopTop.getVoltage()>=4)
         {
             robotMap.talonBallIntake.set(0);
         }

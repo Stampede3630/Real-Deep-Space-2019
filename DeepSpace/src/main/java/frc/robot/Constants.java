@@ -82,6 +82,8 @@ public class Constants
     public static final String ballLimelight = "limelight-one";
 
     public static boolean lostTarget = false;
+    public static boolean ballTop = false;
+    public static boolean ballBottom = false;
     public static String limelight = hatchLimelight;
     public static String pipeline = "deploy";
     public static double pipelineNumber = 0;
