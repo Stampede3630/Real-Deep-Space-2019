@@ -7,15 +7,22 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Timer;
+
 public class Ball implements ManipulatorMode {
     
     RobotMap robotMap;
     Manipulator manipulator;
+    boolean sensorIntake, manualIntake;
+    Timer intakeTimer;
     
     public Ball (Manipulator manipulator) 
     {
         robotMap = RobotMap.getRobotMap();
         this.manipulator = manipulator;
+        sensorIntake = true;
+        manualIntake = false;
+        intakeTimer = new Timer();
     }
 
     public void engage () 
@@ -25,16 +32,43 @@ public class Ball implements ManipulatorMode {
 
     public void intake () //right trigger
     {
-        if(robotMap.getTrigger()>0.2&&robotMap.ballStop.getVoltage()<4.0)
+/*        if(robotMap.getTrigger()>0.2&&robotMap.ballStop.getVoltage()<4.0)
         {
-                
+            sensorIntake = false;
+            manualIntake = true;
             robotMap.talonBallIntake.set(-0.8);
             robotMap.talonBallShooter.set(1);
         }
-        else
+        else if(robotMap.ballStop.getVoltage()>4.0&&manualIntake)
+        {
+            sensorIntake = true;
+            manualIntake = false;
+            intakeTimer.start();
+        }
+        else if(intakeTimer.get()<0.6&&sensorIntake)
+        {
+            robotMap.talonBallIntake.set(-0.8);
+            robotMap.talonBallShooter.set(1);
+        }
+        else 
+        {
+            manualIntake = false;
+            sensorIntake = false;
+            intakeTimer.stop();
+            intakeTimer.reset();
+            robotMap.talonBallIntake.set(0);
+            robotMap.talonBallShooter.set(0);
+        }
+        */
+        if(robotMap.ballStop.getVoltage()>4.0)
         {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(0);
+        }
+        else if(robotMap.getTrigger()>0.2&&robotMap.ballStop.getVoltage()<4.0)
+        {
+            robotMap.talonBallIntake.set(-1);
+            robotMap.talonBallShooter.set(0.8);
         }
     }
 
@@ -50,7 +84,7 @@ public class Ball implements ManipulatorMode {
             else
             {
                 robotMap.talonBallShooter.set(robotMap.getTrigger());
-                robotMap.talonBallIntake.set(-0.3);
+                robotMap.talonBallIntake.set(-0.5);
             }
         }   
         else

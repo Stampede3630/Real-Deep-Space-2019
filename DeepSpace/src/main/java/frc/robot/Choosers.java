@@ -41,13 +41,26 @@ public class Choosers
         return outputAngle;
     }
 
+    public void chooserAngle(double angle) {
+        if (driveTrain.driveMode.getAutoRotate()) {
+            driveTrain.turnPID.turnController.setSetpoint(angle);
+            driveTrain.turnSetpoint = angle;
+            driveTrain.turnPID.turnController.enable();
+        }
+
+        else {
+            driveTrain.turnPID.turnController.disable();
+        }
+    }
+
     public void setDriveMode()
     {
-        if(Constants.lostTarget)
+/*        if(driveTrain.forwardPID.)
         {
             driveTrain.driveMode = new ManualDrive(robotMap, driveTrain);
             Constants.lostTarget = false;
         }
+*/
         if(robotMap.buttonA.get())
         {
             driveTrain.driveMode = new ManualDrive(robotMap, driveTrain);

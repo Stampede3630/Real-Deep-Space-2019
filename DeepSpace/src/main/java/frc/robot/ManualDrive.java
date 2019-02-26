@@ -1,8 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 
 public class ManualDrive implements DriveMode {
 
@@ -16,16 +13,11 @@ public class ManualDrive implements DriveMode {
     public ManualDrive(RobotMap robotMap, DriveTrain driveTrain)
     {
         this.robotMap = robotMap;
-        this.driveTrain = driveTrain;
+        this.driveTrain=driveTrain;
 
-/*        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("pipeline").setNumber(0);
-        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("pipeline").setNumber(4);
-        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(0);
-        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(0);
-        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("ledMode").setNumber(0);
-        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("ledMode").setNumber(0);
-*/ 
-        //put this somewhere else - separate method
+//        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(1);
+//        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
+//        driveTrain.turnPID.zController.enable();
     }
 
     public boolean getAutoRotate() {
@@ -34,7 +26,7 @@ public class ManualDrive implements DriveMode {
 
     public void driveRobot()
     {
-        if (Robot.manipulatorChooser.getSelected().equals( "Ball")) //grab the value from Constants
+        if (Robot.manipulatorChooser.getSelected().equals("Ball")) //grab the value from Constants
         {
             xSpeed = -robotMap.getLeftX();
             ySpeed = -robotMap.getLeftY();
@@ -47,18 +39,22 @@ public class ManualDrive implements DriveMode {
 
         if (robotMap.buttonA.get()) {
             autoRotateEnable = true;
-            driveTrain.turnPID.zController.enable();
+            driveTrain.turnPID.turnController.enable();
+        }
+
+        if (robotMap.buttonA.get()) {
+            autoRotateEnable = true;
         }
 
         if(Math.abs(robotMap.getRightX())>0.2)
         {
-            driveTrain.turnPID.zController.disable();
+            driveTrain.turnPID.turnController.disable();
             zRotation = robotMap.getRightX();
             autoRotateEnable = false;
         }
         else
         {
-            driveTrain.turnPID.zController.setSetpoint(Constants.robotAngle);
+            driveTrain.turnPID.turnController.setSetpoint(Constants.robotAngle);
             zRotation = driveTrain.turnPID.getTurnOutput();
         }
 

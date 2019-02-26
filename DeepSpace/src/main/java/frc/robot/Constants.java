@@ -69,7 +69,7 @@ public class Constants
     public final static double deadzone = 0.2;
     
 //    public final static double multiplierScaleUp = 1;
-    public final static double normalSpeed = 0.8;
+    public final static double normalSpeed = 0.7;
     public final static double rocketBallLaunchUpSpeed = 0.8;
     public final static double rocketBallLaunchDownSpeed = -0.8;
 
