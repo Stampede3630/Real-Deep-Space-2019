@@ -93,4 +93,7 @@ public class Constants
     public static double ty = 0;
     public static double ta = 0;
     public static double tv = 0;
+
+    public static boolean ballTop = false;
+    public static boolean ballBottom = false;
 }

@@ -16,6 +16,8 @@ public class PathChooser
                 Constants.pipeline = "intake";
                 Constants.ballFollowerOn = false;
                 Constants.toRocket = false;
+                Constants.ballBottom = false;
+                Constants.ballTop = true;
                 break;
             case "LeftFarRS":
                 Constants.robotAngle = Robot.choosers.reverseAngle(-150);
@@ -121,12 +123,16 @@ public class PathChooser
                 Constants.pipelineNumber = Constants.closestIntake;
                 Constants.ballFollowerOn = false;
                 Constants.toRocket = false;
+                Constants.ballBottom = false;
+                Constants.ballTop = true;
                 break;
             case "GrabBall":
                 Constants.pipeline = "intake";
                 Constants.pipelineNumber = Constants.closestIntake;
                 Constants.ballFollowerOn = true;
                 Constants.toRocket = false;
+                Constants.ballBottom = true;
+                Constants.ballTop = false;
                 break;
             default:
                 Constants.robotAngle = Robot.choosers.reverseAngle(0);

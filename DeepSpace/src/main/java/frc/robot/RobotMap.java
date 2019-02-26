@@ -31,7 +31,8 @@ public class RobotMap {
 
     public final AHRS ahrs = new AHRS (SPI.Port.kMXP);
 
-    public final AnalogInput ballStop = new AnalogInput(3); //0
+	public final AnalogInput ballStopTop = new AnalogInput(3); //0
+	public final AnalogInput ballStopBottom = new AnalogInput(333); //find actual port #
    //public final AnalogInput encoder1 = new AnalogInput(11);
 	//public final AnalogInput encoder2 = new AnalogInput(12);
 	public final AnalogInput pressureLevel = new AnalogInput(0); //3
