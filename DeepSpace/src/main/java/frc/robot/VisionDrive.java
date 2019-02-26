@@ -69,7 +69,7 @@ public class VisionDrive implements DriveMode{
     public void searchTarget()
     {;
         driveTrain.turnPID.zController.disable();
-        if(robotMap.ballStop.getVoltage()>4)
+        if(robotMap.ballStopTop.getVoltage()>4)
         {
             driveTrain.forwardPID.forwardController.disable();
             driveTrain.strafePID.strafeController.disable();
