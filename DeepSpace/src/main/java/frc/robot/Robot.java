@@ -22,6 +22,8 @@ public class Robot extends TimedRobot {
   Vision vision;
   SendableChooser manipulatorChooser;
   PathChooser pathChooser = new PathChooser();
+  MotorLaunch motorLaunch = new MotorLaunch();
+  RobotMap robotMap = RobotMap.getRobotMap();
 
   @Override
   public void robotInit() {
@@ -70,6 +72,8 @@ public class Robot extends TimedRobot {
     choosers.chooserAngle(pathChooser.angle);
 
     driveTrain.drive();
+
+    motorLaunch.goalShot(9875, 47, robotMap.talonBallShooter);
 
     vision.execute();
 

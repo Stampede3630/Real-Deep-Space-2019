@@ -14,6 +14,8 @@ public class MotorLaunch {
     public static final int theta = 85;
     public static final double gravity = 32.15;
 
+    RobotMap robotMap = RobotMap.getRobotMap();
+
     public MotorLaunch() {
         xBox = new XboxController(0);
     }
@@ -29,14 +31,14 @@ public class MotorLaunch {
     }
 
     /**
+     * This function is for testing the launch on the Redline motor
+     * 
      * @param omega - measured in Hz
      * @param height - meausres in inches
      * @param motor - the motor we're using to shoot
      */
-
-    //something to consider for 10K - this might set us aside from other teams
     public double goalShot(double omega, double height, WPI_TalonSRX motor) {
-        motor.set(rpmToRadPerSec(omega));
+        motor.set(rpmToRadPerSec(omega) * robotMap.getTrigger());
         velocity = omega * neoRadius;
         double xDistance = ((velocity * radiansToDegrees(Math.cos(theta))) * ((velocity * radiansToDegrees(Math.sin(theta)) + Math.sqrt(Math.pow(velocity, 2) * Math.pow(radiansToDegrees(Math.cos(theta)), 2) * Math.pow(radiansToDegrees(Math.tan(theta)), 2) - (2 * gravity * height))))) / gravity;
         return xDistance;
