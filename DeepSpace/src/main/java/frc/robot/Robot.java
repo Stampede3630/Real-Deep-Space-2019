@@ -48,13 +48,33 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousPeriodic() 
   {
+    choosers.setDriveMode();
+    //choosers.automatedTurnToAngle();
+    choosers.setManipulatorMode();
+
+//    choosers.chooserAngle(pathChooser.angle);
+
+//    choosers.angleSwitch();
+
+//    choosers.setAction();
+
+    driveTrain.drive();
+
+    manipulator.manipulatorPeriodic();
+
+    choosers.letterButtons();
+
+    diagnostics.limelightValues();
+
+//    diagnostics.toSmartDashboard();
     
   }
 
   @Override
   public void teleopInit() 
   {
-
+    SmartDashboard.putData("Forward Chooser", manipulatorChooser);
+    SmartDashboard.putString("Path Selected", "");
   }
 
   @Override

@@ -18,6 +18,7 @@ public class VisionDrive implements DriveMode{
         driveTrain.strafePID.strafeController.enable();
         driveTrain.forwardPID.forwardController.enable();
         driveTrain.turnPID.turnController.enable();
+        Robot.manipulator.autonomous = true;
     }
 
     public boolean getAutoRotate() 
@@ -27,8 +28,6 @@ public class VisionDrive implements DriveMode{
     
     public void driveRobot()
     {
-        zValue = driveTrain.turnPID.getTurnOutput();
-        xValue = driveTrain.strafePID.getStrafeOutput();
 
         if (Constants.ballFollowerOn)
         {
@@ -38,6 +37,9 @@ public class VisionDrive implements DriveMode{
         {
             driveAuto();
         }
+
+        zValue = driveTrain.turnPID.getTurnOutput();
+        xValue = driveTrain.strafePID.getStrafeOutput();
 
         if(driveTrain.forwardPID.forwardController.isEnabled())
         {
@@ -50,8 +52,7 @@ public class VisionDrive implements DriveMode{
         
         switch(Constants.limelight)
         {
-            case "limelight-two": robotMap.drive.driveCartesian(-xValue, yValue, zValue);
-            System.out.println("limelight-two");
+            case "limelight-two": robotMap.drive.driveCartesian(-xValue, 0.6*yValue, zValue);
             break;
 
             case "limelight-one": 
@@ -61,9 +62,8 @@ public class VisionDrive implements DriveMode{
                 }
                 else 
                 {
-                    robotMap.drive.driveCartesian(xValue, -yValue, zValue);
+                    robotMap.drive.driveCartesian(xValue, -0.6*yValue, zValue);
                 }
-                System.out.println("limelight-one");
             break;
         }
         
@@ -77,14 +77,16 @@ public class VisionDrive implements DriveMode{
             driveTrain.forwardPID.forwardController.disable();
             driveTrain.strafePID.strafeController.disable();
             driveTrain.turnPID.turnController.disable();
+            System.out.println("done");
         }
-        if(Constants.tv>0&&Constants.fullTargetTa - Constants.ta<=10)
+        else if(Constants.tv>0&&Constants.ta>=70)
         {
             driveTrain.forwardPID.forwardController.disable();
             driveTrain.strafePID.strafeController.disable();
-            Robot.manipulator.manipulatorMode.intakeAuto();
+//            Robot.manipulator.manipulatorMode.intakeAuto();
+            System.out.println("intaking");
         }
-        if (Constants.tv>0)
+        else if (Constants.tv>0)
         {
             tempTX = Constants.tx;
             driveTrain.forwardPID.forwardController.setSetpoint(0);
@@ -92,20 +94,23 @@ public class VisionDrive implements DriveMode{
             driveTrain.turnPID.turnController.enable();
             driveTrain.strafePID.strafeController.enable();
             driveTrain.forwardPID.forwardController.enable();
-
         }
         else 
         {
-            if(tempTX<0) {
+/*            if(tempTX<0) {
                 driveTrain.turnPID.turnController.setSetpoint(robotMap.ahrs.getAngle()-10);
             }
             else
             {
                 driveTrain.turnPID.turnController.setSetpoint(robotMap.ahrs.getAngle()+10);
             }
+            */
+            driveTrain.turnPID.turnController.disable();
             driveTrain.forwardPID.forwardController.disable();
             driveTrain.strafePID.strafeController.disable();
-            Robot.manipulator.manipulatorMode.intakeAuto();
+            robotMap.talonBallIntake.set(-1);
+//            Robot.manipulator.manipulatorMode.intakeAuto();
+            System.out.println("no target");
         }
     }
 
@@ -120,7 +125,7 @@ public class VisionDrive implements DriveMode{
         {
             Robot.driveTrain.strafePID.strafeController.setSetpoint(0);
             Robot.driveTrain.turnPID.turnController.setSetpoint(Constants.robotAngle);
-            Robot.driveTrain.turnPID.turnController.disable();
+            Robot.driveTrain.turnPID.turnController.enable();
             Robot.driveTrain.strafePID.strafeController.enable();
             Robot.driveTrain.forwardPID.forwardController.disable();
             Constants.lostTarget = false;

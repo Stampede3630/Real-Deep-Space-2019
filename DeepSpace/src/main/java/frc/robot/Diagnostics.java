@@ -27,6 +27,7 @@ public class Diagnostics
         SmartDashboard.putBoolean("cargoGrasshopperLimit", robotMap.cargoPositionLimitSwitch.get());
         SmartDashboard.putNumber("highReedSwitch",robotMap.highReedSwitch.getVoltage());
         SmartDashboard.putNumber("lowReedSwitch", robotMap.lowReedSwitch.getVoltage());
+        SmartDashboard.putNumber("acceleration", robotMap.ahrs.getRawAccelY());
     }
 
     public double getPSI()

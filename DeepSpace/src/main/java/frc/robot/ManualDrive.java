@@ -14,6 +14,7 @@ public class ManualDrive implements DriveMode {
     {
         this.robotMap = robotMap;
         this.driveTrain=driveTrain;
+        Robot.manipulator.autonomous = false;
 
 //        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(1);
 //        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
@@ -58,7 +59,7 @@ public class ManualDrive implements DriveMode {
             zRotation = driveTrain.turnPID.getTurnOutput();
         }
 
-        if (robotMap.leftStickB.get())
+        if (robotMap.leftStickB.get()||robotMap.rightStickB.get())
         {
             robotMap.drive.driveCartesian(xSpeed, ySpeed, zRotation);
         }

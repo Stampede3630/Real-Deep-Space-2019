@@ -4,6 +4,7 @@ public class Manipulator
 {
     ManipulatorMode manipulatorMode;
     RobotMap robotMap;
+    boolean autonomous;
 
     public Manipulator()
     {

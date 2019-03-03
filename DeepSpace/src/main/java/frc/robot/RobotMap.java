@@ -38,7 +38,7 @@ public class RobotMap {
 	//public final AnalogInput encoder2 = new AnalogInput(12);
 	public final AnalogInput pressureLevel = new AnalogInput(0); //3
 
-    public final DoubleSolenoid hatchExtend = new DoubleSolenoid(1,0,1); //0,2
+    public final DoubleSolenoid hatchExtend = new DoubleSolenoid(1,1,0); //0,2
 	public final DoubleSolenoid hatchDeploy = new DoubleSolenoid(1,2,3); // 1,3
 	public final DoubleSolenoid solenoidBack = new DoubleSolenoid(1,6,7);
 	public final DoubleSolenoid solenoidFront = new DoubleSolenoid(1,4,5);

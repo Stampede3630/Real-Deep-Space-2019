@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import javax.lang.model.util.ElementScanner6;
+
 import edu.wpi.first.wpilibj.Timer;
 
 public class Ball implements ManipulatorMode {
@@ -96,8 +98,8 @@ public class Ball implements ManipulatorMode {
             }
             else
             {
-                robotMap.talonBallShooter.set(robotMap.getTrigger());
-                robotMap.talonBallIntake.set(-0.5);
+                robotMap.talonBallShooter.set(0.5*robotMap.getTrigger());
+                robotMap.talonBallIntake.set(-0.25);
             }
         }   
         else
@@ -117,10 +119,12 @@ public class Ball implements ManipulatorMode {
         if(robotMap.ballStopTop.getVoltage()>=4)
         {
             robotMap.talonBallIntake.set(0);
+            System.out.println("stop intaking");
         }
-        else if(Constants.ta>=45||Constants.tv==0)
+        else if(Constants.ta>=10||Constants.tv==0)
         {
             robotMap.talonBallIntake.set(-1);
+            System.out.println("intaking");
         }
     }
 }
