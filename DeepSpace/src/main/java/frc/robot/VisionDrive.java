@@ -18,7 +18,6 @@ public class VisionDrive implements DriveMode{
         driveTrain.strafePID.strafeController.enable();
         driveTrain.forwardPID.forwardController.enable();
         driveTrain.turnPID.turnController.enable();
-        Robot.manipulator.autonomous = true;
     }
 
     public boolean getAutoRotate() 
@@ -32,10 +31,12 @@ public class VisionDrive implements DriveMode{
         if (Constants.ballFollowerOn)
         {
             searchTarget();
+            Constants.ballFollowerExecuting = true;
         }
         else
         {
             driveAuto();
+            Constants.ballFollowerExecuting = false;
         }
 
         zValue = driveTrain.turnPID.getTurnOutput();

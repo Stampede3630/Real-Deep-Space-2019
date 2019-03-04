@@ -90,6 +90,7 @@ public class Constants
     public static double robotAngle = 0;
     public static boolean toRocket = false;
     public static boolean ballFollowerOn = false;
+    public static boolean ballFollowerExecuting = false;
     public static boolean ballManipulator = false;
     public static double tx = 0;
     public static double ty = 0;

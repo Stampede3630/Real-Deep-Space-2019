@@ -4,7 +4,6 @@ public class Manipulator
 {
     ManipulatorMode manipulatorMode;
     RobotMap robotMap;
-    boolean autonomous;
 
     public Manipulator()
     {
@@ -13,15 +12,18 @@ public class Manipulator
 
     public void manipulatorPeriodic()
     {
-        manipulatorMode.disengage();//left bumper
-        manipulatorMode.engage(); //right bumper
-        if(robotMap.getTrigger()<=0)
+        if(!Constants.ballFollowerExecuting)
         {
-            manipulatorMode.deploy(Constants.toRocket); //left trigger
-        }
-        if(robotMap.getTrigger()>=0)
-        {
-            manipulatorMode.intake(); //right trigger
+            manipulatorMode.disengage();//left bumper
+            manipulatorMode.engage(); //right bumper
+            if(robotMap.getTrigger()<=0)
+            {
+                manipulatorMode.deploy(Constants.toRocket); //left trigger
+            }
+            if(robotMap.getTrigger()>=0)
+            {
+                manipulatorMode.intake(); //right trigger
+            }
         }
     }
 }

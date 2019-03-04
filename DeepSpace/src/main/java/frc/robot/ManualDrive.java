@@ -14,7 +14,6 @@ public class ManualDrive implements DriveMode {
     {
         this.robotMap = robotMap;
         this.driveTrain=driveTrain;
-        Robot.manipulator.autonomous = false;
 
 //        NetworkTableInstance.getDefault().getTable("limelight-one").getEntry("camMode").setNumber(1);
 //        NetworkTableInstance.getDefault().getTable("limelight-two").getEntry("camMode").setNumber(1);
@@ -27,6 +26,7 @@ public class ManualDrive implements DriveMode {
 
     public void driveRobot()
     {
+        Constants.ballFollowerExecuting = false;
         if (Robot.manipulatorChooser.getSelected().equals("Ball")) //grab the value from Constants
         {
             xSpeed = -robotMap.getLeftX();

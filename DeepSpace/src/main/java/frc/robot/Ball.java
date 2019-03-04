@@ -7,8 +7,6 @@
 
 package frc.robot;
 
-import javax.lang.model.util.ElementScanner6;
-
 import edu.wpi.first.wpilibj.Timer;
 
 public class Ball implements ManipulatorMode {
