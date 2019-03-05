@@ -78,14 +78,15 @@ public class VisionDrive implements DriveMode{
             driveTrain.forwardPID.forwardController.disable();
             driveTrain.strafePID.strafeController.disable();
             driveTrain.turnPID.turnController.disable();
+            Robot.manipulator.manipulatorMode.intakeAuto();
             System.out.println("done");
         }
-        else if(Constants.tv>0&&Constants.ta>=70)
+        else if(Constants.tv>0&&Constants.ta>=90)
         {
             driveTrain.forwardPID.forwardController.disable();
             driveTrain.strafePID.strafeController.disable();
-//            Robot.manipulator.manipulatorMode.intakeAuto();
-            System.out.println("intaking");
+            Robot.manipulator.manipulatorMode.intakeAuto();
+//            System.out.println("intaking");
         }
         else if (Constants.tv>0)
         {
@@ -110,7 +111,7 @@ public class VisionDrive implements DriveMode{
             driveTrain.forwardPID.forwardController.disable();
             driveTrain.strafePID.strafeController.disable();
             robotMap.talonBallIntake.set(-1);
-//            Robot.manipulator.manipulatorMode.intakeAuto();
+            Robot.manipulator.manipulatorMode.intakeAuto();
             System.out.println("no target");
         }
     }

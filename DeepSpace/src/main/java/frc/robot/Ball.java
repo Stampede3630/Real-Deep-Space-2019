@@ -96,8 +96,8 @@ public class Ball implements ManipulatorMode {
             }
             else
             {
-                robotMap.talonBallShooter.set(0.5*robotMap.getTrigger());
-                robotMap.talonBallIntake.set(-0.25);
+                robotMap.talonBallShooter.set(0.6*robotMap.getTrigger());
+                robotMap.talonBallIntake.set(-0.3);
             }
         }   
         else
@@ -119,10 +119,11 @@ public class Ball implements ManipulatorMode {
             robotMap.talonBallIntake.set(0);
             System.out.println("stop intaking");
         }
-        else if(Constants.ta>=10||Constants.tv==0)
+        else if(Constants.ta>=70||Constants.tv==0)
         {
-            robotMap.talonBallIntake.set(-1);
+            robotMap.talonBallIntake.set(-0.9);
             System.out.println("intaking");
         }
     }
 }
+

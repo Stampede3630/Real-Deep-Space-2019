@@ -30,6 +30,11 @@ public class Diagnostics
         SmartDashboard.putNumber("acceleration", robotMap.ahrs.getRawAccelY());
     }
 
+    public void gyroReset()
+    {
+        robotMap.ahrs.reset();
+    }
+
     public double getPSI()
     {
         double sensorV = robotMap.pressureLevel.getVoltage();

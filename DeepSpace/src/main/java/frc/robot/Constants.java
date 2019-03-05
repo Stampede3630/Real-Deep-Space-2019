@@ -26,7 +26,7 @@ public class Constants
     public static final double forwardTolerance = 2;
     public static final double fullTargetTa = 100;
 
-    public static final double turnKP = 0.03;
+    public static final double turnKP = 0.035;
     public static final double turnKI = 0;
     public static final double turnKD = 0;
     public static final double turnOutput = 1;
