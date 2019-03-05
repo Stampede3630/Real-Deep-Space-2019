@@ -10,7 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Timer;
 
-public class Hatch implements ManipulatorMode {
+public class Hatch implements ManipulatorMode 
+{
     //this code is for deploying 
     
     RobotMap robotMap;
@@ -19,7 +20,8 @@ public class Hatch implements ManipulatorMode {
     Timer circleTimer;
 
     //generic construction of objects
-    public Hatch(Manipulator manipulator) {
+    public Hatch(Manipulator manipulator) 
+    {
         robotMap = RobotMap.getRobotMap();
         this.manipulator = manipulator;
         manipulatorOut = false;
@@ -28,26 +30,33 @@ public class Hatch implements ManipulatorMode {
     }
 
     //slide out
-    public void engage() {
-        if(robotMap.bumperR.get()) {
+    public void engage() 
+    {
+        if(robotMap.bumperR.get()) 
+        {
             manipulatorOut = true;
             robotMap.hatchExtend.set(DoubleSolenoid.Value.kReverse);
         }
     }
 
     //I don't know why we still have this here
-    public void intake() {
+    //must be here - implemented from interface
+    public void intake() 
+    {
 
     }
 
     //left trigger
-    public void deploy(boolean rocketMode) {
-        if(robotMap.getTrigger()<=-0.75) {
+    public void deploy(boolean rocketMode) 
+    {
+        if(robotMap.getTrigger()<=-0.75) 
+        {
             circleTimer.start();
             robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
             robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
         }
-        if(circleTimer.get()>=1) {
+        if(circleTimer.get()>=1) 
+        {
             circleTimer.stop();
             circleTimer.reset();
             robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
@@ -55,7 +64,8 @@ public class Hatch implements ManipulatorMode {
     }
 
     //slide in
-    public void disengage() {
+    public void disengage() 
+    {
         if(robotMap.bumperL.get())
         {
             robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
@@ -63,7 +73,8 @@ public class Hatch implements ManipulatorMode {
     }
 
     //I don't know why we still have this here
-    public void intakeAuto() {
+    public void intakeAuto() 
+    {
 
     }
 

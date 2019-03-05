@@ -7,19 +7,22 @@ import frc.robot.Constants;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 import edu.wpi.first.wpilibj.PIDBase.Tolerance;
 
-public class ForwardPid implements PIDOutput {
+public class ForwardPid implements PIDOutput 
+{
 
     public PIDController forwardController;
     private YpidSource source;
     private double frontOutput;
     private MyCustomTolerance newTolerance;
 
-    public ForwardPid() {
+    public ForwardPid() 
+    {
 
     }
 
     //sets our PID tolerance values
-    public void forwardPidSetup() {
+    public void forwardPidSetup() 
+    {
         newTolerance = new MyCustomTolerance();
         source = new YpidSource();
         forwardController = new PIDController(Constants.forwardKP, Constants.forwardKI, Constants.forwardKD, source, this);
@@ -30,7 +33,8 @@ public class ForwardPid implements PIDOutput {
     }
 
     //calculates our Y error
-    public double getForwardOutput() {
+    public double getForwardOutput() 
+    {
         SmartDashboard.putNumber("y PID error", forwardController.getError());
         SmartDashboard.putNumber("y PID output", frontOutput);
         return frontOutput;
@@ -38,24 +42,28 @@ public class ForwardPid implements PIDOutput {
 
 
     //outputs our PID values
-    public void pidWrite(double output) {
+    public void pidWrite(double output) 
+    {
         frontOutput = output;
     }
 
     //sub-class that sets our tolerance
-    public class MyCustomTolerance implements Tolerance {
+    public class MyCustomTolerance implements Tolerance 
+    {
         private final double m_posTolerance;
         private final double m_velocityLimit;
 
         //constructs our tolerance values
-        MyCustomTolerance() {
+        MyCustomTolerance() 
+        {
             m_posTolerance = Constants.forwardTolerance;
             m_velocityLimit = Constants.pidLowSpeed; 
         }
 
         //tells us if we're on target in Y
         @Override
-        public boolean onTarget() {
+        public boolean onTarget() 
+        {
             return Math.abs(forwardController.getError()) < m_posTolerance && Math.abs(forwardController.get()) < m_velocityLimit;
         }
     }

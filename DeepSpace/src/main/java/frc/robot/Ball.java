@@ -9,7 +9,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class Ball implements ManipulatorMode {
+public class Ball implements ManipulatorMode 
+{
     
     RobotMap robotMap;
     Manipulator manipulator;
@@ -18,7 +19,8 @@ public class Ball implements ManipulatorMode {
     
 
     //generic construction of our objects
-    public Ball (Manipulator manipulator) {
+    public Ball (Manipulator manipulator) 
+    {
         robotMap = RobotMap.getRobotMap();
         this.manipulator = manipulator;
         sensorIntake = true;
@@ -27,12 +29,14 @@ public class Ball implements ManipulatorMode {
     }
 
     //why is this still here?
-    public void engage() {
+    public void engage() 
+    {
 
     }
 
     //teleop ball intake
-    public void intake() { //right trigger 
+    public void intake() 
+    { //right trigger 
 /*        if(robotMap.getTrigger()>0.2&&robotMap.ballStop.getVoltage()<4.0)
         {
             sensorIntake = false;
@@ -61,14 +65,16 @@ public class Ball implements ManipulatorMode {
             robotMap.talonBallShooter.set(0);
         }
         */
-        if(robotMap.getTrigger()>0.2&&robotMap.ballStopTop.getVoltage()<4.0 && Constants.ballBottom) {
+        if(robotMap.getTrigger()>0.2&&robotMap.ballStopTop.getVoltage()<4.0 && Constants.ballBottom) 
+        {
                 
             robotMap.talonBallIntake.set(-1);
             robotMap.talonBallShooter.set(0);
         }
 
 //        else if (robotMap.getTrigger()>0.2&&robotMap.ballStopBottom.getVoltage()<4.0 && Constants.ballBottom)
-        else if(robotMap.getTrigger()>0.2&&robotMap.ballStopTop.getVoltage()<4.0 && Constants.ballTop) {
+        else if(robotMap.getTrigger()>0.2&&robotMap.ballStopTop.getVoltage()<4.0 && Constants.ballTop) 
+        {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(1);
         }
@@ -77,7 +83,8 @@ public class Ball implements ManipulatorMode {
             robotMap.talonBallIntake.set(1);
             robotMap.talonBallShooter.set(-1);
         }*/
-        else {
+        else 
+        {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(0);
         } 
@@ -85,9 +92,12 @@ public class Ball implements ManipulatorMode {
 
 
     //teleop ball shot
-    public void deploy (boolean rocketMode) { //left trigger 
-        if(robotMap.getTrigger()<-0.2) {
-            if(rocketMode) {
+    public void deploy (boolean rocketMode) 
+    { //left trigger 
+        if(robotMap.getTrigger()<-0.2) 
+        {
+            if(rocketMode) 
+            {
                 robotMap.talonBallShooter.set(-robotMap.getTrigger());
                 robotMap.talonBallIntake.set(robotMap.getTrigger());
             }
@@ -97,7 +107,8 @@ public class Ball implements ManipulatorMode {
                 robotMap.talonBallIntake.set(-0.3);
             }
         }   
-        else {
+        else 
+        {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(0);
         }
@@ -105,13 +116,16 @@ public class Ball implements ManipulatorMode {
 
 
     //why is this still here
-    public void disengage() {
+    public void disengage() 
+    {
 
     }
 
     //autonomous ball intake
-    public void intakeAuto() {
-        if(robotMap.ballStopTop.getVoltage()>=4) {
+    public void intakeAuto() 
+    {
+        if(robotMap.ballStopTop.getVoltage()>=4) 
+        {
             robotMap.talonBallIntake.set(0);
             System.out.println("stop intaking");
         }

@@ -10,7 +10,8 @@ package frc.robot;
 /**
  * Add your docs here.
  */
-public interface ManipulatorMode {
+public interface ManipulatorMode 
+{
 
     //interface to choose our mode for the manipulator
     public void intake();

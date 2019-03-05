@@ -11,7 +11,8 @@ import frc.robot.PID.TurnPid;
 import frc.robot.PID.StrafePid;
 import frc.robot.PID.ForwardPid;
 
-public class DriveTrain { //you actually put the bracket in the right place this time! Yay you!
+public class DriveTrain 
+{
 
     //this code is for all of our driving code (driving, strafing, ball following (?))
 
@@ -25,7 +26,8 @@ public class DriveTrain { //you actually put the bracket in the right place this
 
 
     //construction of our objects
-    public DriveTrain() {
+    public DriveTrain() 
+    {
         robotMap = RobotMap.getRobotMap();
         turnPID = new TurnPid();
         turnPID.turnPidSetup();
@@ -38,7 +40,8 @@ public class DriveTrain { //you actually put the bracket in the right place this
     }
 
     //generic drive code
-    public void drive() {
+    public void drive() 
+    {
         driveMode.driveRobot();
     }
 }

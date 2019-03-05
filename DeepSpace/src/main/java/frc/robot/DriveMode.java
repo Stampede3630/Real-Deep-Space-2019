@@ -7,7 +7,8 @@
 
 package frc.robot;
 
-public interface DriveMode {
+public interface DriveMode 
+{
 
     //Interface to let us choose our drive mode
     

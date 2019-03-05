@@ -1,7 +1,8 @@
 package frc.robot;
 
 
-public class ManualDrive implements DriveMode {
+public class ManualDrive implements DriveMode 
+{
 
     RobotMap robotMap;
     DriveTrain driveTrain;
@@ -12,7 +13,8 @@ public class ManualDrive implements DriveMode {
     
 
     //constructs our objects
-    public ManualDrive(RobotMap robotMap, DriveTrain driveTrain) {
+    public ManualDrive(RobotMap robotMap, DriveTrain driveTrain) 
+    {
         this.robotMap = robotMap;
         this.driveTrain=driveTrain;
 
@@ -22,46 +24,57 @@ public class ManualDrive implements DriveMode {
     }
 
     //allows us to auto rotate
-    public boolean getAutoRotate() {
+    public boolean getAutoRotate() 
+    {
         return autoRotateEnable;
     }
 
     //fancier version of driving our robot
-    public void driveRobot() {
+    public void driveRobot() 
+    {
         Constants.ballFollowerExecuting = false;
         //grab the value from Constants
-        if (Robot.manipulatorChooser.getSelected().equals("Ball")) {
+//        if (Robot.manipulatorChooser.getSelected().equals("Ball")) //grab the value from Constants
+        if(Constants.forwardFromWidget.equals("cargo")) //just testing that orientation thing
+        {
             xSpeed = -robotMap.getLeftX();
             ySpeed = -robotMap.getLeftY();
         }
-        else {
+        else 
+        {
             xSpeed = robotMap.getLeftX();
             ySpeed = robotMap.getLeftY();
         }
 
-        if (robotMap.buttonA.get()) {
+        if (robotMap.buttonA.get()) 
+        {
             autoRotateEnable = true;
             driveTrain.turnPID.turnController.enable();
         }
 
-        if (robotMap.buttonA.get()) {
+        if (robotMap.buttonA.get()) 
+        {
             autoRotateEnable = true;
         }
 
-        if(Math.abs(robotMap.getRightX())>0.2) {
+        if(Math.abs(robotMap.getRightX())>0.2) 
+        {
             driveTrain.turnPID.turnController.disable();
             zRotation = robotMap.getRightX();
             autoRotateEnable = false;
         }
-        else {
+        else 
+        {
             driveTrain.turnPID.turnController.setSetpoint(Constants.robotAngle);
             zRotation = driveTrain.turnPID.getTurnOutput();
         }
 
-        if (robotMap.leftStickB.get()||robotMap.rightStickB.get()) {
+        if (robotMap.leftStickB.get()||robotMap.rightStickB.get()) 
+        {
             robotMap.drive.driveCartesian(xSpeed, ySpeed, zRotation);
         }
-        else {
+        else 
+        {
             robotMap.drive.driveCartesian(xSpeed * Constants.normalSpeed, ySpeed * Constants.normalSpeed, zRotation * Constants.normalSpeed);
         }
     }

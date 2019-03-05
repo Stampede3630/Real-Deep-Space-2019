@@ -10,7 +10,8 @@ package frc.robot;
 /**
  * Add your docs here.
  */
-public class Constants {
+public class Constants 
+{
 
     //All of our constants for PID
     public static final double strafeKP = 0.1;
@@ -91,6 +92,7 @@ public class Constants {
     public static boolean ballBottom = false;
     public static String limelight = hatchLimelight;
     public static String pipeline = "deploy";
+    public static String forwardFromWidget = "";
     public static double pipelineNumber = 0;
     public static double robotAngle = 0;
     public static boolean toRocket = false;

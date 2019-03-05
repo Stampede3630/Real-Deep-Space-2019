@@ -3,17 +3,20 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Diagnostics {
+public class Diagnostics 
+{
 
     public RobotMap robotMap;
 
     //initailization of diagnostics
-    public Diagnostics() {
+    public Diagnostics() 
+    {
         this.robotMap = RobotMap.getRobotMap();
     }
 
     //All of our diagnostics information
-    public void toSmartDashboard() {
+    public void toSmartDashboard() 
+    {
         SmartDashboard.putBoolean("limelight one processing", Constants.limelight.equals("limelight-one"));
         SmartDashboard.putBoolean("limelight two processing", Constants.limelight.equals("limelight-two"));
         SmartDashboard.putBoolean("ball manipulator on", Constants.ballManipulator);
@@ -43,10 +46,16 @@ public class Diagnostics {
     }
 
     //All of our limelight values
-    public void limelightValues() {
+    public void limelightValues() 
+    {
         Constants.tv = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("tv").getDouble(0);
         Constants.ty = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ty").getDouble(0);
         Constants.ta = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ta").getDouble(0);
         Constants.tx = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("tx").getDouble(0);
+    }
+
+    public void getForwardMode()
+    {
+        Constants.forwardFromWidget = SmartDashboard.getString("Test Forward Chooser", "");
     }
 }

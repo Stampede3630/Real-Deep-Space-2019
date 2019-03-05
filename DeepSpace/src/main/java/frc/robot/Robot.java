@@ -27,6 +27,7 @@ public class Robot extends TimedRobot
     manipulatorChooser.addDefault("Hatch Forward", "Hatch");
     manipulatorChooser.addObject("Ball Forward", "Ball");
     SmartDashboard.putData("Forward Chooser", manipulatorChooser);
+    SmartDashboard.putString("Test Forward Chooser", "");
     SmartDashboard.putString("Path Selected", "");
   }
   
@@ -75,6 +76,7 @@ public class Robot extends TimedRobot
   public void teleopInit() 
   {
     SmartDashboard.putData("Forward Chooser", manipulatorChooser);
+    SmartDashboard.putString("Test Forward Chooser", "");
     SmartDashboard.putString("Path Selected", "");
   }
 
