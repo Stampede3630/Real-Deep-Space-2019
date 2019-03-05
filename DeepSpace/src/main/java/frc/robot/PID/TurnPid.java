@@ -8,22 +8,19 @@ import edu.wpi.first.wpilibj.PIDBase.Tolerance;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 
-public class TurnPid implements PIDOutput 
-{
+public class TurnPid implements PIDOutput{
 
     public PIDController turnController;
     private double zOutput;
     RobotMap robotMap;
     private MyCustomTolerance newTolerance;
 
-    //constructs our robot map
-    public TurnPid() 
+    public TurnPid()
     {
         robotMap = RobotMap.getRobotMap();
     }
 
-    //Z axis PID
-    public void turnPidSetup() 
+    public void turnPidSetup()
     {
         newTolerance = new MyCustomTolerance();
         turnController = new PIDController(Constants.turnKP, Constants.turnKI, Constants.turnKD, robotMap.ahrs, this);
@@ -35,21 +32,18 @@ public class TurnPid implements PIDOutput
         LiveWindow.add(turnController);
     }
 
-    //shows us what our Z PID values are
-    public double getTurnOutput() 
+    public double getTurnOutput()
     {
         SmartDashboard.putNumber("turn output", zOutput);
         SmartDashboard.putNumber("Zpid setpoint", turnController.getSetpoint());
         return zOutput;
     }
 
-    //outputs all of our Z PID values
-    public void pidWrite(double output) 
+    public void pidWrite(double output)
     {
         zOutput = output;
     }
 
-    //Z Tolerance
     public class MyCustomTolerance implements Tolerance 
     {
         private final double m_posTolerance;
@@ -61,7 +55,6 @@ public class TurnPid implements PIDOutput
             m_velocityLimit = Constants.pidLowSpeed; 
         }
 
-        //tells us if we're on target - centered
         @Override
         public boolean onTarget() 
         {

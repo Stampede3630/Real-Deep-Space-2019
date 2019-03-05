@@ -3,19 +3,17 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Diagnostics 
+public class Diagnostics
 {
 
     public RobotMap robotMap;
 
-    //initailization of diagnostics
-    public Diagnostics() 
+    public Diagnostics()
     {
         this.robotMap = RobotMap.getRobotMap();
     }
 
-    //All of our diagnostics information
-    public void toSmartDashboard() 
+    public void toSmartDashboard()
     {
         SmartDashboard.putBoolean("limelight one processing", Constants.limelight.equals("limelight-one"));
         SmartDashboard.putBoolean("limelight two processing", Constants.limelight.equals("limelight-two"));
@@ -32,21 +30,15 @@ public class Diagnostics
         SmartDashboard.putNumber("acceleration", robotMap.ahrs.getRawAccelY());
     }
 
-    public void gyroReset()
-    {
-        robotMap.ahrs.reset();
-    }
-
     public double getPSI()
     {
         double sensorV = robotMap.pressureLevel.getVoltage();
-        double psi = 250 * (sensorV / 5) - 25;
+        double psi = 250*(sensorV / 5) - 25;
         psi = Math.round(psi);
         return psi;
     }
 
-    //All of our limelight values
-    public void limelightValues() 
+    public void limelightValues()
     {
         Constants.tv = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("tv").getDouble(0);
         Constants.ty = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ty").getDouble(0);

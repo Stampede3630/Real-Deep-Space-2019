@@ -4,30 +4,26 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import frc.robot.Constants;
 
-public class YpidSource implements PIDSource 
-{
+public class YpidSource implements PIDSource{
 
     double yInput, ty;
 
-    public YpidSource() 
+    public YpidSource()
     {
 
     }
 
-    //necessary PID code
-    public PIDSourceType getPIDSourceType() 
+    public PIDSourceType getPIDSourceType()
     {
         return PIDSourceType.kDisplacement;
     }
 
-    //why is this still here?
-    public void setPIDSourceType(PIDSourceType source) 
+    public void setPIDSourceType(PIDSourceType source)
     {
 
     }
 
-    //tells us our Y PID
-    public double pidGet() 
+    public double pidGet()
     {
         if (Constants.ballFollowerOn)
         {
@@ -41,3 +37,9 @@ public class YpidSource implements PIDSource
         return yInput;
     }
 }
+/*
+    public double degreesToRadians(double theta) {
+        double radians = theta * (Math.PI / 180);
+        return radians;
+    }
+*/

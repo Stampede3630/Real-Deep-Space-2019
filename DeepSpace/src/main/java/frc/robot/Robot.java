@@ -36,14 +36,14 @@ public class Robot extends TimedRobot
   {
     diagnostics.toSmartDashboard();
     pathChooser.stringToPath(SmartDashboard.getString("Path Selected", ""));
-    
+    diagnostics.getForwardMode();
   }
 
   
   @Override
   public void autonomousInit() 
   {
-    diagnostics.gyroReset();
+    
   }
 
   
@@ -68,6 +68,8 @@ public class Robot extends TimedRobot
 
     diagnostics.limelightValues();
 
+    diagnostics.getForwardMode();
+
 //    diagnostics.toSmartDashboard();
     
   }
@@ -76,7 +78,6 @@ public class Robot extends TimedRobot
   public void teleopInit() 
   {
     SmartDashboard.putData("Forward Chooser", manipulatorChooser);
-    SmartDashboard.putString("Test Forward Chooser", "");
     SmartDashboard.putString("Path Selected", "");
   }
 
@@ -108,27 +109,9 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic() 
   {
-//   magicWillHappen.hopUpTest();
+   magicWillHappen.hopUpTest();
 
-choosers.setDriveMode();
-//choosers.automatedTurnToAngle();
-choosers.setManipulatorMode();
 
-//    choosers.chooserAngle(pathChooser.angle);
-
-//    choosers.angleSwitch();
-
-//    choosers.setAction();
-
-driveTrain.drive();
-
-manipulator.manipulatorPeriodic();
-
-choosers.letterButtons();
-
-diagnostics.limelightValues();
-
-//    diagnostics.toSmartDashboard();
 
   }
 }

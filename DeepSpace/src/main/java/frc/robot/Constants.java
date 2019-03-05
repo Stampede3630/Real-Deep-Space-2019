@@ -13,7 +13,6 @@ package frc.robot;
 public class Constants 
 {
 
-    //All of our constants for PID
     public static final double strafeKP = 0.1;
     public static final double strafeKI = 0;
     public static final double strafeKD = 0;
@@ -27,7 +26,7 @@ public class Constants
     public static final double forwardTolerance = 2;
     public static final double fullTargetTa = 100;
 
-    public static final double turnKP = 0.035;
+    public static final double turnKP = 0.03;
     public static final double turnKI = 0;
     public static final double turnKD = 0;
     public static final double turnOutput = 1;
@@ -49,8 +48,6 @@ public class Constants
     public static final double alphaXOne = 0;
     public static final double alphaYOne = 0;
 */
-
-    //All the different button numbers on the Xbox controller
     public static final int timeOutMs = 10;
 
     public final static int aButton = 1;
@@ -72,13 +69,10 @@ public class Constants
     public final static double deadzone = 0.2;
     
 //    public final static double multiplierScaleUp = 1;
-    
-    //Scaler multipliers for shots
     public final static double normalSpeed = 0.7;
     public final static double rocketBallLaunchUpSpeed = 0.8;
     public final static double rocketBallLaunchDownSpeed = -0.8;
 
-    //Whee limelight things
     public static final double closestIntake = 0;
     public static final double leftmost = 1;
     public static final double rightmost = 2;
@@ -92,13 +86,13 @@ public class Constants
     public static boolean ballBottom = false;
     public static String limelight = hatchLimelight;
     public static String pipeline = "deploy";
-    public static String forwardFromWidget = "";
     public static double pipelineNumber = 0;
     public static double robotAngle = 0;
     public static boolean toRocket = false;
     public static boolean ballFollowerOn = false;
     public static boolean ballFollowerExecuting = false;
     public static boolean ballManipulator = false;
+    public static String forwardFromWidget = "";
     public static double tx = 0;
     public static double ty = 0;
     public static double ta = 0;

@@ -2,7 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-public class Choosers 
+public class Choosers
 {
 
     RobotMap robotMap;
@@ -11,8 +11,7 @@ public class Choosers
     Manipulator manipulator;
     String currentManipulator = "";
 
-    //constructing our objects
-    public Choosers(DriveTrain driveTrain, Manipulator manipulator) 
+    public Choosers(DriveTrain driveTrain, Manipulator manipulator)
     {
         robotMap = RobotMap.getRobotMap();
 
@@ -26,17 +25,15 @@ public class Choosers
 
     }
 
-    //sets what's defined as the front of the robot (hatch or switch)
-    public double reverseAngle(double angle) 
-    {
+    public double reverseAngle(double angle) {
         double outputAngle = angle;
-        if (Constants.ballManipulator) 
+        if (Constants.ballManipulator)
         {
-            if(outputAngle<0) 
+            if(outputAngle<0)
             {
                 outputAngle = angle + 180;
             }
-            else 
+            else
             {
                 outputAngle = angle - 180;
             }
@@ -44,25 +41,19 @@ public class Choosers
         return outputAngle;
     }
 
-    //chooses our angle
-    //yay! Cam's code :)
-    public void chooserAngle(double angle) 
-    {
-        if (driveTrain.driveMode.getAutoRotate()) 
-        {
+    public void chooserAngle(double angle) {
+        if (driveTrain.driveMode.getAutoRotate()) {
             driveTrain.turnPID.turnController.setSetpoint(angle);
             driveTrain.turnSetpoint = angle;
             driveTrain.turnPID.turnController.enable();
         }
 
-        else 
-        {
+        else {
             driveTrain.turnPID.turnController.disable();
         }
     }
 
-    //sets our driver mode - duh
-    public void setDriveMode() 
+    public void setDriveMode()
     {
 /*        if(driveTrain.forwardPID.)
         {
@@ -70,18 +61,17 @@ public class Choosers
             Constants.lostTarget = false;
         }
 */
-        if(robotMap.buttonA.get()) 
+        if(robotMap.buttonA.get())
         {
             driveTrain.driveMode = new ManualDrive(robotMap, driveTrain);
         }
-        if(robotMap.buttonB.get()) 
+        if(robotMap.buttonB.get())
         {
             driveTrain.driveMode = new VisionDrive(robotMap, driveTrain);
         }
     }
 
-    //sets our manipulator mode - duh
-    public void setManipulatorMode() 
+    public void setManipulatorMode()
     {
 //        if(!currentManipulator.equals(Robot.manipulatorChooser.getSelected()))
         if(!currentManipulator.equals(Constants.forwardFromWidget))
@@ -106,28 +96,28 @@ public class Choosers
         }
     }
 
-    //lets us do other fancy things with the Xbox controller
-    public void letterButtons() 
+    public void letterButtons()
     {
-        if(robotMap.buttonX.get()) 
+        if(robotMap.buttonX.get())
         {
             NetworkTableInstance.getDefault().getTable(Constants.ballLimelight).getEntry("pipeline").setNumber(Constants.closestIntake);
             NetworkTableInstance.getDefault().getTable(Constants.hatchLimelight).getEntry("pipeline").setNumber(Constants.hatchDriving);
         }
-        if(robotMap.buttonB.get()) 
+        if(robotMap.buttonB.get())
         {
             NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(Constants.pipelineNumber);
         }
-        if(robotMap.buttonA.get()) 
+        if(robotMap.buttonA.get())
         {
             NetworkTableInstance.getDefault().getTable(Constants.ballLimelight).getEntry("pipeline").setNumber(Constants.closestIntake);
             NetworkTableInstance.getDefault().getTable(Constants.hatchLimelight).getEntry("pipeline").setNumber(Constants.hatchDriving);
         }
-        if(robotMap.buttonY.get()) 
+        if(robotMap.buttonY.get())
         {
             NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(Constants.pipelineNumber);
         }
     }
+
 }
 
 /*

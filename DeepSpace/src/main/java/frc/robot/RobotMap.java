@@ -9,17 +9,15 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
-//import com.revrobotics.CANSparkMax;
-//import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-public class RobotMap 
-{
+public class RobotMap {
 	
-	//Talon code for manipulator
 	public final WPI_TalonSRX slideTalon = new WPI_TalonSRX(20);
     public final WPI_TalonSRX talonFL =  new WPI_TalonSRX (4); //4
     public final WPI_TalonSRX talonFR =  new WPI_TalonSRX (3); //3
@@ -30,10 +28,8 @@ public class RobotMap
 	public final WPI_TalonSRX talonBallShooter = new WPI_TalonSRX(6); //6
 //	public final CANSparkMax talonBallShooter = new CANSparkMax(1, MotorType.kBrushless);
 
-	//our mode of driving
     public final MecanumDrive drive = new MecanumDrive(talonFL, talonBL, talonFR, talonBR);
 
-	//NavX has many fancy things it can do
     public final AHRS ahrs = new AHRS (SPI.Port.kMXP);
 
 	public final AnalogInput ballStopTop = new AnalogInput(3); //0
@@ -42,7 +38,6 @@ public class RobotMap
 	//public final AnalogInput encoder2 = new AnalogInput(12);
 	public final AnalogInput pressureLevel = new AnalogInput(0); //3
 
-	//air kick boom bah!
     public final DoubleSolenoid hatchExtend = new DoubleSolenoid(1,1,0); //0,2
 	public final DoubleSolenoid hatchDeploy = new DoubleSolenoid(1,2,3); // 1,3
 	public final DoubleSolenoid solenoidBack = new DoubleSolenoid(1,6,7);
@@ -79,9 +74,8 @@ public class RobotMap
     private static RobotMap robotMap;
    
 
-	//constructs stuff
-	private RobotMap() 
-	{
+    private RobotMap ()
+    {
 		talonSetup(talonFL);
 		talonSetup(talonBL);
 		talonSetup(talonBR);
@@ -89,21 +83,18 @@ public class RobotMap
 		//talonSetup(talonBallIntake);
 		talonSetup(talonBallShooter);
     }
-	
-	//this is the way that we had to set up RobotMap without many errors
-	public static RobotMap getRobotMap() 
-	{
-		if (robotMap == null) 
-		{
+    
+    public static RobotMap getRobotMap()
+    {
+        if (robotMap == null)
+        {
             robotMap = new RobotMap();
         }
 
         return robotMap;
 	}
 	
-	//copied from last year
-	//lets us set up our talons
-	public void talonSetup(WPI_TalonSRX talon) 
+	public void talonSetup(WPI_TalonSRX talon) //copied from last year
 	{
 		talon.configNominalOutputForward(0, Constants.timeOutMs);
 		talon.configNominalOutputReverse(0, Constants.timeOutMs);
@@ -124,57 +115,52 @@ public class RobotMap
 		talon.configPeakCurrentDuration(200, Constants.timeOutMs); // 200 ms
 	}
 	
-	//the Xbox controller has a certain deadzone (not registered zone)
-	public double deadzone(double input) 
+	public double deadzone(double input)
 	{
-		if(Math.abs(input)>Constants.deadzone) 
+		if(Math.abs(input)>Constants.deadzone)
 		{
 			return input;
 		}
-		else 
+		else
 		{
 			return 0;
 		}
 	}
 	
-	//gets our Y value on the left joystick
-	public double getLeftY() 
+	public double getLeftY()
 	{
 		return -deadzone(controller.getY(Hand.kLeft));
 	}
 	
-	//gets our X value on the left joystick
-	public double getLeftX() 
+	public double getLeftX()
 	{
 		return deadzone(controller.getX(Hand.kLeft));
 	}
 	
-	//gets our Y value on the right joystick
-	public double getRightY() 
+	public double getRightY()
 	{
 		return -deadzone(controller.getY(Hand.kRight));
 	}
 	
-	//gets our X value on the right joystick
-	public double getRightX() 
+	public double getRightX()
 	{
 		return deadzone(controller.getX(Hand.kRight));
 	}
 	
-	//gets the reading on how much we've pressed the trigger (0 to 1)
-	public double getTrigger() 
+	public double getTrigger()
 	{
-		if(controller.getTriggerAxis(Hand.kRight)>0) 
+		if(controller.getTriggerAxis(Hand.kRight)>0)
 		{
 			return deadzone(controller.getTriggerAxis(Hand.kRight));
 		}
-		else if(controller.getTriggerAxis(Hand.kLeft)>0) 
+		else if(controller.getTriggerAxis(Hand.kLeft)>0)
 		{
 			return -deadzone(controller.getTriggerAxis(Hand.kLeft));
 		}
-		else 
+		else
 		{
 			return 0.0;
         }
     }
+
 }

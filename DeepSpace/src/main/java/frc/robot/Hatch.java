@@ -10,16 +10,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Timer;
 
-public class Hatch implements ManipulatorMode 
-{
-    //this code is for deploying 
-    
+public class Hatch implements ManipulatorMode {
     RobotMap robotMap;
     boolean manipulatorOut;
     Manipulator manipulator;
     Timer circleTimer;
 
-    //generic construction of objects
     public Hatch(Manipulator manipulator) 
     {
         robotMap = RobotMap.getRobotMap();
@@ -29,33 +25,29 @@ public class Hatch implements ManipulatorMode
         circleTimer = new Timer();
     }
 
-    //slide out
-    public void engage() 
+    public void engage() //slide out
     {
-        if(robotMap.bumperR.get()) 
+        if(robotMap.bumperR.get())
         {
             manipulatorOut = true;
             robotMap.hatchExtend.set(DoubleSolenoid.Value.kReverse);
         }
     }
 
-    //I don't know why we still have this here
-    //must be here - implemented from interface
     public void intake() 
     {
 
     }
 
-    //left trigger
-    public void deploy(boolean rocketMode) 
+    public void deploy(boolean rocketMode) //left trigger
     {
-        if(robotMap.getTrigger()<=-0.75) 
+        if(robotMap.getTrigger()<=-0.75)
         {
             circleTimer.start();
             robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
             robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
         }
-        if(circleTimer.get()>=1) 
+        if(circleTimer.get()>=1)
         {
             circleTimer.stop();
             circleTimer.reset();
@@ -63,8 +55,7 @@ public class Hatch implements ManipulatorMode
         }
     }
 
-    //slide in
-    public void disengage() 
+    public void disengage() //slide in
     {
         if(robotMap.bumperL.get())
         {
@@ -72,8 +63,7 @@ public class Hatch implements ManipulatorMode
         }
     }
 
-    //I don't know why we still have this here
-    public void intakeAuto() 
+    public void intakeAuto()
     {
 
     }

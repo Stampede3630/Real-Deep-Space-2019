@@ -10,10 +10,7 @@ package frc.robot;
 /**
  * Add your docs here.
  */
-public interface ManipulatorMode 
-{
-
-    //interface to choose our mode for the manipulator
+public interface ManipulatorMode {
     public void intake();
     public void deploy(boolean rocketMode);
     public void engage();

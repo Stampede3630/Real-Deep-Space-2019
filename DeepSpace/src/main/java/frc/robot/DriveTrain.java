@@ -11,10 +11,9 @@ import frc.robot.PID.TurnPid;
 import frc.robot.PID.StrafePid;
 import frc.robot.PID.ForwardPid;
 
-public class DriveTrain 
-{
 
-    //this code is for all of our driving code (driving, strafing, ball following (?))
+
+public class DriveTrain {
 
     RobotMap robotMap;
     DriveMode driveMode;
@@ -24,9 +23,7 @@ public class DriveTrain
     public ForwardPid forwardPID;
     public boolean intake;
 
-
-    //construction of our objects
-    public DriveTrain() 
+    public DriveTrain()
     {
         robotMap = RobotMap.getRobotMap();
         turnPID = new TurnPid();
@@ -39,9 +36,12 @@ public class DriveTrain
         forwardPID.forwardPidSetup();
     }
 
-    //generic drive code
-    public void drive() 
+    public void drive()
     {
         driveMode.driveRobot();
     }
+
+
+    
+
 }

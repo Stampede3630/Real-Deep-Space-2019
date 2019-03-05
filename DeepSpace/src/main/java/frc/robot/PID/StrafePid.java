@@ -15,14 +15,12 @@ public class StrafePid implements PIDOutput
     private double strafeOutput;
     private MyCustomTolerance newTolerance;
 
-    public StrafePid() 
+    public StrafePid()
     {
 
     }
 
-
-    //sets up our strafing code for X
-    public void strafePidSetup() 
+    public void strafePidSetup()
     {
         newTolerance = new MyCustomTolerance();
         source = new XpidSource();
@@ -33,37 +31,28 @@ public class StrafePid implements PIDOutput
         LiveWindow.add(strafeController);
     }
 
-
-    //gets our X PID error
-    public double getStrafeOutput() 
+    public double getStrafeOutput()
     {
         SmartDashboard.putNumber("x PID error", source.pidGet());
         SmartDashboard.putNumber("x PID output", strafeOutput);
         return strafeOutput;
     }
 
-
-    //tells us what our X PID error is
-    public void pidWrite(double output) 
+    public void pidWrite(double output)
     {
         strafeOutput = output;
     }
 
-
-    //sets our X PID tolerance
-    public class MyCustomTolerance implements Tolerance 
-    {
+    public class MyCustomTolerance implements Tolerance {
         private final double m_posTolerance;
         private final double m_velocityLimit;
 
-        //constructs our tolerance values
         MyCustomTolerance() 
         {
             m_posTolerance = Constants.strafeTolerance;
             m_velocityLimit = Constants.pidLowSpeed; 
         }
 
-        //tells us if we're on target in X
         @Override
         public boolean onTarget() 
         {

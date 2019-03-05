@@ -7,16 +7,12 @@ public class PathChooser
 
     }
 
-    //0 - closest(intake), 1-leftmost 2-rightmost 3-closest(deploy)
-    //hooray - my code :)
-    //works with Sam V widget to let us auto turn
-    public void stringToPath(String mode) 
+    public void stringToPath(String mode) //0 - closest(intake), 1-leftmost 2-rightmost 3-closest(deploy)
     { 
-        switch (mode) 
-        {
+        switch (mode) {
             case "LeftLS":
                 Constants.robotAngle = Robot.choosers.reverseAngle(-180);
-                if(Constants.ballManipulator) 
+                if(Constants.ballManipulator)
                 {
                     Constants.pipeline = "intake"; //we shouldn't be using this anywhere
                     Constants.pipelineNumber = Constants.closestDeploy;
@@ -131,7 +127,7 @@ public class PathChooser
                 break;
             case "RightLS":
                 Constants.robotAngle = Robot.choosers.reverseAngle(-180);
-                if(Constants.ballManipulator) 
+                if(Constants.ballManipulator)
                 {
                     Constants.pipeline = "intake"; //we shouldn't be using this anywhere
                     Constants.pipelineNumber = Constants.closestDeploy;

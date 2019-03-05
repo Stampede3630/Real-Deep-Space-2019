@@ -9,16 +9,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class Ball implements ManipulatorMode 
-{
+public class Ball implements ManipulatorMode {
     
     RobotMap robotMap;
     Manipulator manipulator;
     boolean sensorIntake, manualIntake;
     Timer intakeTimer;
     
-
-    //generic construction of our objects
     public Ball (Manipulator manipulator) 
     {
         robotMap = RobotMap.getRobotMap();
@@ -28,15 +25,13 @@ public class Ball implements ManipulatorMode
         intakeTimer = new Timer();
     }
 
-    //why is this still here?
-    public void engage() 
+    public void engage () 
     {
 
     }
 
-    //teleop ball intake
-    public void intake() 
-    { //right trigger 
+    public void intake () //right trigger
+    {
 /*        if(robotMap.getTrigger()>0.2&&robotMap.ballStop.getVoltage()<4.0)
         {
             sensorIntake = false;
@@ -73,7 +68,7 @@ public class Ball implements ManipulatorMode
         }
 
 //        else if (robotMap.getTrigger()>0.2&&robotMap.ballStopBottom.getVoltage()<4.0 && Constants.ballBottom)
-        else if(robotMap.getTrigger()>0.2&&robotMap.ballStopTop.getVoltage()<4.0 && Constants.ballTop) 
+        else if(robotMap.getTrigger()>0.2&&robotMap.ballStopTop.getVoltage()<4.0 && Constants.ballTop)
         {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(1);
@@ -83,57 +78,51 @@ public class Ball implements ManipulatorMode
             robotMap.talonBallIntake.set(1);
             robotMap.talonBallShooter.set(-1);
         }*/
-        else 
+        else
         {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(0);
         } 
     }
 
-
-    //teleop ball shot
-    public void deploy (boolean rocketMode) 
-    { //left trigger 
-        if(robotMap.getTrigger()<-0.2) 
+    public void deploy (boolean rocketMode) //left trigger
+    {
+        if(robotMap.getTrigger()<-0.2)
         {
-            if(rocketMode) 
+            if(rocketMode)
             {
                 robotMap.talonBallShooter.set(-robotMap.getTrigger());
                 robotMap.talonBallIntake.set(robotMap.getTrigger());
             }
             else
             {
-                robotMap.talonBallShooter.set(0.6*robotMap.getTrigger());
-                robotMap.talonBallIntake.set(-0.3);
+                robotMap.talonBallShooter.set(0.5*robotMap.getTrigger());
+                robotMap.talonBallIntake.set(-0.25);
             }
         }   
-        else 
+        else
         {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(0);
         }
     }
 
-
-    //why is this still here
-    public void disengage() 
+    public void disengage () 
     {
 
     }
 
-    //autonomous ball intake
-    public void intakeAuto() 
+    public void intakeAuto()
     {
-        if(robotMap.ballStopTop.getVoltage()>=4) 
+        if(robotMap.ballStopTop.getVoltage()>=4)
         {
             robotMap.talonBallIntake.set(0);
             System.out.println("stop intaking");
         }
-        else if(Constants.ta>=70||Constants.tv==0)
+        else if(Constants.ta>=10||Constants.tv==0)
         {
-            robotMap.talonBallIntake.set(-0.9);
+            robotMap.talonBallIntake.set(-1);
             System.out.println("intaking");
         }
     }
 }
-
