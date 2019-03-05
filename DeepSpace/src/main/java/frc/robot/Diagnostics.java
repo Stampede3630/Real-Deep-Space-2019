@@ -3,18 +3,17 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Diagnostics
-{
+public class Diagnostics {
 
     public RobotMap robotMap;
 
-    public Diagnostics()
-    {
+    //initailization of diagnostics
+    public Diagnostics() {
         this.robotMap = RobotMap.getRobotMap();
     }
 
-    public void toSmartDashboard()
-    {
+    //All of our diagnostics information
+    public void toSmartDashboard() {
         SmartDashboard.putBoolean("limelight one processing", Constants.limelight.equals("limelight-one"));
         SmartDashboard.putBoolean("limelight two processing", Constants.limelight.equals("limelight-two"));
         SmartDashboard.putBoolean("ball manipulator on", Constants.ballManipulator);
@@ -30,16 +29,17 @@ public class Diagnostics
         SmartDashboard.putNumber("acceleration", robotMap.ahrs.getRawAccelY());
     }
 
-    public double getPSI()
-    {
+
+    //Voltage to PSI converstion method
+    public double getPSI() {
         double sensorV = robotMap.pressureLevel.getVoltage();
-        double psi = 250*(sensorV / 5) - 25;
+        double psi = 250 * (sensorV / 5) - 25;
         psi = Math.round(psi);
         return psi;
     }
 
-    public void limelightValues()
-    {
+    //All of our limelight values
+    public void limelightValues() {
         Constants.tv = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("tv").getDouble(0);
         Constants.ty = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ty").getDouble(0);
         Constants.ta = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ta").getDouble(0);

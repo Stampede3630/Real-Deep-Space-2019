@@ -10,9 +10,9 @@ package frc.robot;
 /**
  * Add your docs here.
  */
-public class Constants 
-{
+public class Constants {
 
+    //All of our constants for PID
     public static final double strafeKP = 0.1;
     public static final double strafeKI = 0;
     public static final double strafeKD = 0;
@@ -48,6 +48,8 @@ public class Constants
     public static final double alphaXOne = 0;
     public static final double alphaYOne = 0;
 */
+
+    //All the different button numbers on the Xbox controller
     public static final int timeOutMs = 10;
 
     public final static int aButton = 1;
@@ -69,10 +71,13 @@ public class Constants
     public final static double deadzone = 0.2;
     
 //    public final static double multiplierScaleUp = 1;
+    
+    //Scaler multipliers for shots
     public final static double normalSpeed = 0.7;
     public final static double rocketBallLaunchUpSpeed = 0.8;
     public final static double rocketBallLaunchDownSpeed = -0.8;
 
+    //Whee limelight things
     public static final double closestIntake = 0;
     public static final double leftmost = 1;
     public static final double rightmost = 2;

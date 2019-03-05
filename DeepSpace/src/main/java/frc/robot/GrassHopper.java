@@ -12,6 +12,8 @@ public class GrassHopper {
     //back refers to the back 2 legs
     // hopUp is the execute method
 
+    //this code is for hippity hoppity sproingy boi
+
     Timer climbTimer = new Timer();
     RobotMap robotMap;
     XboxController controllerTwo;
@@ -23,76 +25,73 @@ public class GrassHopper {
     boolean robotIsStillAlive = false;
     boolean miracleOccurred = false;
 
-    public GrassHopper()
-    {
+
+    //generic construction of objects
+    public GrassHopper() {
         controllerTwo = new XboxController(1);
         stopItAllNow = false;
         robotMap = RobotMap.getRobotMap();
     }
 
-    public void frontExtend()
-    {
+    //front piston goes out
+    public void frontExtend() {
         robotMap.solenoidFront.set(DoubleSolenoid.Value.kForward);
     }
 
-    public void frontRetract()
-    {
+    //front piston retracts
+    public void frontRetract() {
         robotMap.solenoidFront.set(DoubleSolenoid.Value.kReverse);
-        if(robotMap.lowReedSwitch.getVoltage() >= 4.5)
-        {
+        if(robotMap.lowReedSwitch.getVoltage() >= 4.5) {
             frontRetractComplete = true;
         }
     }
-    public void backExtend()
-    {
+
+    //this launches us up
+    public void backExtend() {
         robotMap.solenoidBack.set(DoubleSolenoid.Value.kForward);
     }
 
-    public void backRetract()
-    {
+    //resets legs to normal
+    public void backRetract() {
         robotMap.solenoidBack.set(DoubleSolenoid.Value.kReverse);
     }
 
-    public void slideForward()
-    {
+    //slide forward on the stilts
+    public void slideForward() {
         robotMap.slideTalon.set(0.4); //we can set this higher, snowBlowers aren't that fast...
     }
 
-    public void slideBack()
-    {
+    //slide forward on the stilts
+    public void slideBack() {
         robotMap.slideTalon.set(-0.4);
     }
 
-    public void extendAllPistons() 
-    {
+    //send all pistons out - we go wheee here :)
+    public void extendAllPistons() {
         frontExtend();
         backExtend();
-        if(robotMap.highReedSwitch.getVoltage() <= 4.5)
-        {
+        if(robotMap.highReedSwitch.getVoltage() <= 4.5) {
             extendAllPistonsComplete = true;
         }
     }
 
-    public void slideCargo()
-    {
+    //slide the cargo
+    public void slideCargo() {
         robotMap.slideTalon.set(-0.2);
-        if (robotMap.cargoPositionLimitSwitch.get() == true) 
-        {
+        if (robotMap.cargoPositionLimitSwitch.get() == true) {
             slideCargoComplete = true;
         }
     }
 
-    public boolean slideHatch()
-    {
+    //check if hatch was slid
+    public boolean slideHatch() {
 
-        if (robotMap.hatchPositionLimitSwitch.get() == true)
-        {
+        if (robotMap.hatchPositionLimitSwitch.get() == true) {
             robotMap.slideTalon.set(0);
             return true;
         }
 
-        else
-        {
+        else {
             robotMap.slideTalon.set(-0.2); //We don't know if speed should be negative or positive.
             return false;
         }
@@ -114,80 +113,68 @@ public class GrassHopper {
         
     }
     */
-    public void hopUp ()
-    {
+
+    //hippity hoppity checker
+    public void hopUp() {
         //climbTimer.reset(); //we are reseting this timer every time we call this method
         //climbTimer.start(); //.start() method restarts the timer...
 
-        if (!extendAllPistonsComplete)
-        {
+        if (!extendAllPistonsComplete) {
            extendAllPistons();
         }
-        else if (extendAllPistonsComplete && !slideCargoComplete && !stopItAllNow)
-        {
+        else if (extendAllPistonsComplete && !slideCargoComplete && !stopItAllNow) {
             slideCargo();
         }
-        else if (extendAllPistonsComplete && slideCargoComplete && !frontRetractComplete && !stopItAllNow)
-        {
+        else if (extendAllPistonsComplete && slideCargoComplete && !frontRetractComplete && !stopItAllNow) {
             frontRetract();
         }
-        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && !robotIsStillAlive && !stopItAllNow)
-        {
+        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && !robotIsStillAlive && !stopItAllNow) {
            robotMap.drive.driveCartesian(0, 0.4, 0);
            Timer.delay(1); //hella dangerous
            robotMap.drive.driveCartesian(0, 0, 0);
            robotIsStillAlive = true;
         }
-        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && robotIsStillAlive && !backRetractComplete && !stopItAllNow )
-        {
+        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && robotIsStillAlive && !backRetractComplete && !stopItAllNow ) {
             backRetract();
             Timer.delay(5); //hella dangerous
             backRetractComplete = true;
         }
-        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && robotIsStillAlive && backRetractComplete  && !miracleOccurred && !stopItAllNow )
-        {
+        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && robotIsStillAlive && backRetractComplete  && !miracleOccurred && !stopItAllNow ) {
             robotMap.drive.driveCartesian(0, 0.4, 0);
            Timer.delay(1); //hella dangerous
            robotMap.drive.driveCartesian(0, 0, 0);
            miracleOccurred = true;
         }
-        if(controllerTwo.getStartButton()||controllerTwo.getBackButton())
-        {
+        if(controllerTwo.getStartButton()||controllerTwo.getBackButton()) {
             stopItAllNow = true;
         }
     }
-    public void hopUpTest()
-    {
-        if(!stopItAllNow)
-        {
+
+    //hippity hoppity test
+    public void hopUpTest() {
+        if(!stopItAllNow) {
             robotMap.slideTalon.set(controllerTwo.getX(Hand.kRight));
             robotMap.drive.driveCartesian(0, controllerTwo.getY(Hand.kLeft)*0.6, 0);
         }
-        else
-        {
+        else {
             robotMap.slideTalon.set(0);
             robotMap.drive.driveCartesian(0, 0, 0);
         }
-        if(controllerTwo.getYButton())
-        {
+        if(controllerTwo.getYButton()) {
             frontExtend();
             backExtend();
         }    
-        if(controllerTwo.getAButton())
-        {
+        if(controllerTwo.getAButton()) {
             frontRetract();
             backRetract();
         }
-        if(controllerTwo.getXButton())
-        {
+        if(controllerTwo.getXButton()) {
             frontRetract();
         }        
-        if(controllerTwo.getBButton())
-        {
+        if(controllerTwo.getBButton()) {
             backRetract();
         }
-        if(controllerTwo.getStartButton()||controllerTwo.getBackButton())
-        {
+        if(controllerTwo.getStartButton()||controllerTwo.getBackButton()) {
             robotMap.solenoidBack.set(Value.kOff);
             robotMap.solenoidFront.set(Value.kOff);
             stopItAllNow = true;

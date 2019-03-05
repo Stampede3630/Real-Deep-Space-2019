@@ -4,28 +4,26 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import frc.robot.Constants;
 
-public class XpidSource implements PIDSource
-{
+public class XpidSource implements PIDSource {
 
     static double xDist, tx;
 
-    public XpidSource()
-    {
+    public XpidSource() {
 
     }
 
-    public PIDSourceType getPIDSourceType()
-    {
+    //some necessary code for setting up PID
+    public PIDSourceType getPIDSourceType() {
         return PIDSourceType.kDisplacement;
     }
 
-    public void setPIDSourceType(PIDSourceType source)
-    {
+    //why is this here?
+    public void setPIDSourceType(PIDSourceType source) {
 
     }
 
-    public double pidGet()
-    {
+    //gets our X PID
+    public double pidGet() {
         return Constants.tx;
     }
 }

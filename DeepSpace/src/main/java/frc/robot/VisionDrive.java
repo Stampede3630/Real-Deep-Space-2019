@@ -10,8 +10,9 @@ public class VisionDrive implements DriveMode{
     double xValue, yValue, zValue, tempTX;
     Timer driveFw;
 
-    public VisionDrive(RobotMap robotMap, DriveTrain driveTrain) //change limelight before entering VisionDrive!
-    {
+    //change limelight before entering VisionDrive!
+    //constructs our objects
+    public VisionDrive(RobotMap robotMap, DriveTrain driveTrain) {
         this.robotMap = robotMap;
         this.driveTrain = driveTrain;
 
@@ -20,21 +21,19 @@ public class VisionDrive implements DriveMode{
         driveTrain.turnPID.turnController.enable();
     }
 
-    public boolean getAutoRotate() 
-    {
+    //tells us if we're aut rotating
+    public boolean getAutoRotate() {
         return true;
     }
     
-    public void driveRobot()
-    {
+    //more fancy robot drive code
+    public void driveRobot() {
 
-        if (Constants.ballFollowerOn)
-        {
+        if (Constants.ballFollowerOn) {
             searchTarget();
             Constants.ballFollowerExecuting = true;
         }
-        else
-        {
+        else {
             driveAuto();
             Constants.ballFollowerExecuting = false;
         }
@@ -42,53 +41,44 @@ public class VisionDrive implements DriveMode{
         zValue = driveTrain.turnPID.getTurnOutput();
         xValue = driveTrain.strafePID.getStrafeOutput();
 
-        if(driveTrain.forwardPID.forwardController.isEnabled())
-        {
+        if(driveTrain.forwardPID.forwardController.isEnabled()) {
             yValue = driveTrain.forwardPID.getForwardOutput();
         }
-        else
-        {
+        else {
             yValue = robotMap.getLeftY();
         }
         
-        switch(Constants.limelight)
-        {
+        switch(Constants.limelight) {
             case "limelight-two": robotMap.drive.driveCartesian(-xValue, 0.6*yValue, zValue);
             break;
 
             case "limelight-one": 
-                if(Constants.ballFollowerOn)
-                {
+                if(Constants.ballFollowerOn) {
                     robotMap.drive.driveCartesian(xValue, yValue, zValue);
                 }
-                else 
-                {
+                else  {
                     robotMap.drive.driveCartesian(xValue, -0.6*yValue, zValue);
                 }
             break;
         }
-        
     }
 
-    public void searchTarget()
-    {
+    //searches for the target with the camera
+    public void searchTarget() {
         driveTrain.turnPID.turnController.disable();
-        if(robotMap.ballStopTop.getVoltage()>4)
-        {
+        if(robotMap.ballStopTop.getVoltage()>4) {
             driveTrain.forwardPID.forwardController.disable();
             driveTrain.strafePID.strafeController.disable();
             driveTrain.turnPID.turnController.disable();
             System.out.println("done");
         }
-        else if(Constants.tv>0&&Constants.ta>=70)
-        {
+        else if(Constants.tv>0&&Constants.ta>=70) {
             driveTrain.forwardPID.forwardController.disable();
             driveTrain.strafePID.strafeController.disable();
 //            Robot.manipulator.manipulatorMode.intakeAuto();
             System.out.println("intaking");
         }
-        else if (Constants.tv>0)
-        {
+        else if (Constants.tv>0) {
             tempTX = Constants.tx;
             driveTrain.forwardPID.forwardController.setSetpoint(0);
             driveTrain.strafePID.strafeController.setSetpoint(0);
@@ -96,8 +86,7 @@ public class VisionDrive implements DriveMode{
             driveTrain.strafePID.strafeController.enable();
             driveTrain.forwardPID.forwardController.enable();
         }
-        else 
-        {
+        else {
 /*            if(tempTX<0) {
                 driveTrain.turnPID.turnController.setSetpoint(robotMap.ahrs.getAngle()-10);
             }
@@ -115,15 +104,14 @@ public class VisionDrive implements DriveMode{
         }
     }
 
-    public void driveAuto()
-    {
-        if(Constants.tv==0)
-        {
+
+    //fancy auto drive
+    public void driveAuto() {
+        if(Constants.tv==0) {
             Robot.driveTrain.strafePID.strafeController.disable();
             Constants.lostTarget = true;
         }
-        else
-        {
+        else {
             Robot.driveTrain.strafePID.strafeController.setSetpoint(0);
             Robot.driveTrain.turnPID.turnController.setSetpoint(Constants.robotAngle);
             Robot.driveTrain.turnPID.turnController.enable();
