@@ -12,13 +12,11 @@ public class PathChooser {
         switch (mode) {
             case "LeftLS":
                 Constants.robotAngle = Robot.choosers.reverseAngle(-180);
-                if(Constants.ballManipulator)
-                {
+                if(Constants.ballManipulator) {
                     Constants.pipeline = "intake"; //we shouldn't be using this anywhere
                     Constants.pipelineNumber = Constants.closestDeploy;
                 }
-                else 
-                {
+                else {
                     Constants.pipeline = "intake";
                     Constants.pipelineNumber = Constants.closestIntake;
                 }
