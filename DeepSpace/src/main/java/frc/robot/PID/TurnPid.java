@@ -8,20 +8,20 @@ import edu.wpi.first.wpilibj.PIDBase.Tolerance;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 
-public class TurnPid implements PIDOutput{
+public class TurnPid implements PIDOutput {
 
     public PIDController turnController;
     private double zOutput;
     RobotMap robotMap;
     private MyCustomTolerance newTolerance;
 
-    public TurnPid()
-    {
+    //constructs our robot map
+    public TurnPid() {
         robotMap = RobotMap.getRobotMap();
     }
 
-    public void turnPidSetup()
-    {
+    //Z axis PID
+    public void turnPidSetup() {
         newTolerance = new MyCustomTolerance();
         turnController = new PIDController(Constants.turnKP, Constants.turnKI, Constants.turnKD, robotMap.ahrs, this);
         turnController.setInputRange(-180, 180);
@@ -32,32 +32,31 @@ public class TurnPid implements PIDOutput{
         LiveWindow.add(turnController);
     }
 
-    public double getTurnOutput()
-    {
+    //shows us what our Z PID values are
+    public double getTurnOutput() {
         SmartDashboard.putNumber("turn output", zOutput);
         SmartDashboard.putNumber("Zpid setpoint", turnController.getSetpoint());
         return zOutput;
     }
 
-    public void pidWrite(double output)
-    {
+    //outputs all of our Z PID values
+    public void pidWrite(double output) {
         zOutput = output;
     }
 
-    public class MyCustomTolerance implements Tolerance 
-    {
+    //Z Tolerance
+    public class MyCustomTolerance implements Tolerance {
         private final double m_posTolerance;
         private final double m_velocityLimit;
 
-        MyCustomTolerance() 
-        {
+        MyCustomTolerance() {
             m_posTolerance = Constants.turnTolerance;
             m_velocityLimit = Constants.pidLowSpeed; 
         }
 
+        //tells us if we're on target - centered
         @Override
-        public boolean onTarget() 
-        {
+        public boolean onTarget() {
             return Math.abs(turnController.getError()) < m_posTolerance && Math.abs(turnController.get()) < m_velocityLimit;
         }
     }

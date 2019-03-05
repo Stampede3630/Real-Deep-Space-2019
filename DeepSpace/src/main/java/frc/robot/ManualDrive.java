@@ -10,8 +10,9 @@ public class ManualDrive implements DriveMode {
     double zRotation;
     boolean autoRotateEnable;
     
-    public ManualDrive(RobotMap robotMap, DriveTrain driveTrain)
-    {
+
+    //constructs our objects
+    public ManualDrive(RobotMap robotMap, DriveTrain driveTrain) {
         this.robotMap = robotMap;
         this.driveTrain=driveTrain;
 
@@ -20,20 +21,20 @@ public class ManualDrive implements DriveMode {
 //        driveTrain.turnPID.zController.enable();
     }
 
+    //allows us to auto rotate
     public boolean getAutoRotate() {
         return autoRotateEnable;
     }
 
-    public void driveRobot()
-    {
+    //fancier version of driving our robot
+    public void driveRobot() {
         Constants.ballFollowerExecuting = false;
-        if (Robot.manipulatorChooser.getSelected().equals("Ball")) //grab the value from Constants
-        {
+        //grab the value from Constants
+        if (Robot.manipulatorChooser.getSelected().equals("Ball")) {
             xSpeed = -robotMap.getLeftX();
             ySpeed = -robotMap.getLeftY();
         }
-        else
-        {
+        else {
             xSpeed = robotMap.getLeftX();
             ySpeed = robotMap.getLeftY();
         }
@@ -47,24 +48,20 @@ public class ManualDrive implements DriveMode {
             autoRotateEnable = true;
         }
 
-        if(Math.abs(robotMap.getRightX())>0.2)
-        {
+        if(Math.abs(robotMap.getRightX())>0.2) {
             driveTrain.turnPID.turnController.disable();
             zRotation = robotMap.getRightX();
             autoRotateEnable = false;
         }
-        else
-        {
+        else {
             driveTrain.turnPID.turnController.setSetpoint(Constants.robotAngle);
             zRotation = driveTrain.turnPID.getTurnOutput();
         }
 
-        if (robotMap.leftStickB.get()||robotMap.rightStickB.get())
-        {
+        if (robotMap.leftStickB.get()||robotMap.rightStickB.get()) {
             robotMap.drive.driveCartesian(xSpeed, ySpeed, zRotation);
         }
-        else
-        {
+        else {
             robotMap.drive.driveCartesian(xSpeed * Constants.normalSpeed, ySpeed * Constants.normalSpeed, zRotation * Constants.normalSpeed);
         }
     }

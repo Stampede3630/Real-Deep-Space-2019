@@ -7,8 +7,9 @@
 
 package frc.robot;
 
-
 public interface DriveMode {
+
+    //Interface to let us choose our drive mode
     
     public void driveRobot();
     public boolean getAutoRotate();
