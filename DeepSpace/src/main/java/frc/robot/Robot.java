@@ -79,6 +79,7 @@ public class Robot extends TimedRobot
   {
     SmartDashboard.putData("Forward Chooser", manipulatorChooser);
     SmartDashboard.putString("Path Selected", "");
+    SmartDashboard.putString("Test Forward Chooser", "");
   }
 
   @Override
