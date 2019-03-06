@@ -1,1 +1,0 @@
-In case that something goes wrong with the noew widget, delete forwardFromWidget in Constats and uncomment lines that were working
