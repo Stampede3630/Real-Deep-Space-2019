@@ -5,9 +5,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalInput;
 
 public class GrassHopper {
     // Create and initialize 4 double soleniods, 2 things that slide the pistons, and a Timer 
@@ -18,7 +15,9 @@ public class GrassHopper {
     Timer climbTimer = new Timer();
     RobotMap robotMap;
     XboxController controllerTwo;
-    boolean emergencyStop;
+
+    boolean stopItAllNow;
+
     boolean extendAllPistonsComplete = false;
     boolean slideCargoComplete = false;
     boolean frontRetractComplete = false;
@@ -29,7 +28,8 @@ public class GrassHopper {
     public GrassHopper()
     {
         controllerTwo = new XboxController(1);
-        emergencyStop = false;
+
+        stopItAllNow = false;T
         robotMap = RobotMap.getRobotMap();
     }
 
@@ -126,28 +126,28 @@ public class GrassHopper {
         {
            extendAllPistons();
         }
-        else if (extendAllPistonsComplete && !slideCargoComplete && !emergencyStop)
+        else if (extendAllPistonsComplete && !slideCargoComplete && !stopItAllNow)
         {
             slideCargo();
         }
-        else if (extendAllPistonsComplete && slideCargoComplete && !frontRetractComplete && !emergencyStop)
+        else if (extendAllPistonsComplete && slideCargoComplete && !frontRetractComplete && !stopItAllNow)
         {
             frontRetract();
         }
-        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && !robotIsStillAlive && !emergencyStop)
+        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && !robotIsStillAlive && !stopItAllNow)
         {
            robotMap.drive.driveCartesian(0, 0.4, 0);
            Timer.delay(1); //hella dangerous
            robotMap.drive.driveCartesian(0, 0, 0);
            robotIsStillAlive = true;
         }
-        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && robotIsStillAlive && !backRetractComplete && !emergencyStop )
+        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && robotIsStillAlive && !backRetractComplete && !stopItAllNow )
         {
             backRetract();
             Timer.delay(5); //hella dangerous
             backRetractComplete = true;
         }
-        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && robotIsStillAlive && backRetractComplete  && !miracleOccurred && !emergencyStop )
+        else if (extendAllPistonsComplete && slideCargoComplete && frontRetractComplete && robotIsStillAlive && backRetractComplete  && !miracleOccurred && !stopItAllNow )
         {
             robotMap.drive.driveCartesian(0, 0.4, 0);
            Timer.delay(1); //hella dangerous
@@ -156,12 +156,12 @@ public class GrassHopper {
         }
         if(controllerTwo.getStartButton()||controllerTwo.getBackButton())
         {
-            emergencyStop = true;
+            stopItAllNow = true;
         }
     }
     public void hopUpTest()
     {
-        if(!emergencyStop)
+        if(!stopItAllNow)
         {
             robotMap.slideTalon.set(controllerTwo.getX(Hand.kRight));
             robotMap.drive.driveCartesian(0, controllerTwo.getY(Hand.kLeft)*0.6, 0);
@@ -193,7 +193,7 @@ public class GrassHopper {
         {
             robotMap.solenoidBack.set(Value.kOff);
             robotMap.solenoidFront.set(Value.kOff);
-            emergencyStop = true;
+            stopItAllNow = true;
         }
     }
 }

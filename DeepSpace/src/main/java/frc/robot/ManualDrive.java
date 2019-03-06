@@ -1,8 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 
 public class ManualDrive implements DriveMode {
 
@@ -29,7 +26,9 @@ public class ManualDrive implements DriveMode {
 
     public void driveRobot()
     {
-        if (Robot.manipulatorChooser.getSelected().equals( "Ball")) //grab the value from Constants
+        Constants.ballFollowerExecuting = false;
+//        if (Robot.manipulatorChooser.getSelected().equals("Ball")) //grab the value from Constants
+        if(Constants.forwardFromWidget.equals("cargo")) //just testing that orientation thing
         {
             xSpeed = -robotMap.getLeftX();
             ySpeed = -robotMap.getLeftY();
@@ -42,7 +41,11 @@ public class ManualDrive implements DriveMode {
 
         if (robotMap.buttonA.get()) {
             autoRotateEnable = true;
-            driveTrain.turnPID.zController.enable();
+            driveTrain.turnPID.turnController.enable();
+        }
+
+        if (robotMap.buttonA.get()) {
+            autoRotateEnable = true;
         }
 
         if (robotMap.buttonA.get()) {
@@ -51,17 +54,17 @@ public class ManualDrive implements DriveMode {
 
         if(Math.abs(robotMap.getRightX())>0.2)
         {
-            driveTrain.turnPID.zController.disable();
+            driveTrain.turnPID.turnController.disable();
             zRotation = robotMap.getRightX();
             autoRotateEnable = false;
         }
         else
         {
-            driveTrain.turnPID.zController.setSetpoint(Constants.robotAngle);
+            driveTrain.turnPID.turnController.setSetpoint(Constants.robotAngle);
             zRotation = driveTrain.turnPID.getTurnOutput();
         }
 
-        if (robotMap.leftStickB.get())
+        if (robotMap.leftStickB.get()||robotMap.rightStickB.get())
         {
             robotMap.drive.driveCartesian(xSpeed, ySpeed, zRotation);
         }

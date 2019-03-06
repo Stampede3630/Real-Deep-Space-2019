@@ -20,13 +20,15 @@ public class Diagnostics
         SmartDashboard.putBoolean("ball manipulator on", Constants.ballManipulator);
         SmartDashboard.putBoolean("toRocket", Constants.toRocket);
         SmartDashboard.putNumber("Pressure", getPSI());
-        SmartDashboard.putNumber("ballStop", robotMap.ballStop.getVoltage());
+        SmartDashboard.putNumber("ballStopTop", robotMap.ballStopTop.getVoltage());
         SmartDashboard.putNumber("ahrs", robotMap.ahrs.getYaw());
         SmartDashboard.putBoolean("ball follower", Constants.ballFollowerOn);
         SmartDashboard.putBoolean("hatchGrasshopperLimit", robotMap.hatchPositionLimitSwitch.get());
         SmartDashboard.putBoolean("cargoGrasshopperLimit", robotMap.cargoPositionLimitSwitch.get());
         SmartDashboard.putNumber("highReedSwitch",robotMap.highReedSwitch.getVoltage());
         SmartDashboard.putNumber("lowReedSwitch", robotMap.lowReedSwitch.getVoltage());
+
+        SmartDashboard.putNumber("acceleration", robotMap.ahrs.getRawAccelY());
     }
 
     public double getPSI()
@@ -43,5 +45,10 @@ public class Diagnostics
         Constants.ty = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ty").getDouble(0);
         Constants.ta = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ta").getDouble(0);
         Constants.tx = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("tx").getDouble(0);
+    }
+
+    public void getForwardMode()
+    {
+        Constants.forwardFromWidget = SmartDashboard.getString("Test Forward Chooser", "");
     }
 }

@@ -10,7 +10,7 @@ import frc.robot.RobotMap;
 
 public class TurnPid implements PIDOutput{
 
-    public PIDController zController;
+    public PIDController turnController;
     private double zOutput;
     RobotMap robotMap;
     private MyCustomTolerance newTolerance;
@@ -23,19 +23,19 @@ public class TurnPid implements PIDOutput{
     public void turnPidSetup()
     {
         newTolerance = new MyCustomTolerance();
-        zController = new PIDController(Constants.turnKP, Constants.turnKI, Constants.turnKD, robotMap.ahrs, this);
-        zController.setInputRange(-180, 180);
-        zController.setOutputRange(-Constants.turnOutput, Constants.turnOutput);
-        zController.setTolerance(newTolerance);
-        zController.setContinuous(true);
-        zController.disable();
-        LiveWindow.add(zController);
+        turnController = new PIDController(Constants.turnKP, Constants.turnKI, Constants.turnKD, robotMap.ahrs, this);
+        turnController.setInputRange(-180, 180);
+        turnController.setOutputRange(-Constants.turnOutput, Constants.turnOutput);
+        turnController.setTolerance(newTolerance);
+        turnController.setContinuous(true);
+        turnController.disable();
+        LiveWindow.add(turnController);
     }
 
     public double getTurnOutput()
     {
         SmartDashboard.putNumber("turn output", zOutput);
-        SmartDashboard.putNumber("Zpid setpoint", zController.getSetpoint());
+        SmartDashboard.putNumber("Zpid setpoint", turnController.getSetpoint());
         return zOutput;
     }
 
@@ -58,7 +58,7 @@ public class TurnPid implements PIDOutput{
         @Override
         public boolean onTarget() 
         {
-            return Math.abs(zController.getError()) < m_posTolerance && Math.abs(zController.get()) < m_velocityLimit;
+            return Math.abs(turnController.getError()) < m_posTolerance && Math.abs(turnController.get()) < m_velocityLimit;
         }
     }
 }

@@ -10,7 +10,7 @@ public class Robot extends TimedRobot
 
   public static DriveTrain driveTrain;
   public static Manipulator manipulator;
-  public Diagnostics diagnostics;
+  public static Diagnostics diagnostics;
   public static Choosers choosers;
   public static SendableChooser manipulatorChooser;
   public static PathChooser pathChooser = new PathChooser();
@@ -27,6 +27,7 @@ public class Robot extends TimedRobot
     manipulatorChooser.addDefault("Hatch Forward", "Hatch");
     manipulatorChooser.addObject("Ball Forward", "Ball");
     SmartDashboard.putData("Forward Chooser", manipulatorChooser);
+    SmartDashboard.putString("Test Forward Chooser", "");
     SmartDashboard.putString("Path Selected", "");
   }
   
@@ -35,26 +36,48 @@ public class Robot extends TimedRobot
   {
     diagnostics.toSmartDashboard();
     pathChooser.stringToPath(SmartDashboard.getString("Path Selected", ""));
+    diagnostics.getForwardMode();
   }
 
   
   @Override
   public void autonomousInit() 
   {
-    
+    manipulator.robotMap.ahrs.reset();
   }
 
   
   @Override
   public void autonomousPeriodic() 
   {
+    choosers.setDriveMode();
+    //choosers.automatedTurnToAngle();
+    choosers.setManipulatorMode();
+
+//    choosers.chooserAngle(pathChooser.angle);
+
+//    choosers.angleSwitch();
+
+//    choosers.setAction();
+
+    driveTrain.drive();
+
+    manipulator.manipulatorPeriodic();
+
+    choosers.letterButtons();
+
+    diagnostics.limelightValues();
+
+    diagnostics.getForwardMode();
+
+//    diagnostics.toSmartDashboard();
     
   }
 
   @Override
   public void teleopInit() 
   {
-
+    SmartDashboard.putData("Forward Chooser", manipulatorChooser);
   }
 
   @Override
@@ -75,6 +98,8 @@ public class Robot extends TimedRobot
     manipulator.manipulatorPeriodic();
 
     choosers.letterButtons();
+
+    diagnostics.limelightValues();
 
 //    diagnostics.toSmartDashboard();
   }

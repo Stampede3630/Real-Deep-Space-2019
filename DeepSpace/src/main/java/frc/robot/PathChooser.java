@@ -12,10 +12,20 @@ public class PathChooser
         switch (mode) {
             case "LeftLS":
                 Constants.robotAngle = Robot.choosers.reverseAngle(-180);
-                Constants.pipelineNumber = Constants.closestIntake;
-                Constants.pipeline = "intake";
+                if(Constants.ballManipulator)
+                {
+                    Constants.pipeline = "intake"; //we shouldn't be using this anywhere
+                    Constants.pipelineNumber = Constants.closestDeploy;
+                }
+                else 
+                {
+                    Constants.pipeline = "intake";
+                    Constants.pipelineNumber = Constants.closestIntake;
+                }
                 Constants.ballFollowerOn = false;
                 Constants.toRocket = false;
+                Constants.ballBottom = false;
+                Constants.ballTop = true;
                 break;
             case "LeftFarRS":
                 Constants.robotAngle = Robot.choosers.reverseAngle(-150);
@@ -117,16 +127,28 @@ public class PathChooser
                 break;
             case "RightLS":
                 Constants.robotAngle = Robot.choosers.reverseAngle(-180);
-                Constants.pipeline = "intake";
-                Constants.pipelineNumber = Constants.closestIntake;
+                if(Constants.ballManipulator)
+                {
+                    Constants.pipeline = "intake"; //we shouldn't be using this anywhere
+                    Constants.pipelineNumber = Constants.closestDeploy;
+                }
+                else 
+                {
+                    Constants.pipeline = "intake";
+                    Constants.pipelineNumber = Constants.closestIntake;
+                }
                 Constants.ballFollowerOn = false;
                 Constants.toRocket = false;
+                Constants.ballBottom = false;
+                Constants.ballTop = true;
                 break;
             case "GrabBall":
                 Constants.pipeline = "intake";
                 Constants.pipelineNumber = Constants.closestIntake;
                 Constants.ballFollowerOn = true;
                 Constants.toRocket = false;
+                Constants.ballBottom = true;
+                Constants.ballTop = false;
                 break;
             default:
                 Constants.robotAngle = Robot.choosers.reverseAngle(0);
