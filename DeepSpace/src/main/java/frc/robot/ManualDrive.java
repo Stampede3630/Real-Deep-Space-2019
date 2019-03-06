@@ -48,6 +48,10 @@ public class ManualDrive implements DriveMode {
             autoRotateEnable = true;
         }
 
+        if (robotMap.buttonA.get()) {
+            autoRotateEnable = true;
+        }
+
         if(Math.abs(robotMap.getRightX())>0.2)
         {
             driveTrain.turnPID.turnController.disable();

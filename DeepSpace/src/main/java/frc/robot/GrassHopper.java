@@ -15,7 +15,9 @@ public class GrassHopper {
     Timer climbTimer = new Timer();
     RobotMap robotMap;
     XboxController controllerTwo;
+
     boolean stopItAllNow;
+
     boolean extendAllPistonsComplete = false;
     boolean slideCargoComplete = false;
     boolean frontRetractComplete = false;
@@ -26,7 +28,8 @@ public class GrassHopper {
     public GrassHopper()
     {
         controllerTwo = new XboxController(1);
-        stopItAllNow = false;
+
+        stopItAllNow = false;T
         robotMap = RobotMap.getRobotMap();
     }
 

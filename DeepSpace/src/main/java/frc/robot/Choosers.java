@@ -43,6 +43,7 @@ public class Choosers
 
     public void chooserAngle(double angle) {
         if (driveTrain.driveMode.getAutoRotate()) {
+
             driveTrain.turnPID.turnController.setSetpoint(angle);
             driveTrain.turnSetpoint = angle;
             driveTrain.turnPID.turnController.enable();
