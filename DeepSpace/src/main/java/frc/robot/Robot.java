@@ -10,7 +10,7 @@ public class Robot extends TimedRobot
 
   public static DriveTrain driveTrain;
   public static Manipulator manipulator;
-  public Diagnostics diagnostics;
+  public static Diagnostics diagnostics;
   public static Choosers choosers;
   public static SendableChooser manipulatorChooser;
   public static PathChooser pathChooser = new PathChooser();
@@ -43,7 +43,7 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousInit() 
   {
-    
+    manipulator.robotMap.ahrs.reset();
   }
 
   
@@ -78,8 +78,6 @@ public class Robot extends TimedRobot
   public void teleopInit() 
   {
     SmartDashboard.putData("Forward Chooser", manipulatorChooser);
-    SmartDashboard.putString("Path Selected", "");
-    SmartDashboard.putString("Test Forward Chooser", "");
   }
 
   @Override
