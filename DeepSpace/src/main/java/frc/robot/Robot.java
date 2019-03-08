@@ -12,7 +12,8 @@ public class Robot extends TimedRobot
   public static Manipulator manipulator;
   public static Diagnostics diagnostics;
   public static Choosers choosers;
-  public static SendableChooser manipulatorChooser;
+  public static SendableChooser manipulatorChooser, grassHopperChooser;
+
   public static PathChooser pathChooser = new PathChooser();
   public static GrassHopper magicWillHappen = new GrassHopper();
 
@@ -29,6 +30,18 @@ public class Robot extends TimedRobot
     SmartDashboard.putData("Forward Chooser", manipulatorChooser);
     SmartDashboard.putString("Test Forward Chooser", "");
     SmartDashboard.putString("Path Selected", "");
+
+    grassHopperChooser = new SendableChooser();
+    grassHopperChooser.addDefault("E Stop", "E stop");
+    grassHopperChooser.addObject("Pistons Extend", "PistonExtend");
+    grassHopperChooser.addObject("Pistons Retract", "PistonRetract");
+    grassHopperChooser.addObject("Front Piston Retract", "FrontPistonRetract");
+    grassHopperChooser.addObject("Back Piston Retract", "BackPistonRetract");
+    grassHopperChooser.addObject("Slide Hatch", "SlideHatch");
+    grassHopperChooser.addObject("Slide Cargo", "SlideCargo");
+    SmartDashboard.putData("Grasshopper Chooser" , grassHopperChooser);
+    
+
   }
   
   @Override
@@ -44,6 +57,7 @@ public class Robot extends TimedRobot
   public void autonomousInit() 
   {
     manipulator.robotMap.ahrs.reset();
+    diagnostics.SolenoidReset();
   }
 
   
@@ -100,6 +114,8 @@ public class Robot extends TimedRobot
     choosers.letterButtons();
 
     diagnostics.limelightValues();
+
+    magicWillHappen.hopUpTest();
 
 //    diagnostics.toSmartDashboard();
   }

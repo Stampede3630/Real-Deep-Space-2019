@@ -24,12 +24,13 @@ public class GrassHopper {
     boolean backRetractComplete = false;
     boolean robotIsStillAlive = false;
     boolean miracleOccurred = false;
+    
 
     public GrassHopper()
     {
         controllerTwo = new XboxController(1);
 
-        stopItAllNow = false;T
+        stopItAllNow = false;
         robotMap = RobotMap.getRobotMap();
     }
 
@@ -161,31 +162,38 @@ public class GrassHopper {
     }
     public void hopUpTest()
     {
-        if(!stopItAllNow)
+        System.out.println(Robot.grassHopperChooser.getSelected().toString());
+        if(Robot.grassHopperChooser.getSelected().equals("SlideCargo") && robotMap.cargoPositionLimitSwitch.get())
         {
-            robotMap.slideTalon.set(controllerTwo.getX(Hand.kRight));
-            robotMap.drive.driveCartesian(0, controllerTwo.getY(Hand.kLeft)*0.6, 0);
+            robotMap.slideTalon.set(0.8);
+            //robotMap.drive.driveCartesian(0, controllerTwo.getY(Hand.kLeft)*0.6, 0);
+        }
+        else if( Robot.grassHopperChooser.getSelected().equals("SlideHatch") && robotMap.hatchPositionLimitSwitch.get())
+        {
+            robotMap.slideTalon.set(-0.8);
+           // robotMap.drive.driveCartesian(0, controllerTwo.getY(Hand.kLeft)*0.6, 0);
         }
         else
         {
             robotMap.slideTalon.set(0);
-            robotMap.drive.driveCartesian(0, 0, 0);
+            //robotMap.drive.driveCartesian(0, 0, 0);
         }
-        if(controllerTwo.getYButton())
+        if(Robot.grassHopperChooser.getSelected().toString().equals("PistonExtend"))
         {
             frontExtend();
+            Timer.delay(0.15);
             backExtend();
         }    
-        if(controllerTwo.getAButton())
+        if(Robot.grassHopperChooser.getSelected().toString().equals("PistonRetract"))
         {
             frontRetract();
             backRetract();
         }
-        if(controllerTwo.getXButton())
+        if(Robot.grassHopperChooser.getSelected().toString().equals("FrontPistonRetract"))
         {
             frontRetract();
         }        
-        if(controllerTwo.getBButton())
+        if(Robot.grassHopperChooser.getSelected().toString().equals("BackPistonRetract"))
         {
             backRetract();
         }

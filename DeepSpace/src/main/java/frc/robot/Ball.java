@@ -60,15 +60,15 @@ public class Ball implements ManipulatorMode {
             robotMap.talonBallShooter.set(0);
         }
         */
-        if(robotMap.getTrigger()>0.2&&robotMap.ballStopTop.getVoltage()<4.0 && Constants.ballBottom) 
+        if(robotMap.getTrigger()>0.2&&robotMap.ballStop.getVoltage()<4.0 && Constants.ballBottom) 
         {
                 
-            robotMap.talonBallIntake.set(-1);
+            robotMap.talonBallIntake.set(-0.6);
             robotMap.talonBallShooter.set(0);
         }
 
 //        else if (robotMap.getTrigger()>0.2&&robotMap.ballStopBottom.getVoltage()<4.0 && Constants.ballBottom)
-        else if(robotMap.getTrigger()>0.2&&robotMap.ballStopTop.getVoltage()<4.0 && Constants.ballTop)
+        else if(robotMap.getTrigger()>0.2&&robotMap.ballStop.getVoltage()<4.0 && Constants.ballTop)
         {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(1);
@@ -114,7 +114,7 @@ public class Ball implements ManipulatorMode {
 
     public void intakeAuto()
     {
-        if(robotMap.ballStopTop.getVoltage()>=4)
+        if(robotMap.ballStop.getVoltage()>=4)
         {
             robotMap.talonBallIntake.set(0);
             System.out.println("stop intaking");

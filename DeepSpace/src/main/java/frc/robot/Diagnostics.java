@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Diagnostics
@@ -20,7 +21,7 @@ public class Diagnostics
         SmartDashboard.putBoolean("ball manipulator on", Constants.ballManipulator);
         SmartDashboard.putBoolean("toRocket", Constants.toRocket);
         SmartDashboard.putNumber("Pressure", getPSI());
-        SmartDashboard.putNumber("ballStopTop", robotMap.ballStopTop.getVoltage());
+        SmartDashboard.putNumber("ballStopTop", robotMap.ballStop.getVoltage());
         SmartDashboard.putNumber("ahrs", robotMap.ahrs.getYaw());
         SmartDashboard.putBoolean("ball follower", Constants.ballFollowerOn);
         SmartDashboard.putBoolean("hatchGrasshopperLimit", robotMap.hatchPositionLimitSwitch.get());
@@ -50,5 +51,11 @@ public class Diagnostics
     public void getForwardMode()
     {
         Constants.forwardFromWidget = SmartDashboard.getString("Test Forward Chooser", "");
+    }
+
+    public void SolenoidReset() 
+    {
+        robotMap.solenoidBack.set(Value.kReverse);
+        robotMap.solenoidFront.set(Value.kReverse);
     }
 }
