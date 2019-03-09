@@ -162,7 +162,7 @@ public class GrassHopper {
     }
     public void hopUpTest()
     {
-        System.out.println(Robot.grassHopperChooser.getSelected().toString());
+//        System.out.println(Robot.grassHopperChooser.getSelected().toString());
         if(Robot.grassHopperChooser.getSelected().equals("SlideCargo") && robotMap.cargoPositionLimitSwitch.get())
         {
             robotMap.slideTalon.set(0.8);

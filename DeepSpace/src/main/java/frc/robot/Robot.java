@@ -1,6 +1,8 @@
 package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTableType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -51,20 +53,22 @@ public class Robot extends TimedRobot
     grassHopperChooser.addObject("Slide Cargo", "SlideCargo");
     SmartDashboard.putData("Grasshopper Chooser" , grassHopperChooser);
     
+    
 
   }
   
   @Override
   public void robotPeriodic() 
   {
+    choosers.letterButtons();
     if(!pathSelected.exists())
     {
       pathSelected = tab.add("PathSelected", "").withWidget("PathSelector").getEntry();
     }
-    else if (pathSelected.getString("").equals(""))
+    else if (!pathSelected.isValid())
     {
       pathSelected = tab.add("PathSelected", "turtle").withWidget("PathSelector").getEntry();
-
+//      System.out.println("setting a turtle");
     }
 
 
@@ -72,12 +76,12 @@ public class Robot extends TimedRobot
     {
       hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").getEntry();
     }
-/*    else if (hatchBallSelected.getString("").equals(""))
+    else if (!hatchBallSelected.isValid())
     {
-      hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").getEntry();
-
+      hatchBallSelected = tab.add("hatchBallSelected","anotherTurtle").withWidget("BigButtonsWidget").getEntry();
+//      System.out.println("setting another turtle");
     }
-*/
+
     diagnostics.toSmartDashboard();
     pathChooser.stringToPath(pathSelected.getString(""));
     //System.out.println(pathSelected.getString("defaultdata"));

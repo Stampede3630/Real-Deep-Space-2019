@@ -28,7 +28,7 @@ public class Diagnostics
         SmartDashboard.putBoolean("cargoGrasshopperLimit", robotMap.cargoPositionLimitSwitch.get());
         SmartDashboard.putNumber("highReedSwitch",robotMap.highReedSwitch.getVoltage());
         SmartDashboard.putNumber("lowReedSwitch", robotMap.lowReedSwitch.getVoltage());
-
+        SmartDashboard.putBoolean("light sensor", robotMap.ballStop.getVoltage()>4);
         SmartDashboard.putNumber("acceleration", robotMap.ahrs.getRawAccelY());
     }
 
@@ -58,5 +58,10 @@ public class Diagnostics
     {
         robotMap.solenoidBack.set(Value.kReverse);
         robotMap.solenoidFront.set(Value.kReverse);
+    }
+
+    public void periodicVisionChange()
+    {
+        NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(Constants.pipelineNumber);   
     }
 }

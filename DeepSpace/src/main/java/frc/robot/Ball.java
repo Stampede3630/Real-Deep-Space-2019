@@ -131,12 +131,12 @@ public class Ball implements ManipulatorMode {
         if(robotMap.ballStop.getVoltage()>=4)
         {
             robotMap.talonBallIntake.set(0);
-            System.out.println("stop intaking");
+//            System.out.println("stop intaking");
         }
         else if(Constants.ta>=60||Constants.tv==0)
         {
             robotMap.talonBallIntake.set(-1);
-            System.out.println("intaking");
+//            System.out.println("intaking");
         }
     }
 }

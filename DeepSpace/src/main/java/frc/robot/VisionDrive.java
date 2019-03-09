@@ -27,7 +27,7 @@ public class VisionDrive implements DriveMode{
     
     public void driveRobot()
     {
-
+        Robot.diagnostics.periodicVisionChange();
         if (Constants.ballFollowerOn)
         {
             searchTarget();
@@ -85,7 +85,7 @@ public class VisionDrive implements DriveMode{
             driveTrain.forwardPID.forwardController.disable();
             driveTrain.strafePID.strafeController.disable();
             Robot.manipulator.manipulatorMode.intakeAuto();
-            System.out.println("intaking");
+
         }
         else if (Constants.tv>0)
         {
@@ -111,7 +111,7 @@ public class VisionDrive implements DriveMode{
             driveTrain.forwardPID.forwardController.disable();
             driveTrain.strafePID.strafeController.disable();
             Robot.manipulator.manipulatorMode.intakeAuto();
-            System.out.println("no target");
+//            System.out.println("no target");
         }
     }
 
