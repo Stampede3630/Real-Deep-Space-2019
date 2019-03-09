@@ -27,7 +27,14 @@ public class Ball implements ManipulatorMode {
 
     public void engage () 
     {
-
+        if(robotMap.bumperR.get())
+        {
+            robotMap.talonBallIntake.set(-0.7);
+        }
+        else
+        {
+            robotMap.talonBallIntake.set(0);
+        }
     }
 
     public void intake () //right trigger
@@ -63,7 +70,7 @@ public class Ball implements ManipulatorMode {
         if(robotMap.getTrigger()>0.2&&robotMap.ballStop.getVoltage()<4.0 && Constants.ballBottom) 
         {
                 
-            robotMap.talonBallIntake.set(-0.6);
+            robotMap.talonBallIntake.set(-0.55);
             robotMap.talonBallShooter.set(0);
         }
 
@@ -109,7 +116,14 @@ public class Ball implements ManipulatorMode {
 
     public void disengage () 
     {
-
+        if(robotMap.bumperL.get())
+        {
+            robotMap.talonBallIntake.set(0.7);
+        }
+        else
+        {
+            robotMap.talonBallIntake.set(0);
+        }
     }
 
     public void intakeAuto()

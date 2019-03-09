@@ -50,7 +50,8 @@ public class Diagnostics
 
     public void getForwardMode()
     {
-        Constants.forwardFromWidget = SmartDashboard.getString("Test Forward Chooser", "");
+        Constants.forwardFromWidget = Robot.hatchBallSelected.getString("");
+        //Constants.forwardFromWidget = SmartDashboard.getString("Test Forward Chooser", "");
     }
 
     public void SolenoidReset() 

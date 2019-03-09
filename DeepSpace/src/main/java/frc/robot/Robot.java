@@ -1,13 +1,17 @@
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+
 public class Robot extends TimedRobot 
 {
  
-
+  public static ShuffleboardTab tab;
   public static DriveTrain driveTrain;
   public static Manipulator manipulator;
   public static Diagnostics diagnostics;
@@ -16,6 +20,7 @@ public class Robot extends TimedRobot
 
   public static PathChooser pathChooser = new PathChooser();
   public static GrassHopper magicWillHappen = new GrassHopper();
+  public static NetworkTableEntry pathSelected, hatchBallSelected;
 
   @Override
   public void robotInit() 
@@ -30,6 +35,11 @@ public class Robot extends TimedRobot
     SmartDashboard.putData("Forward Chooser", manipulatorChooser);
     SmartDashboard.putString("Test Forward Chooser", "");
     SmartDashboard.putString("Path Selected", "");
+
+    tab = Shuffleboard.getTab("driverTab");
+    pathSelected = tab.add("PathSelected", "").withWidget("PathSelector").getEntry();
+    hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").getEntry();
+
 
     grassHopperChooser = new SendableChooser();
     grassHopperChooser.addDefault("E Stop", "E stop");
@@ -47,9 +57,32 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic() 
   {
+    if(!pathSelected.exists())
+    {
+      pathSelected = tab.add("PathSelected", "").withWidget("PathSelector").getEntry();
+    }
+    else if (pathSelected.getString("").equals(""))
+    {
+      pathSelected = tab.add("PathSelected", "turtle").withWidget("PathSelector").getEntry();
+
+    }
+
+
+    if(!hatchBallSelected.exists())
+    {
+      hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").getEntry();
+    }
+/*    else if (hatchBallSelected.getString("").equals(""))
+    {
+      hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").getEntry();
+
+    }
+*/
     diagnostics.toSmartDashboard();
-    pathChooser.stringToPath(SmartDashboard.getString("Path Selected", ""));
+    pathChooser.stringToPath(pathSelected.getString(""));
+    //System.out.println(pathSelected.getString("defaultdata"));
     diagnostics.getForwardMode();
+//    pathChooser.stringToPath(SmartDashboard.getString("Path Selected", ""));
   }
 
   
@@ -57,7 +90,7 @@ public class Robot extends TimedRobot
   public void autonomousInit() 
   {
     manipulator.robotMap.ahrs.reset();
-    diagnostics.SolenoidReset();
+//    diagnostics.SolenoidReset();
   }
 
   
@@ -115,8 +148,6 @@ public class Robot extends TimedRobot
 
     diagnostics.limelightValues();
 
-    magicWillHappen.hopUpTest();
-
 //    diagnostics.toSmartDashboard();
   }
 
@@ -124,7 +155,6 @@ public class Robot extends TimedRobot
   @Override
   public void testPeriodic() 
   {
-   magicWillHappen.hopUpTest();
 
 
 
