@@ -61,7 +61,7 @@ public class Robot extends TimedRobot
   public void robotPeriodic() 
   {
     choosers.letterButtons();
-    if(!pathSelected.exists())
+    if(!pathSelected.exists() || pathSelected.getValue().equals(NetworkTableType.kUnassigned))
     {
       pathSelected = tab.add("PathSelected", "").withWidget("PathSelector").getEntry();
     }
@@ -72,7 +72,7 @@ public class Robot extends TimedRobot
     }
 
 
-    if(!hatchBallSelected.exists())
+    if(!hatchBallSelected.exists() || hatchBallSelected.getValue().equals(NetworkTableType.kUnassigned))
     {
       hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").getEntry();
     }
