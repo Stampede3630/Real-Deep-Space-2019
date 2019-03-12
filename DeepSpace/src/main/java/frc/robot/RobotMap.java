@@ -34,7 +34,7 @@ public class RobotMap {
     public final AHRS ahrs = new AHRS (SPI.Port.kMXP);
   
     public final AnalogInput ballStop = new AnalogInput(3); //0  ***If light sensors don't work check ballStop vs BallStopTop
-
+	public final DigitalInput ballButton = new DigitalInput(0);
    //public final AnalogInput encoder1 = new AnalogInput(11);
 	//public final AnalogInput encoder2 = new AnalogInput(12);
 	public final AnalogInput pressureLevel = new AnalogInput(0); //3
@@ -57,7 +57,7 @@ public class RobotMap {
 	
 	public final DigitalInput hatchPositionLimitSwitch = new DigitalInput(10);
 	//public final DigitalInput middlePositionLimitSwitch = new DigitalInput();
-	public final DigitalInput cargoPositionLimitSwitch = new DigitalInput(11); //?????????
+	public final DigitalInput cargoPositionLimitSwitch = new DigitalInput(11); //???
 
 	//GrassHopper
 	

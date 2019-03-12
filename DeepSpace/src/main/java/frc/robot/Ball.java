@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Ball implements ManipulatorMode {
     
@@ -15,7 +16,7 @@ public class Ball implements ManipulatorMode {
     Manipulator manipulator;
     boolean sensorIntake, manualIntake;
     Timer intakeTimer;
-    
+
     public Ball (Manipulator manipulator) 
     {
         robotMap = RobotMap.getRobotMap();
@@ -67,18 +68,19 @@ public class Ball implements ManipulatorMode {
             robotMap.talonBallShooter.set(0);
         }
         */
-        if(robotMap.getTrigger()>0.2&&robotMap.ballStop.getVoltage()<4.0 && Constants.ballBottom) 
+        
         {
-                
+        if(robotMap.getTrigger()>0.2&&robotMap.ballButton.get() == true && Constants.ballBottom) 
             robotMap.talonBallIntake.set(-0.55);
             robotMap.talonBallShooter.set(0);
+            System.out.println("Ball is going through the bottom");
         }
-
 //        else if (robotMap.getTrigger()>0.2&&robotMap.ballStopBottom.getVoltage()<4.0 && Constants.ballBottom)
-        else if(robotMap.getTrigger()>0.2&&robotMap.ballStop.getVoltage()<4.0 && Constants.ballTop)
+        if(robotMap.getTrigger()>0.2&&robotMap.ballButton.get() == true && Constants.ballTop)
         {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(1);
+            System.out.println("Ball is going through the top");
         }
      /*   else if(robotMap.getTrigger()>0.2&&robotMap.ballStopBottom.getVoltage()<4.0)
         {
