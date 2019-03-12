@@ -69,14 +69,15 @@ public class Ball implements ManipulatorMode {
         }
         */
         
-        {
+        
         if(robotMap.getTrigger()>0.2&&robotMap.ballButton.get() == true && Constants.ballBottom) 
-            robotMap.talonBallIntake.set(-0.55);
+        {
+            robotMap.talonBallIntake.set(-1);
             robotMap.talonBallShooter.set(0);
             System.out.println("Ball is going through the bottom");
         }
 //        else if (robotMap.getTrigger()>0.2&&robotMap.ballStopBottom.getVoltage()<4.0 && Constants.ballBottom)
-        if(robotMap.getTrigger()>0.2&&robotMap.ballButton.get() == true && Constants.ballTop)
+        else if(robotMap.getTrigger()>0.2&&robotMap.ballButton.get() == true && Constants.ballTop)
         {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(1);

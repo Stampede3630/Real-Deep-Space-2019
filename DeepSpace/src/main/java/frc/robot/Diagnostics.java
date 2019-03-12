@@ -26,6 +26,7 @@ public class Diagnostics
         SmartDashboard.putBoolean("ball follower", Constants.ballFollowerOn);
         SmartDashboard.putBoolean("hatchGrasshopperLimit", robotMap.hatchPositionLimitSwitch.get());
         SmartDashboard.putBoolean("cargoGrasshopperLimit", robotMap.cargoPositionLimitSwitch.get());
+        SmartDashboard.putBoolean("ballstop button", robotMap.ballButton.get());
         SmartDashboard.putNumber("highReedSwitch",robotMap.highReedSwitch.getVoltage());
         SmartDashboard.putNumber("lowReedSwitch", robotMap.lowReedSwitch.getVoltage());
         SmartDashboard.putBoolean("light sensor", robotMap.ballStop.getVoltage()>4);
