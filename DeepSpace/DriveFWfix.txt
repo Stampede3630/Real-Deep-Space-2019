@@ -1,0 +1,11 @@
+In case that something goes wrong with the noew widget, delete forwardFromWidget in Constats and uncomment lines that were working
+
+Constants 95 -> comment out
+
+Choosers 78
+Choosers 81
+Choosers 84
+
+ManualDrive 31
+
+Diagnostics 53
