@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    //drive.driveFancy();
+    drive.drive();
     sensor.sonicValue();
   }
 

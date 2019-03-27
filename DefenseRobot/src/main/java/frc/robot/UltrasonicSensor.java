@@ -21,12 +21,13 @@ public class UltrasonicSensor {
     AnalogInput dUltrasonicSensor;
     double sonicDistance;
     double digitalSonicDistance;
+    boolean hatchIn;
 
     public UltrasonicSensor(){
-        ultrasonicSensor = new Ultrasonic(1,2);//putput ping, input echo
+        ultrasonicSensor = new Ultrasonic(1,2);//input ping, output echo (9,8)
+       // vftgvy = new Ultrasonic(pingChannel, echoChannel)
         dUltrasonicSensor = new AnalogInput(0);
         ultrasonicSensor.setAutomaticMode(true);
-        
     }
 
     public void sonicValue(){
@@ -34,6 +35,17 @@ public class UltrasonicSensor {
         digitalSonicDistance = dUltrasonicSensor.getValue();
         SmartDashboard.putNumber("Distance from vex", sonicDistance);
         SmartDashboard.putNumber("Distance from analog2", digitalSonicDistance);
+
+        if (sonicDistance < 2.5) {
+            hatchIn = true;
+            SmartDashboard.putBoolean("Hatch In", hatchIn);
+
+        }
+
+        else {
+            hatchIn = false;
+            SmartDashboard.putBoolean("Hatch In", hatchIn);
+        }
         
     }
    
