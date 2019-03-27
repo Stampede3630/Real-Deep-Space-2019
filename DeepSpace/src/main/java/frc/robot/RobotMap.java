@@ -11,7 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -59,6 +59,8 @@ public class RobotMap {
 	//public final DigitalInput middlePositionLimitSwitch = new DigitalInput();
 	public final DigitalInput cargoPositionLimitSwitch = new DigitalInput(11); //???
 
+	public final Ultrasonic ultrasonicSensor = new Ultrasonic(9,8);
+
 	//GrassHopper
 	
 
@@ -82,6 +84,8 @@ public class RobotMap {
 	public final JoystickButton startB = new JoystickButton(controller, Constants.startButton);
 	public final JoystickButton leftStickB = new JoystickButton(controller, Constants.lStickButton);
 	public final JoystickButton rightStickB = new JoystickButton(controller, Constants.rStickButton);
+
+	public final DigitalInput hatchSensor = new DigitalInput(1);
     
     private static RobotMap robotMap;
    
@@ -94,6 +98,8 @@ public class RobotMap {
 		talonSetup(talonFR);
 		//talonSetup(talonBallIntake);
 		talonSetup(talonBallShooter);
+
+		ultrasonicSensor.setAutomaticMode(true);
     }
     
     public static RobotMap getRobotMap()

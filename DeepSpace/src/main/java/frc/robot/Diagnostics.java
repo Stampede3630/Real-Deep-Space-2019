@@ -9,6 +9,9 @@ public class Diagnostics
 
     public RobotMap robotMap;
 
+    double sonicDistance;
+    boolean hatchIn;
+
     public Diagnostics()
     {
         this.robotMap = RobotMap.getRobotMap();
@@ -27,6 +30,7 @@ public class Diagnostics
         SmartDashboard.putBoolean("hatchGrasshopperLimit", robotMap.hatchPositionLimitSwitch.get());
         SmartDashboard.putBoolean("cargoGrasshopperLimit", robotMap.cargoPositionLimitSwitch.get());
         SmartDashboard.putBoolean("ballstop button", robotMap.ballButton.get());
+        SmartDashboard.putBoolean("Hatch collision", robotMap.hatchSensor.get());   
         SmartDashboard.putNumber("highReedSwitch",robotMap.highReedSwitch.getVoltage());
         SmartDashboard.putNumber("lowReedSwitch", robotMap.lowReedSwitch.getVoltage());
         SmartDashboard.putBoolean("light sensor", robotMap.ballStop.getVoltage()>4);
@@ -64,5 +68,22 @@ public class Diagnostics
     public void periodicVisionChange()
     {
         NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(Constants.pipelineNumber);   
+    }
+
+    public void ultrasonicSensorReading()
+    {
+        sonicDistance = robotMap.ultrasonicSensor.getRangeInches();
+
+        if (sonicDistance < 9)
+        {
+            hatchIn = true;
+        }
+        else 
+        {
+            hatchIn = false;
+        }
+
+        SmartDashboard.putBoolean("Hatch In", hatchIn);
+        SmartDashboard.putNumber("inches from vex", sonicDistance);
     }
 }

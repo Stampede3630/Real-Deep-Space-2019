@@ -87,6 +87,8 @@ public class Robot extends TimedRobot
     //System.out.println(pathSelected.getString("defaultdata"));
     diagnostics.getForwardMode();
 //    pathChooser.stringToPath(SmartDashboard.getString("Path Selected", ""));
+//    System.out.println(pathSelected.getString("")+"|||||"+pathSelected.getValue().toString());
+    diagnostics.ultrasonicSensorReading();
   }
 
   
@@ -122,6 +124,7 @@ public class Robot extends TimedRobot
     diagnostics.getForwardMode();
 
 //    diagnostics.toSmartDashboard();
+//    diagnostics.periodicVisionChange();
     
   }
 
@@ -153,6 +156,8 @@ public class Robot extends TimedRobot
     diagnostics.limelightValues();
 
 //    diagnostics.toSmartDashboard();
+
+//    diagnostics.periodicVisionChange();
   }
 
  
