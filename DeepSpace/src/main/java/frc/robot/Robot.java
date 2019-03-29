@@ -1,7 +1,6 @@
 package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -18,11 +17,11 @@ public class Robot extends TimedRobot
   public static Manipulator manipulator;
   public static Diagnostics diagnostics;
   public static Choosers choosers;
-  public static SendableChooser manipulatorChooser, grassHopperChooser;
-
+ // public static SendableChooser manipulatorChooser, grassHopperChooser;
+  //public final  UsbCamera cameraOne = CameraServer.getInstance().sta;
   public static PathChooser pathChooser = new PathChooser();
   public static GrassHopper magicWillHappen = new GrassHopper();
-  public static NetworkTableEntry pathSelected, hatchBallSelected;
+  public static NetworkTableEntry pathSelected, hatchBallSelected, hatchInBoolean;
 
   @Override
   public void robotInit() 
@@ -31,18 +30,20 @@ public class Robot extends TimedRobot
     manipulator = new Manipulator();
     diagnostics = new Diagnostics();
     choosers = new Choosers(driveTrain, manipulator);
-    manipulatorChooser = new SendableChooser();
-    manipulatorChooser.addDefault("Hatch Forward", "Hatch");
-    manipulatorChooser.addObject("Ball Forward", "Ball");
-    SmartDashboard.putData("Forward Chooser", manipulatorChooser);
-    SmartDashboard.putString("Test Forward Chooser", "");
-    SmartDashboard.putString("Path Selected", "");
+   // manipulatorChooser = new SendableChooser();
+    //manipulatorChooser.addDefault("Hatch Forward", "Hatch");
+   // manipulatorChooser.addObject("Ball Forward", "Ball");
+    //SmartDashboard.putData("Forward Chooser", manipulatorChooser);
+    //SmartDashboard.putString("Test Forward Chooser", "");
+   // SmartDashboard.putString("Path Selected", "");
 
     tab = Shuffleboard.getTab("driverTab");
-    pathSelected = tab.add("PathSelected", "").withWidget("PathSelector").getEntry();
-    hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").getEntry();
+    pathSelected = tab.add("PathSelected", "").withWidget("PathSelector").withSize(7,6).withPosition(3, 0).getEntry();
+    hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").withSize(3,2).withPosition(0,0).getEntry();
 
-
+    hatchInBoolean = tab.add("Hatch In","").withSize(3,2).withPosition(0,3).getEntry();
+    
+    /*
     grassHopperChooser = new SendableChooser();
     grassHopperChooser.addDefault("E Stop", "E stop");
     grassHopperChooser.addObject("Pistons Extend", "PistonExtend");
@@ -52,7 +53,7 @@ public class Robot extends TimedRobot
     grassHopperChooser.addObject("Slide Hatch", "SlideHatch");
     grassHopperChooser.addObject("Slide Cargo", "SlideCargo");
     SmartDashboard.putData("Grasshopper Chooser" , grassHopperChooser);
-    
+   */ 
     
 
   }
@@ -61,6 +62,7 @@ public class Robot extends TimedRobot
   public void robotPeriodic() 
   {
     choosers.letterButtons();
+    /*
     if(!pathSelected.exists() || pathSelected.getValue().equals(NetworkTableType.kUnassigned))
     {
       pathSelected = tab.add("PathSelected", "").withWidget("PathSelector").getEntry();
@@ -81,6 +83,7 @@ public class Robot extends TimedRobot
       hatchBallSelected = tab.add("hatchBallSelected","anotherTurtle").withWidget("BigButtonsWidget").getEntry();
 //      System.out.println("setting another turtle");
     }
+    */
 
     diagnostics.toSmartDashboard();
     pathChooser.stringToPath(pathSelected.getString(""));
@@ -131,7 +134,7 @@ public class Robot extends TimedRobot
   @Override
   public void teleopInit() 
   {
-    SmartDashboard.putData("Forward Chooser", manipulatorChooser);
+    //SmartDashboard.putData("Forward Chooser", manipulatorChooser);
   }
 
   @Override
@@ -157,7 +160,11 @@ public class Robot extends TimedRobot
 
 //    diagnostics.toSmartDashboard();
 
+
+
 //    diagnostics.periodicVisionChange();
+//    magicWillHappen.hopUpTest(); DO NOT UN-COMMENT
+
   }
 
  

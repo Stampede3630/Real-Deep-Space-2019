@@ -24,6 +24,7 @@ public class GrassHopper {
     boolean backRetractComplete = false;
     boolean robotIsStillAlive = false;
     boolean miracleOccurred = false;
+    Timer grasshopperTimeBomb;
     
 
     public GrassHopper()
@@ -32,6 +33,7 @@ public class GrassHopper {
 
         stopItAllNow = false;
         robotMap = RobotMap.getRobotMap();
+        grasshopperTimeBomb = new Timer();
     }
 
     public void frontExtend()
@@ -42,10 +44,9 @@ public class GrassHopper {
     public void frontRetract()
     {
         robotMap.solenoidFront.set(DoubleSolenoid.Value.kReverse);
-        if(robotMap.lowReedSwitch.getVoltage() >= 4.5)
-        {
-            frontRetractComplete = true;
-        }
+        Timer.delay(3);//change later w/ timing
+        frontRetractComplete = true;
+    
     }
     public void backExtend()
     {
@@ -70,11 +71,10 @@ public class GrassHopper {
     public void extendAllPistons() 
     {
         frontExtend();
+        Timer.delay(3);//change later as well
         backExtend();
-        if(robotMap.highReedSwitch.getVoltage() <= 4.5)
-        {
-            extendAllPistonsComplete = true;
-        }
+        Timer.delay(5);//also change later
+        extendAllPistonsComplete = true;
     }
 
     public void slideCargo()
@@ -163,7 +163,7 @@ public class GrassHopper {
     public void hopUpTest()
     {
 //        System.out.println(Robot.grassHopperChooser.getSelected().toString());
-        if(Robot.grassHopperChooser.getSelected().equals("SlideCargo") && robotMap.cargoPositionLimitSwitch.get())
+/*        if(Robot.grassHopperChooser.getSelected().equals("SlideCargo") && robotMap.cargoPositionLimitSwitch.get())
         {
             robotMap.slideTalon.set(0.8);
             //robotMap.drive.driveCartesian(0, controllerTwo.getY(Hand.kLeft)*0.6, 0);
@@ -203,5 +203,6 @@ public class GrassHopper {
             robotMap.solenoidFront.set(Value.kOff);
             stopItAllNow = true;
         }
+*/        
     }
 }

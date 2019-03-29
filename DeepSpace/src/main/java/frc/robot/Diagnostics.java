@@ -19,22 +19,22 @@ public class Diagnostics
 
     public void toSmartDashboard()
     {
-        SmartDashboard.putBoolean("limelight one processing", Constants.limelight.equals("limelight-one"));
-        SmartDashboard.putBoolean("limelight two processing", Constants.limelight.equals("limelight-two"));
-        SmartDashboard.putBoolean("ball manipulator on", Constants.ballManipulator);
-        SmartDashboard.putBoolean("toRocket", Constants.toRocket);
+        //SmartDashboard.putBoolean("limelight one processing", Constants.limelight.equals("limelight-one"));
+        //SmartDashboard.putBoolean("limelight two processing", Constants.limelight.equals("limelight-two"));
+        //SmartDashboard.putBoolean("ball manipulator on", Constants.ballManipulator);
+        //SmartDashboard.putBoolean("toRocket", Constants.toRocket);
         SmartDashboard.putNumber("Pressure", getPSI());
-        SmartDashboard.putNumber("ballStopTop", robotMap.ballStop.getVoltage());
+        //SmartDashboard.putNumber("ballStopTop", robotMap.ballStop.getVoltage());
         SmartDashboard.putNumber("ahrs", robotMap.ahrs.getYaw());
-        SmartDashboard.putBoolean("ball follower", Constants.ballFollowerOn);
-        SmartDashboard.putBoolean("hatchGrasshopperLimit", robotMap.hatchPositionLimitSwitch.get());
-        SmartDashboard.putBoolean("cargoGrasshopperLimit", robotMap.cargoPositionLimitSwitch.get());
+       // SmartDashboard.putBoolean("ball follower", Constants.ballFollowerOn);
+        //SmartDashboard.putBoolean("hatchGrasshopperLimit", robotMap.hatchPositionLimitSwitch.get());
+       // SmartDashboard.putBoolean("cargoGrasshopperLimit", robotMap.cargoPositionLimitSwitch.get());
         SmartDashboard.putBoolean("ballstop button", robotMap.ballButton.get());
-        SmartDashboard.putBoolean("Hatch collision", robotMap.hatchSensor.get());   
-        SmartDashboard.putNumber("highReedSwitch",robotMap.highReedSwitch.getVoltage());
-        SmartDashboard.putNumber("lowReedSwitch", robotMap.lowReedSwitch.getVoltage());
-        SmartDashboard.putBoolean("light sensor", robotMap.ballStop.getVoltage()>4);
-        SmartDashboard.putNumber("acceleration", robotMap.ahrs.getRawAccelY());
+        //SmartDashboard.putBoolean("Hatch collision", robotMap.hatchSensor.get());   
+      //  SmartDashboard.putNumber("highReedSwitch",robotMap.highReedSwitch.getVoltage());
+       // SmartDashboard.putNumber("lowReedSwitch", robotMap.lowReedSwitch.getVoltage());
+      //  SmartDashboard.putBoolean("light sensor", robotMap.ballStop.getVoltage()>4);
+       // SmartDashboard.putNumber("acceleration", robotMap.ahrs.getRawAccelY());
     }
 
     public double getPSI()
@@ -74,7 +74,7 @@ public class Diagnostics
     {
         sonicDistance = robotMap.ultrasonicSensor.getRangeInches();
 
-        if (sonicDistance < 9)
+        if (sonicDistance < 10.5)
         {
             hatchIn = true;
         }
@@ -85,5 +85,6 @@ public class Diagnostics
 
         SmartDashboard.putBoolean("Hatch In", hatchIn);
         SmartDashboard.putNumber("inches from vex", sonicDistance);
+        
     }
 }

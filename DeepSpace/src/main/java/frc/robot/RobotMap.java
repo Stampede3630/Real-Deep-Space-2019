@@ -24,10 +24,10 @@ public class RobotMap {
     public final WPI_TalonSRX talonBL =  new WPI_TalonSRX (2); //2
 	public final WPI_TalonSRX talonBR =  new WPI_TalonSRX (1); //1
 
-	public final WPI_TalonSRX talonBallIntake = new WPI_TalonSRX (5); //5
-	//public final CANSparkMax talonBallIntake = new CANSparkMax(8, MotorType.kBrushless); //change to 8
+	//public final WPI_TalonSRX talonBallIntake = new WPI_TalonSRX (5); //5
+	public final CANSparkMax talonBallIntake = new CANSparkMax(8, MotorType.kBrushless); //change to 8
 	public final WPI_TalonSRX talonBallShooter = new WPI_TalonSRX(6); //6
-//	public final CANSparkMax talonBallShooter = new CANSparkMax(1, MotorType.kBrushless);
+	//public final CANSparkMax talonBallShooter = new CANSparkMax(1, MotorType.kBrushless);
 
     public final MecanumDrive drive = new MecanumDrive(talonFL, talonBL, talonFR, talonBR);
 
@@ -39,8 +39,8 @@ public class RobotMap {
 	//public final AnalogInput encoder2 = new AnalogInput(12);
 	public final AnalogInput pressureLevel = new AnalogInput(0); //3
 
-  public final DoubleSolenoid hatchExtend = new DoubleSolenoid(1,1,0); //0,2
-	public final DoubleSolenoid hatchDeploy = new DoubleSolenoid(1,2,3); // 1,3
+  public final DoubleSolenoid hatchExtend = new DoubleSolenoid(1,0); //0,2
+	public final DoubleSolenoid hatchDeploy = new DoubleSolenoid(2,3); // 1,3
 	
 
   /*
@@ -48,7 +48,7 @@ public class RobotMap {
     public final DoubleSolenoid hatchDeploy = new DoubleSolenoid(2,3); // 1,3
   */
 
-    public final Compressor mainC = new Compressor(1);
+    public final Compressor mainC = new Compressor(0);
 
 	//GrassHopper
 	public final AnalogInput  lowReedSwitch = new AnalogInput(1); 
@@ -64,8 +64,8 @@ public class RobotMap {
 	//GrassHopper
 	
 
-	public final DoubleSolenoid solenoidBack = new DoubleSolenoid(1,6,7);
-	public final DoubleSolenoid solenoidFront = new DoubleSolenoid(1,4,5);
+	public final DoubleSolenoid solenoidBack = new DoubleSolenoid(6,7);
+	public final DoubleSolenoid solenoidFront = new DoubleSolenoid(4,5);
 	public final WPI_TalonSRX slideTalon = new WPI_TalonSRX(5);
 
 
@@ -85,7 +85,7 @@ public class RobotMap {
 	public final JoystickButton leftStickB = new JoystickButton(controller, Constants.lStickButton);
 	public final JoystickButton rightStickB = new JoystickButton(controller, Constants.rStickButton);
 
-	public final DigitalInput hatchSensor = new DigitalInput(1);
+	//public final DigitalInput hatchSensor = new DigitalInput(1);
     
     private static RobotMap robotMap;
    
