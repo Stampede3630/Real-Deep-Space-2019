@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class Choosers
 {
@@ -77,6 +78,11 @@ public class Choosers
 //        if(!currentManipulator.equals(Robot.manipulatorChooser.getSelected()))
         if(!currentManipulator.equals(Constants.forwardFromWidget))
         {
+            if(!currentManipulator.equals("cargo"))
+            {
+               robotMap.hatchExtend.set(Value.kReverse);
+                //System.out.println("Manipulator should have disengaged");
+            }
             //currentManipulator = Robot.manipulatorChooser.getSelected().toString();
             currentManipulator = Constants.forwardFromWidget;
 
@@ -86,6 +92,7 @@ public class Choosers
                 manipulator.manipulatorMode = new Ball(manipulator);
                 Constants.limelight = Constants.ballLimelight;
                 Constants.ballManipulator = true;
+
             }
             else 
             {

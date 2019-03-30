@@ -41,7 +41,8 @@ public class Robot extends TimedRobot
     pathSelected = tab.add("PathSelected", "").withWidget("PathSelector").withSize(7,6).withPosition(3, 0).getEntry();
     hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").withSize(3,2).withPosition(0,0).getEntry();
 
-    hatchInBoolean = tab.add("Hatch In","").withSize(3,2).withPosition(0,3).getEntry();
+    hatchInBoolean = tab.add("Hatch In",false).withSize(3,2).withPosition(0,3).getEntry();
+    
     
     /*
     grassHopperChooser = new SendableChooser();

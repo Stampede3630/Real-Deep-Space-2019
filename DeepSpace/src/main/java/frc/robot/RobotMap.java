@@ -35,6 +35,7 @@ public class RobotMap {
   
     public final AnalogInput ballStop = new AnalogInput(3); //0  ***If light sensors don't work check ballStop vs BallStopTop
 	public final DigitalInput ballButton = new DigitalInput(0);
+	public final DigitalInput lowBallButton = new DigitalInput(18);
    //public final AnalogInput encoder1 = new AnalogInput(11);
 	//public final AnalogInput encoder2 = new AnalogInput(12);
 	public final AnalogInput pressureLevel = new AnalogInput(0); //3

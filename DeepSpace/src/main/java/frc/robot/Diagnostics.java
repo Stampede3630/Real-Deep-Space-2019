@@ -29,7 +29,8 @@ public class Diagnostics
        // SmartDashboard.putBoolean("ball follower", Constants.ballFollowerOn);
         //SmartDashboard.putBoolean("hatchGrasshopperLimit", robotMap.hatchPositionLimitSwitch.get());
        // SmartDashboard.putBoolean("cargoGrasshopperLimit", robotMap.cargoPositionLimitSwitch.get());
-        SmartDashboard.putBoolean("ballstop button", robotMap.ballButton.get());
+        SmartDashboard.putBoolean("high ballstop button", robotMap.ballButton.get());
+        SmartDashboard.putBoolean("low ballstop button", robotMap.lowBallButton.get());
         //SmartDashboard.putBoolean("Hatch collision", robotMap.hatchSensor.get());   
       //  SmartDashboard.putNumber("highReedSwitch",robotMap.highReedSwitch.getVoltage());
        // SmartDashboard.putNumber("lowReedSwitch", robotMap.lowReedSwitch.getVoltage());
@@ -83,8 +84,9 @@ public class Diagnostics
             hatchIn = false;
         }
 
-        SmartDashboard.putBoolean("Hatch In", hatchIn);
+       // SmartDashboard.putBoolean("Hatch In", hatchIn);
         SmartDashboard.putNumber("inches from vex", sonicDistance);
+        Robot.hatchInBoolean.setBoolean(hatchIn);
         
     }
 }

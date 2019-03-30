@@ -70,7 +70,7 @@ public class Ball implements ManipulatorMode {
         */
         
         
-        if(robotMap.getTrigger()>0.2&&robotMap.ballButton.get() == true && Constants.ballBottom) 
+        if(robotMap.getTrigger()>0.2&&robotMap.ballButton.get() == true && Constants.ballBottom && robotMap.lowBallButton.get()) 
         {
             robotMap.talonBallIntake.set(-0.55);
             robotMap.talonBallShooter.set(0);
@@ -83,6 +83,20 @@ public class Ball implements ManipulatorMode {
             robotMap.talonBallShooter.set(0.6);
             System.out.println("Ball is going through the top");
         }
+
+//new code here
+        else if(robotMap.getTrigger()>0.2&&robotMap.ballButton.get() == true && Constants.ballBottom && !robotMap.lowBallButton.get())
+        {
+            robotMap.talonBallIntake.set(-0.60);
+            robotMap.talonBallShooter.set(0);
+            System.out.println("Ball is going through the top");
+            System.out.println("Ball has pressed the first button");
+        }
+
+
+//end
+
+
      /*   else if(robotMap.getTrigger()>0.2&&robotMap.ballStopBottom.getVoltage()<4.0)
         {
             robotMap.talonBallIntake.set(1);
