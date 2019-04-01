@@ -29,12 +29,15 @@ public class RobotMap {
 	public final WPI_TalonSRX talonBallShooter = new WPI_TalonSRX(6); //6
 	//public final CANSparkMax talonBallShooter = new CANSparkMax(1, MotorType.kBrushless);
 
+	public final WPI_TalonSRX talonHatch = new WPI_TalonSRX(7); //7
+
     public final MecanumDrive drive = new MecanumDrive(talonFL, talonBL, talonFR, talonBR);
 
     public final AHRS ahrs = new AHRS (SPI.Port.kMXP);
   
     public final AnalogInput ballStop = new AnalogInput(3); //0  ***If light sensors don't work check ballStop vs BallStopTop
 	public final DigitalInput ballButton = new DigitalInput(0);
+	public final DigitalInput hatchButton = new DigitalInput(5);//needs changinmg
    //public final AnalogInput encoder1 = new AnalogInput(11);
 	//public final AnalogInput encoder2 = new AnalogInput(12);
 	public final AnalogInput pressureLevel = new AnalogInput(0); //3
