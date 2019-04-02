@@ -52,7 +52,6 @@ public class Hatch implements ManipulatorMode {
         {
             robotMap.talonHatch.set(-.5);
         }
-        
         else
         {
             robotMap.talonHatch.set(0);
