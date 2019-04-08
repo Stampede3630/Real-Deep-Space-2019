@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Timer;
 
 public class VisionDrive implements DriveMode{
@@ -27,6 +28,9 @@ public class VisionDrive implements DriveMode{
     
     public void driveRobot()
     {
+
+        NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("snapshot").setNumber(1);
+
         Robot.diagnostics.periodicVisionChange();
         if (Constants.ballFollowerOn)
         {

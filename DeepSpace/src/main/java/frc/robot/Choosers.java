@@ -78,17 +78,19 @@ public class Choosers
 //        if(!currentManipulator.equals(Robot.manipulatorChooser.getSelected()))
         if(!currentManipulator.equals(Constants.forwardFromWidget))
         {
-            if(!currentManipulator.equals("cargo"))
+/*            if(!currentManipulator.equals("cargo"))
             {
-               robotMap.hatchExtend.set(Value.kReverse);
+               
                 //System.out.println("Manipulator should have disengaged");
             }
+*/
             //currentManipulator = Robot.manipulatorChooser.getSelected().toString();
             currentManipulator = Constants.forwardFromWidget;
 
 //            if(currentManipulator.equals("Ball"))
             if(currentManipulator.equals("cargo"))
             {
+                robotMap.hatchExtend.set(Value.kForward);
                 manipulator.manipulatorMode = new Ball(manipulator);
                 Constants.limelight = Constants.ballLimelight;
                 Constants.ballManipulator = true;

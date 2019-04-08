@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
-public class GrassHopper {
+public class GrassHopper {/*
     // Create and initialize 4 double soleniods, 2 things that slide the pistons, and a Timer 
     //Front refers to the front 2 legs
     //back refers to the back 2 legs
@@ -117,7 +117,7 @@ public class GrassHopper {
         }
         
     }
-    */
+    *//*
     public void hopUp ()
     {
         //climbTimer.reset(); //we are reseting this timer every time we call this method
@@ -204,5 +204,5 @@ public class GrassHopper {
             stopItAllNow = true;
         }
 */        
-    }
+  //  }*/
 }
