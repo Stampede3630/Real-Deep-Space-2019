@@ -3,6 +3,8 @@ package frc.robot;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
+import com.ctre.phoenix.CANifier.LEDChannel;
 
 public class Diagnostics
 {
@@ -19,23 +21,14 @@ public class Diagnostics
 
     public void toSmartDashboard()
     {
-        //SmartDashboard.putBoolean("limelight one processing", Constants.limelight.equals("limelight-one"));
-        //SmartDashboard.putBoolean("limelight two processing", Constants.limelight.equals("limelight-two"));
-        //SmartDashboard.putBoolean("ball manipulator on", Constants.ballManipulator);
-        //SmartDashboard.putBoolean("toRocket", Constants.toRocket);
         SmartDashboard.putNumber("Pressure", getPSI());
-        //SmartDashboard.putNumber("ballStopTop", robotMap.ballStop.getVoltage());
+        
         SmartDashboard.putNumber("ahrs", robotMap.ahrs.getYaw());
-       // SmartDashboard.putBoolean("ball follower", Constants.ballFollowerOn);
-        //SmartDashboard.putBoolean("hatchGrasshopperLimit", robotMap.hatchPositionLimitSwitch.get());
-       // SmartDashboard.putBoolean("cargoGrasshopperLimit", robotMap.cargoPositionLimitSwitch.get());
+       
         SmartDashboard.putBoolean("high ballstop button", robotMap.ballButton.get());
+
         SmartDashboard.putBoolean("low ballstop button", robotMap.lowBallButton.get());
-        //SmartDashboard.putBoolean("Hatch collision", robotMap.hatchSensor.get());   
-      //  SmartDashboard.putNumber("highReedSwitch",robotMap.highReedSwitch.getVoltage());
-       // SmartDashboard.putNumber("lowReedSwitch", robotMap.lowReedSwitch.getVoltage());
-      //  SmartDashboard.putBoolean("light sensor", robotMap.ballStop.getVoltage()>4);
-       // SmartDashboard.putNumber("acceleration", robotMap.ahrs.getRawAccelY());
+        
     }
 
     public double getPSI()
@@ -57,7 +50,6 @@ public class Diagnostics
     public void getForwardMode()
     {
         Constants.forwardFromWidget = Robot.hatchBallSelected.getString("");
-        //Constants.forwardFromWidget = SmartDashboard.getString("Test Forward Chooser", "");
     }
 
     public void SolenoidReset() 
@@ -88,5 +80,20 @@ public class Diagnostics
         SmartDashboard.putNumber("inches from vex", sonicDistance);
         Robot.hatchInBoolean.setBoolean(hatchIn);
         
+    }
+
+    public void flashLights()
+    {
+        if(!robotMap.hatchButton.get())
+        {
+            robotMap.canifier.setLEDOutput(0.3, LEDChannel.LEDChannelA);
+            robotMap.canifier.setLEDOutput(0.3, LEDChannel.LEDChannelB);
+        }
+        else
+        {
+            robotMap.canifier.setLEDOutput(0, LEDChannel.LEDChannelA);
+            robotMap.canifier.setLEDOutput(0, LEDChannel.LEDChannelB);
+            robotMap.canifier.setLEDOutput(0, LEDChannel.LEDChannelC);
+        }
     }
 }

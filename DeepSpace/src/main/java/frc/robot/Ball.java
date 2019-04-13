@@ -145,7 +145,7 @@ public class Ball implements ManipulatorMode {
 
     public void intakeAuto()
     {
-        if(robotMap.ballStop.getVoltage()>=4)
+        if(!robotMap.ballButton.get())
         {
             robotMap.talonBallIntake.set(0);
 //            System.out.println("stop intaking");

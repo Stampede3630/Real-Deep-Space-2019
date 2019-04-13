@@ -33,14 +33,7 @@ public class Constants
     public static final double turnTolerance = 2;
 
     public static final double pidLowSpeed = 0.1;
-/*
-    public static final double midVoltage = 2.5;
-    public static final double driveForwardSpeed = -0.3;
-    public static final double rotateLeftSpeed = -0;
-    public static final double rotateRightSpeed = 0;
-    public static final double strafeLeftSpeed = 0.2;
-    public static final double strafeRightSpeed = -0.2;
-*/
+
 /*
     public static final double h1 = 21.5; //distance from bottom of robot to camera (inches)
     public static final double h2 = 31.50; //distance from bottom of board to far left target (inches)

@@ -17,10 +17,7 @@ public class Robot extends TimedRobot
   public static Manipulator manipulator;
   public static Diagnostics diagnostics;
   public static Choosers choosers;
- // public static SendableChooser manipulatorChooser, grassHopperChooser;
-  //public final  UsbCamera cameraOne = CameraServer.getInstance().sta;
   public static PathChooser pathChooser = new PathChooser();
-  public static GrassHopper magicWillHappen = new GrassHopper();
   public static NetworkTableEntry pathSelected, hatchBallSelected, hatchInBoolean;
 
   @Override
@@ -30,31 +27,13 @@ public class Robot extends TimedRobot
     manipulator = new Manipulator();
     diagnostics = new Diagnostics();
     choosers = new Choosers(driveTrain, manipulator);
-   // manipulatorChooser = new SendableChooser();
-    //manipulatorChooser.addDefault("Hatch Forward", "Hatch");
-   // manipulatorChooser.addObject("Ball Forward", "Ball");
-    //SmartDashboard.putData("Forward Chooser", manipulatorChooser);
-    //SmartDashboard.putString("Test Forward Chooser", "");
-   // SmartDashboard.putString("Path Selected", "");
 
     tab = Shuffleboard.getTab("driverTab");
     pathSelected = tab.add("PathSelected", "").withWidget("PathSelector").withSize(7,6).withPosition(3, 0).getEntry();
     hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").withSize(3,2).withPosition(0,0).getEntry();
 
     hatchInBoolean = tab.add("Hatch In",false).withSize(3,2).withPosition(0,3).getEntry();
-    
-    
-    /*
-    grassHopperChooser = new SendableChooser();
-    grassHopperChooser.addDefault("E Stop", "E stop");
-    grassHopperChooser.addObject("Pistons Extend", "PistonExtend");
-    grassHopperChooser.addObject("Pistons Retract", "PistonRetract");
-    grassHopperChooser.addObject("Front Piston Retract", "FrontPistonRetract");
-    grassHopperChooser.addObject("Back Piston Retract", "BackPistonRetract");
-    grassHopperChooser.addObject("Slide Hatch", "SlideHatch");
-    grassHopperChooser.addObject("Slide Cargo", "SlideCargo");
-    SmartDashboard.putData("Grasshopper Chooser" , grassHopperChooser);
-   */ 
+  
     
 
   }
@@ -63,35 +42,11 @@ public class Robot extends TimedRobot
   public void robotPeriodic() 
   {
     choosers.letterButtons();
-    /*
-    if(!pathSelected.exists() || pathSelected.getValue().equals(NetworkTableType.kUnassigned))
-    {
-      pathSelected = tab.add("PathSelected", "").withWidget("PathSelector").getEntry();
-    }
-    else if (!pathSelected.isValid())
-    {
-      pathSelected = tab.add("PathSelected", "turtle").withWidget("PathSelector").getEntry();
-//      System.out.println("setting a turtle");
-    }
 
-
-    if(!hatchBallSelected.exists() || hatchBallSelected.getValue().equals(NetworkTableType.kUnassigned))
-    {
-      hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").getEntry();
-    }
-    else if (!hatchBallSelected.isValid())
-    {
-      hatchBallSelected = tab.add("hatchBallSelected","anotherTurtle").withWidget("BigButtonsWidget").getEntry();
-//      System.out.println("setting another turtle");
-    }
-    */
 
     diagnostics.toSmartDashboard();
     pathChooser.stringToPath(pathSelected.getString(""));
-    //System.out.println(pathSelected.getString("defaultdata"));
     diagnostics.getForwardMode();
-//    pathChooser.stringToPath(SmartDashboard.getString("Path Selected", ""));
-//    System.out.println(pathSelected.getString("")+"|||||"+pathSelected.getValue().toString());
     diagnostics.ultrasonicSensorReading();
   }
 
@@ -100,7 +55,6 @@ public class Robot extends TimedRobot
   public void autonomousInit() 
   {
     manipulator.robotMap.ahrs.reset();
-//    diagnostics.SolenoidReset();
   }
 
   
@@ -108,14 +62,8 @@ public class Robot extends TimedRobot
   public void autonomousPeriodic() 
   {
     choosers.setDriveMode();
-    //choosers.automatedTurnToAngle();
+
     choosers.setManipulatorMode();
-
-//    choosers.chooserAngle(pathChooser.angle);
-
-//    choosers.angleSwitch();
-
-//    choosers.setAction();
 
     driveTrain.drive();
 
@@ -126,30 +74,21 @@ public class Robot extends TimedRobot
     diagnostics.limelightValues();
 
     diagnostics.getForwardMode();
-
-//    diagnostics.toSmartDashboard();
-//    diagnostics.periodicVisionChange();
     
   }
 
   @Override
   public void teleopInit() 
   {
-    //SmartDashboard.putData("Forward Chooser", manipulatorChooser);
+    
   }
 
   @Override
   public void teleopPeriodic() 
   {
     choosers.setDriveMode();
-    //choosers.automatedTurnToAngle();
+    
     choosers.setManipulatorMode();
-
-//    choosers.chooserAngle(pathChooser.angle);
-
-//    choosers.angleSwitch();
-
-//    choosers.setAction();
 
     driveTrain.drive();
 
@@ -158,13 +97,6 @@ public class Robot extends TimedRobot
     choosers.letterButtons();
 
     diagnostics.limelightValues();
-
-//    diagnostics.toSmartDashboard();
-
-
-
-//    diagnostics.periodicVisionChange();
-//    magicWillHappen.hopUpTest(); DO NOT UN-COMMENT
 
   }
 
