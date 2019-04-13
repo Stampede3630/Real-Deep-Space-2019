@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class Choosers
 {
@@ -43,23 +44,25 @@ public class Choosers
 
     public void chooserAngle(double angle) {
         if (driveTrain.driveMode.getAutoRotate()) {
-            driveTrain.turnPID.zController.setSetpoint(angle);
+
+            driveTrain.turnPID.turnController.setSetpoint(angle);
             driveTrain.turnSetpoint = angle;
-            driveTrain.turnPID.zController.enable();
+            driveTrain.turnPID.turnController.enable();
         }
 
         else {
-            driveTrain.turnPID.zController.disable();
+            driveTrain.turnPID.turnController.disable();
         }
     }
 
     public void setDriveMode()
     {
-        if(Constants.lostTarget)
+/*        if(driveTrain.forwardPID.)
         {
             driveTrain.driveMode = new ManualDrive(robotMap, driveTrain);
             Constants.lostTarget = false;
         }
+*/
         if(robotMap.buttonA.get())
         {
             driveTrain.driveMode = new ManualDrive(robotMap, driveTrain);
@@ -72,15 +75,26 @@ public class Choosers
 
     public void setManipulatorMode()
     {
-        if(!currentManipulator.equals(Robot.manipulatorChooser.getSelected()))
+//        if(!currentManipulator.equals(Robot.manipulatorChooser.getSelected()))
+        if(!currentManipulator.equals(Constants.forwardFromWidget))
         {
-            currentManipulator = Robot.manipulatorChooser.getSelected().toString();
-            
-            if(currentManipulator.equals("Ball"))
+/*            if(!currentManipulator.equals("cargo"))
             {
+               
+                //System.out.println("Manipulator should have disengaged");
+            }
+*/
+            //currentManipulator = Robot.manipulatorChooser.getSelected().toString();
+            currentManipulator = Constants.forwardFromWidget;
+
+//            if(currentManipulator.equals("Ball"))
+            if(currentManipulator.equals("cargo"))
+            {
+                robotMap.hatchExtend.set(Value.kForward);
                 manipulator.manipulatorMode = new Ball(manipulator);
                 Constants.limelight = Constants.ballLimelight;
                 Constants.ballManipulator = true;
+
             }
             else 
             {

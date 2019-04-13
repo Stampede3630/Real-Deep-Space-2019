@@ -36,12 +36,33 @@ public class Hatch implements ManipulatorMode {
 
     public void intake() 
     {
+        if(robotMap.getTrigger()<0.2&&!robotMap.hatchButton.get())
+        {
+            robotMap.talonHatchR.set(0.5);
+            robotMap.talonHatchL.set(-0.5);
+        }
+        else{
+            robotMap.talonHatchR.set(0);
+            robotMap.talonHatchL.set(0);
+        }
 
     }
 
     public void deploy(boolean rocketMode) //left trigger
     {
-        if(robotMap.getTrigger()<=-0.75)
+        if(robotMap.getTrigger()<0.2)
+        {
+            robotMap.talonHatchR.set(-0.5);
+            robotMap.talonHatchL.set(0.5);
+        }
+        else
+        {
+            robotMap.talonHatchR.set(0);
+            robotMap.talonHatchL.set(0);
+        }
+
+
+        /*if(robotMap.getTrigger()<=-0.75)
         {
             circleTimer.start();
             robotMap.hatchDeploy.set(DoubleSolenoid.Value.kForward);
@@ -52,7 +73,7 @@ public class Hatch implements ManipulatorMode {
             circleTimer.stop();
             circleTimer.reset();
             robotMap.hatchDeploy.set(DoubleSolenoid.Value.kReverse);
-        }
+        }*/
     }
 
     public void disengage() //slide in

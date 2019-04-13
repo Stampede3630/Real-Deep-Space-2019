@@ -33,14 +33,7 @@ public class Constants
     public static final double turnTolerance = 2;
 
     public static final double pidLowSpeed = 0.1;
-/*
-    public static final double midVoltage = 2.5;
-    public static final double driveForwardSpeed = -0.3;
-    public static final double rotateLeftSpeed = -0;
-    public static final double rotateRightSpeed = 0;
-    public static final double strafeLeftSpeed = 0.2;
-    public static final double strafeRightSpeed = -0.2;
-*/
+
 /*
     public static final double h1 = 21.5; //distance from bottom of robot to camera (inches)
     public static final double h2 = 31.50; //distance from bottom of board to far left target (inches)
@@ -69,7 +62,7 @@ public class Constants
     public final static double deadzone = 0.2;
     
 //    public final static double multiplierScaleUp = 1;
-    public final static double normalSpeed = 0.8;
+    public final static double normalSpeed = 0.7;
     public final static double rocketBallLaunchUpSpeed = 0.8;
     public final static double rocketBallLaunchDownSpeed = -0.8;
 
@@ -82,13 +75,17 @@ public class Constants
     public static final String ballLimelight = "limelight-one";
 
     public static boolean lostTarget = false;
+    public static boolean ballTop = false;
+    public static boolean ballBottom = false;
     public static String limelight = hatchLimelight;
     public static String pipeline = "deploy";
     public static double pipelineNumber = 0;
     public static double robotAngle = 0;
     public static boolean toRocket = false;
     public static boolean ballFollowerOn = false;
+    public static boolean ballFollowerExecuting = false;
     public static boolean ballManipulator = false;
+    public static String forwardFromWidget = "";
     public static double tx = 0;
     public static double ty = 0;
     public static double ta = 0;
