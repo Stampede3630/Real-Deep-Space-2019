@@ -1,13 +1,17 @@
 package frc.robot;
 
+import com.ctre.phoenix.ILoopable;
+
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableType;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import frc.robot.CANLed.*;
 
 public class Robot extends TimedRobot 
 {
@@ -19,6 +23,7 @@ public class Robot extends TimedRobot
   public static Choosers choosers;
   public static PathChooser pathChooser = new PathChooser();
   public static NetworkTableEntry pathSelected, hatchBallSelected, hatchInBoolean;
+  public static boolean isDeleted = false;
 
   @Override
   public void robotInit() 
@@ -33,7 +38,12 @@ public class Robot extends TimedRobot
     hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").withSize(3,2).withPosition(0,0).getEntry();
 
     hatchInBoolean = tab.add("Hatch In",false).withSize(3,2).withPosition(0,3).getEntry();
-  
+
+
+
+    for (ILoopable loop : TaskList.FullList) {
+			Schedulers.PeriodicTasks.add(loop);
+    }
     
 
   }
@@ -48,6 +58,12 @@ public class Robot extends TimedRobot
     pathChooser.stringToPath(pathSelected.getString(""));
     diagnostics.getForwardMode();
     diagnostics.ultrasonicSensorReading();
+
+    
+
+    Schedulers.PeriodicTasks.process();
+
+//    System.out.println(DriverStation.getInstance().getAlliance().toString());
   }
 
   
@@ -55,6 +71,9 @@ public class Robot extends TimedRobot
   public void autonomousInit() 
   {
     manipulator.robotMap.ahrs.reset();
+
+    //untested
+    
   }
 
   
@@ -74,6 +93,8 @@ public class Robot extends TimedRobot
     diagnostics.limelightValues();
 
     diagnostics.getForwardMode();
+
+    
     
   }
 
@@ -107,5 +128,25 @@ public class Robot extends TimedRobot
 
 
 
+  }
+
+
+  //Untested
+  @Override
+  public void disabledPeriodic()
+  {
+    //Schedulers.PeriodicTasks.removeAll();
+
+    SmartDashboard.putBoolean("Big Red Button", isDeleted);
+    if (isDeleted) 
+    {
+      pathSelected.delete();
+      hatchBallSelected.delete();
+
+      pathSelected = tab.add("PathSelected", "").withWidget("PathSelector").withSize(7,6).withPosition(3, 0).getEntry();
+      hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").withSize(3,2).withPosition(0,0).getEntry();
+
+      isDeleted = false;
+    }
   }
 }

@@ -25,9 +25,9 @@ public class Diagnostics
         
         SmartDashboard.putNumber("ahrs", robotMap.ahrs.getYaw());
        
-        SmartDashboard.putBoolean("high ballstop button", robotMap.ballButton.get());
+        SmartDashboard.putBoolean("ball in", robotMap.ballButton.get());
 
-        SmartDashboard.putBoolean("low ballstop button", robotMap.lowBallButton.get());
+        SmartDashboard.putBoolean("hatch on", robotMap.dumbHatchButton.get()&&robotMap.hatchButton.get());
         
     }
 
@@ -82,7 +82,7 @@ public class Diagnostics
         
     }
 
-    public void flashLights()
+    /*public void flashLights()
     {
         if(!robotMap.hatchButton.get())
         {
@@ -95,5 +95,5 @@ public class Diagnostics
             robotMap.canifier.setLEDOutput(0, LEDChannel.LEDChannelB);
             robotMap.canifier.setLEDOutput(0, LEDChannel.LEDChannelC);
         }
-    }
+    }*/
 }

@@ -28,9 +28,9 @@ public class RobotMap {
 	public final WPI_TalonSRX talonBallShooter = new WPI_TalonSRX(6); //6
 	public final WPI_TalonSRX talonHatchL = new WPI_TalonSRX(7);
 
-	//public final WPI_TalonSRX talonBallIntake = new WPI_TalonSRX (5); //5, practice bot
+	public final WPI_TalonSRX talonBallIntake = new WPI_TalonSRX (5); //5, practice bot
 
-	public final CANSparkMax talonBallIntake = new CANSparkMax(8, MotorType.kBrushless);
+	//public final CANSparkMax talonBallIntake = new CANSparkMax(8, MotorType.kBrushless);
 
     public final MecanumDrive drive = new MecanumDrive(talonFL, talonBL, talonFR, talonBR);
 
@@ -39,6 +39,7 @@ public class RobotMap {
 	public final DigitalInput ballButton = new DigitalInput(0);
 	public final DigitalInput lowBallButton = new DigitalInput(18);
 	public final DigitalInput hatchButton = new DigitalInput(1);
+	public final DigitalInput dumbHatchButton = new DigitalInput(2);//change?
 
 	public final AnalogInput pressureLevel = new AnalogInput(0); //3
 
