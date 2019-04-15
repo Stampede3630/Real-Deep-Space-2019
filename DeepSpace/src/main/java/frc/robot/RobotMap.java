@@ -25,10 +25,10 @@ public class RobotMap {
     public final WPI_TalonSRX talonBL =  new WPI_TalonSRX (2); //2
 	public final WPI_TalonSRX talonBR =  new WPI_TalonSRX (1); //1
 	public final WPI_TalonSRX talonHatchR = new WPI_TalonSRX(5);
-	public final WPI_TalonSRX talonBallShooter = new WPI_TalonSRX(6); //6
-	public final WPI_TalonSRX talonHatchL = new WPI_TalonSRX(7);
+	public final WPI_TalonSRX talonBallShooter = new WPI_TalonSRX(8); //6
+	public final WPI_TalonSRX talonHatchL = new WPI_TalonSRX(6);
 
-	public final WPI_TalonSRX talonBallIntake = new WPI_TalonSRX (5); //5, practice bot
+	public final WPI_TalonSRX talonBallIntake = new WPI_TalonSRX (7); //5, practice bot
 
 	//public final CANSparkMax talonBallIntake = new CANSparkMax(8, MotorType.kBrushless);
 

@@ -145,6 +145,7 @@ public class Ball implements ManipulatorMode {
 
     public void intakeAuto()
     {
+        /*
         if(!robotMap.ballButton.get())
         {
             robotMap.talonBallIntake.set(0);
@@ -155,5 +156,6 @@ public class Ball implements ManipulatorMode {
             robotMap.talonBallIntake.set(-1);
 //            System.out.println("intaking");
         }
+        */
     }
 }

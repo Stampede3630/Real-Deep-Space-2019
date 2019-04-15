@@ -27,7 +27,11 @@ public class Diagnostics
        
         SmartDashboard.putBoolean("ball in", robotMap.ballButton.get());
 
-        SmartDashboard.putBoolean("hatch on", robotMap.dumbHatchButton.get()&&robotMap.hatchButton.get());
+        SmartDashboard.putBoolean("hatch in R", robotMap.dumbHatchButton.get());
+        
+        SmartDashboard.putBoolean("hatch in L", robotMap.hatchButton.get());
+
+
         
     }
 

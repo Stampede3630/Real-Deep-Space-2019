@@ -2,6 +2,7 @@ package frc.robot.CANLed;
 
 import com.ctre.phoenix.ILoopable;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.RobotMap;
 
 public class LEDMainLoop implements ILoopable
@@ -9,6 +10,7 @@ public class LEDMainLoop implements ILoopable
     private RobotMap robotMap = RobotMap.getRobotMap();
     int modulusInt;
     int multiplier = 1;
+    DriverStation.Alliance color = DriverStation.getInstance().getAlliance();
 
     public void onStart()
     {
@@ -61,6 +63,19 @@ public class LEDMainLoop implements ILoopable
             TaskList.myLEDColorSetter.Hue = 115;
             TaskList.myLEDColorSetter.Saturation = 1;
             TaskList.myLEDColorSetter.Value = 0.4f * multiplier;
+        }
+        else if(color == DriverStation.Alliance.Red)
+        {
+            TaskList.myLEDColorSetter.Hue = 120;
+            TaskList.myLEDColorSetter.Saturation = 1;
+            TaskList.myLEDColorSetter.Value = 0.2f;
+        }
+
+        else if(color == DriverStation.Alliance.Blue)
+        {
+            TaskList.myLEDColorSetter.Hue = 350;
+            TaskList.myLEDColorSetter.Saturation = 1;
+            TaskList.myLEDColorSetter.Value = 0.2f;
         }
         else
         {
