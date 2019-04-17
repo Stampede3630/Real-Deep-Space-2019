@@ -14,7 +14,7 @@ public class LEDMainLoop implements ILoopable
 
     public void onStart()
     {
-        Schedulers.PeriodicTasks.start(TaskList.operationRainbowMode);
+        //Schedulers.PeriodicTasks.start(TaskList.operationRainbowMode);
         System.out.println("I started :)");
         modulusInt = 0;
     }
@@ -36,7 +36,7 @@ public class LEDMainLoop implements ILoopable
 
         if (modulusInt > 70)
         {
-            multiplier = 1;
+            multiplier = 0;
         }
 
         else if (modulusInt % 8 == 0)
@@ -51,7 +51,7 @@ public class LEDMainLoop implements ILoopable
 
         if(robotMap.hatchButton.get() && robotMap.dumbHatchButton.get())
         {
-            Schedulers.PeriodicTasks.stop(TaskList.operationRainbowMode);
+//            Schedulers.PeriodicTasks.stop(TaskList.operationRainbowMode);
             TaskList.myLEDColorSetter.Hue = 150;
             TaskList.myLEDColorSetter.Saturation = 1;
             TaskList.myLEDColorSetter.Value = 0.4f * multiplier;
@@ -59,7 +59,7 @@ public class LEDMainLoop implements ILoopable
         }
         else if(!robotMap.ballButton.get())
         {
-            Schedulers.PeriodicTasks.stop(TaskList.operationRainbowMode);
+//            Schedulers.PeriodicTasks.stop(TaskList.operationRainbowMode);
             TaskList.myLEDColorSetter.Hue = 115;
             TaskList.myLEDColorSetter.Saturation = 1;
             TaskList.myLEDColorSetter.Value = 0.4f * multiplier;
@@ -68,14 +68,16 @@ public class LEDMainLoop implements ILoopable
         {
             TaskList.myLEDColorSetter.Hue = 120;
             TaskList.myLEDColorSetter.Saturation = 1;
-            TaskList.myLEDColorSetter.Value = 0.2f;
+            TaskList.myLEDColorSetter.Value = 0;
+            modulusInt = 0;
         }
 
         else if(color == DriverStation.Alliance.Blue)
         {
             TaskList.myLEDColorSetter.Hue = 350;
             TaskList.myLEDColorSetter.Saturation = 1;
-            TaskList.myLEDColorSetter.Value = 0.2f;
+            TaskList.myLEDColorSetter.Value = 0;
+            modulusInt = 0;
         }
         else
         {
