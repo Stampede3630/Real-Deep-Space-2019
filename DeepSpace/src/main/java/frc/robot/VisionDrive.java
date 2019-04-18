@@ -32,7 +32,7 @@ public class VisionDrive implements DriveMode{
         NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("snapshot").setNumber(1);
 
         Robot.diagnostics.periodicVisionChange();
-        if (Constants.ballFollowerOn)
+        if (Constants.ballFollowerOn) //sad thing
         {
             searchTarget();
             Constants.ballFollowerExecuting = true;
@@ -44,7 +44,18 @@ public class VisionDrive implements DriveMode{
         }
 
         zValue = driveTrain.turnPID.getTurnOutput();
+
         xValue = driveTrain.strafePID.getStrafeOutput();
+
+/*        if(driveTrain.strafePID.strafeController.isEnabled())
+        {
+            xValue = driveTrain.strafePID.getStrafeOutput();
+        }
+        else
+        {
+            xValue = -robotMap.getLeftX();
+        }
+        */
 
         if(driveTrain.forwardPID.forwardController.isEnabled())
         {
@@ -124,7 +135,9 @@ public class VisionDrive implements DriveMode{
         if(Constants.tv==0)
         {
             Robot.driveTrain.strafePID.strafeController.disable();
+            Robot.driveTrain.forwardPID.forwardController.disable();
             Constants.lostTarget = true;
+            NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("snapshot").setNumber(1);
         }
         else
         {

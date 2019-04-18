@@ -31,7 +31,7 @@ public class Diagnostics
         
         SmartDashboard.putBoolean("hatch in L", robotMap.hatchButton.get());
 
-
+//        SmartDashboard.putNumber("calculations", Math.tan(degreesToRadians(Constants.tx))*((Constants.h1-Constants.h2)/Math.tan(Constants.ty-15)));
         
     }
 

@@ -44,7 +44,7 @@ public class RobotMap {
 	public final AnalogInput pressureLevel = new AnalogInput(0); //3
 
   	public final DoubleSolenoid hatchExtend = new DoubleSolenoid(1,0); //0,2
-	public final DoubleSolenoid hatchDeploy = new DoubleSolenoid(2,3); // 1,3
+//	public final DoubleSolenoid hatchDeploy = new DoubleSolenoid(2,3); // 1,3
 
     public final Compressor mainC = new Compressor(0);
 

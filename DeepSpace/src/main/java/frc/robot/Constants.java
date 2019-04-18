@@ -13,7 +13,7 @@ package frc.robot;
 public class Constants 
 {
 
-    public static final double strafeKP = 0.1;
+    public static final double strafeKP = 0.15;
     public static final double strafeKI = 0;
     public static final double strafeKD = 0;
     public static final double strafeOutput = 0.6;
@@ -34,13 +34,13 @@ public class Constants
 
     public static final double pidLowSpeed = 0.1;
 
-/*
+
     public static final double h1 = 21.5; //distance from bottom of robot to camera (inches)
     public static final double h2 = 31.50; //distance from bottom of board to far left target (inches)
     public static final double w1 = 13.78; //half of robot distance in x direction (inches)
     public static final double alphaXOne = 0;
     public static final double alphaYOne = 0;
-*/
+
     public static final int timeOutMs = 10;
 
     public final static int aButton = 1;
@@ -90,4 +90,5 @@ public class Constants
     public static double ty = 0;
     public static double ta = 0;
     public static double tv = 0;
+    public static double ts = 0;
 }

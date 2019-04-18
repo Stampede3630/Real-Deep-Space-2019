@@ -36,12 +36,13 @@ public class Hatch implements ManipulatorMode {
 
     public void intake() 
     {
-        if(robotMap.getTrigger()>0.2&&!robotMap.hatchButton.get()&&!robotMap.dumbHatchButton.get())
+        if(robotMap.getTrigger()>0.2&&(!robotMap.hatchButton.get()&&!robotMap.dumbHatchButton.get()))
         {
             robotMap.talonHatchR.set(-0.5);
             robotMap.talonHatchL.set(0.5);
         }
-        else{
+        else
+        {
             robotMap.talonHatchR.set(0);
             robotMap.talonHatchL.set(0);
         }
@@ -52,8 +53,8 @@ public class Hatch implements ManipulatorMode {
     {
         if(robotMap.getTrigger()<-0.2)
         {
-            robotMap.talonHatchR.set(0.5);
-            robotMap.talonHatchL.set(-0.5);
+            robotMap.talonHatchR.set(0.8);
+            robotMap.talonHatchL.set(-0.8);
         }
         else
         {
