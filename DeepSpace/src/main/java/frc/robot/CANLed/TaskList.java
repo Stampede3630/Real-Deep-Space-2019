@@ -12,5 +12,5 @@ public class TaskList
     public static LEDMainLoop myMainLoop = new LEDMainLoop();
 
 
-    public static ILoopable[] FullList = { myLEDColorSetter, myMainLoop};
+    public static ILoopable[] FullList = {myLEDColorSetter, myMainLoop};
 }

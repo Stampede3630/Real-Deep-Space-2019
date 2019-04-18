@@ -45,7 +45,7 @@ public class XpidSource implements PIDSource
         else 
         {
             tempTx = Constants.tx;
-            double toReturn = Math.tan(degreesToRadians(Constants.tx))*((Constants.h1-Constants.h2)/Math.tan(degreesToRadians(Constants.ty-15)));
+            double toReturn = -Math.tan(degreesToRadians(Constants.tx))*((Constants.h1-Constants.h2)/Math.tan(degreesToRadians(Constants.ty-15)));
             return toReturn;
         }
         
@@ -56,15 +56,9 @@ public class XpidSource implements PIDSource
 //        double dist = Math.tan(degreesToRadians(tx))*((Constants.h2 - Constants.h1) / Math.tan(degreesToRadians(Constants.alphaYOne + ty)));
 //        SmartDashboard.putNumber("xDistance", dist);
 
-
-public static double radiansToDegrees(double theta) {
-    double degrees = theta * (180 / Math.PI);
-    return degrees;
-}
-
-public static double degreesToRadians(double theta) {
-    double radians = theta * (Math.PI / 180);
-    return radians;
-}
+    public static double degreesToRadians(double theta) {
+        double radians = theta * (Math.PI / 180);
+        return radians;
+    }
 }
 

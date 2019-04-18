@@ -83,7 +83,7 @@ public class Choosers
     {
          if (!(robot.pathSelected.toString().equals(comparePath)))
         {
-            pathChooser.stringToPath(robot.pathSelected.toString());
+            //pathChooser.stringToPath(robot.pathSelected.toString());
             comparePath = robot.pathSelected.toString();
             NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(Constants.pipelineNumber);
         }

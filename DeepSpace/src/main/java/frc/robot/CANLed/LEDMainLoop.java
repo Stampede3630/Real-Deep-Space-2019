@@ -15,7 +15,7 @@ public class LEDMainLoop implements ILoopable
     public void onStart()
     {
         //Schedulers.PeriodicTasks.start(TaskList.operationRainbowMode);
-        System.out.println("I started :)");
+//        System.out.println("I started :)");
         modulusInt = 0;
     }
 
@@ -68,15 +68,15 @@ public class LEDMainLoop implements ILoopable
         {
             TaskList.myLEDColorSetter.Hue = 120;
             TaskList.myLEDColorSetter.Saturation = 1;
-            TaskList.myLEDColorSetter.Value = 0;
+            TaskList.myLEDColorSetter.Value = 0.15f;
             modulusInt = 0;
         }
 
         else if(color == DriverStation.Alliance.Blue)
         {
-            TaskList.myLEDColorSetter.Hue = 350;
+            TaskList.myLEDColorSetter.Hue = 280;
             TaskList.myLEDColorSetter.Saturation = 1;
-            TaskList.myLEDColorSetter.Value = 0;
+            TaskList.myLEDColorSetter.Value = 0.15f;
             modulusInt = 0;
         }
         else
