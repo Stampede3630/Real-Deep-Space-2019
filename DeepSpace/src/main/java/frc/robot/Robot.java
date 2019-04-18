@@ -94,7 +94,7 @@ public class Robot extends TimedRobot
 
     diagnostics.getForwardMode();
 
-    
+    choosers.updatePath();
     
   }
 
@@ -119,6 +119,7 @@ public class Robot extends TimedRobot
 
     diagnostics.limelightValues();
 
+    choosers.updatePath();
   }
 
  

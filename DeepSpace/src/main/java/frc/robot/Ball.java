@@ -68,8 +68,7 @@ public class Ball implements ManipulatorMode {
             robotMap.talonBallShooter.set(0);
         }
         */
-        
-        
+                
         if(robotMap.getTrigger()>0.2&&robotMap.ballButton.get() == true && Constants.ballBottom && robotMap.lowBallButton.get()) 
         {
             robotMap.talonBallIntake.set(-0.55);

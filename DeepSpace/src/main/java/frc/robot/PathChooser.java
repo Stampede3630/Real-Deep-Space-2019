@@ -8,7 +8,7 @@ public class PathChooser
     }
 
     public void stringToPath(String mode) //0 - closest(intake), 1-leftmost 2-rightmost 3-closest(deploy)
-    { 
+    {
         switch (mode) {
             case "LeftLS":
                 Constants.robotAngle = Robot.choosers.reverseAngle(-180);

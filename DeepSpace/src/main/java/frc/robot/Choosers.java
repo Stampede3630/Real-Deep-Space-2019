@@ -7,14 +7,19 @@ public class Choosers
 {
 
     RobotMap robotMap;
+    Robot robot;
     boolean toRocket, ballManipulator;
     DriveTrain driveTrain;
     Manipulator manipulator;
     String currentManipulator = "";
+    String comparePath = "";
+    PathChooser pathChooser;
+    Boolean bButtonPressed;
 
     public Choosers(DriveTrain driveTrain, Manipulator manipulator)
     {
         robotMap = RobotMap.getRobotMap();
+
 
         this.driveTrain = driveTrain;
         driveTrain.driveMode = new ManualDrive(robotMap, driveTrain);
@@ -70,6 +75,17 @@ public class Choosers
         if(robotMap.buttonB.get())
         {
             driveTrain.driveMode = new VisionDrive(robotMap, driveTrain);
+            
+        }
+    }
+
+    public void updatePath()
+    {
+         if (!(robot.pathSelected.toString().equals(comparePath)))
+        {
+            pathChooser.stringToPath(robot.pathSelected.toString());
+            comparePath = robot.pathSelected.toString();
+            NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(Constants.pipelineNumber);
         }
     }
 
@@ -112,19 +128,23 @@ public class Choosers
         {
             NetworkTableInstance.getDefault().getTable(Constants.ballLimelight).getEntry("pipeline").setNumber(Constants.closestIntake);
             NetworkTableInstance.getDefault().getTable(Constants.hatchLimelight).getEntry("pipeline").setNumber(Constants.hatchDriving);
+            
         }
         if(robotMap.buttonB.get())
         {
             NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(Constants.pipelineNumber);
+            
         }
         if(robotMap.buttonA.get())
         {
             NetworkTableInstance.getDefault().getTable(Constants.ballLimelight).getEntry("pipeline").setNumber(Constants.closestIntake);
             NetworkTableInstance.getDefault().getTable(Constants.hatchLimelight).getEntry("pipeline").setNumber(Constants.hatchDriving);
+            
         }
         if(robotMap.buttonY.get())
         {
             NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("pipeline").setNumber(Constants.pipelineNumber);
+            
         }
     }
 
