@@ -26,16 +26,23 @@ public class Ball implements ManipulatorMode {
         intakeTimer = new Timer();
     }
 
+    public void endAll()
+    {
+        robotMap.talonBallIntake.set(0);
+        robotMap.talonBallShooter.set(0);
+    }
+
     public void engage () 
     {
         if(robotMap.bumperR.get())
         {
             robotMap.talonBallIntake.set(-0.7);
         }
-        else
+/*        else
         {
             robotMap.talonBallIntake.set(0);
         }
+        */
     }
 
     public void intake () //right trigger
@@ -101,11 +108,12 @@ public class Ball implements ManipulatorMode {
             robotMap.talonBallIntake.set(1);
             robotMap.talonBallShooter.set(-1);
         }*/
-        else
+        /*else
         {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(0);
         } 
+        */
     }
 
     public void deploy (boolean rocketMode) //left trigger
@@ -123,11 +131,12 @@ public class Ball implements ManipulatorMode {
                 robotMap.talonBallIntake.set(-0.3);
             }
         }   
-        else
+        /*else
         {
             robotMap.talonBallIntake.set(0);
             robotMap.talonBallShooter.set(0);
         }
+        */
     }
 
     public void disengage () 
@@ -136,10 +145,11 @@ public class Ball implements ManipulatorMode {
         {
             robotMap.talonBallIntake.set(0.7);
         }
-        else
+        /*else
         {
             robotMap.talonBallIntake.set(0);
         }
+        */
     }
 
     public void intakeAuto()
@@ -156,5 +166,10 @@ public class Ball implements ManipulatorMode {
 //            System.out.println("intaking");
         }
         */
+    }
+
+    public void deployAuto(double robotTime)
+    {
+        Constants.autoDeploy = false;
     }
 }

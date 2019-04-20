@@ -73,7 +73,10 @@ public class Constants
     public static final double hatchDriving = 4;
     public static final String hatchLimelight = "limelight-two";
     public static final String ballLimelight = "limelight-one";
+    public static final double deployLong = 0;
+    public static final double deployTY = 0;
 
+    public static boolean autoDeploy = false;
     public static boolean lostTarget = false;
     public static boolean ballTop = false;
     public static boolean ballBottom = false;

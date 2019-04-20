@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 public class VisionDrive implements DriveMode{
@@ -8,7 +9,7 @@ public class VisionDrive implements DriveMode{
     RobotMap robotMap;
     DriveTrain driveTrain;
     Choosers turnChooser;
-    double xValue, yValue, zValue, tempTX;
+    double xValue, yValue, zValue, tempTX, tempTY, tempTL;
     Timer driveFw;
 
     public VisionDrive(RobotMap robotMap, DriveTrain driveTrain) //change limelight before entering VisionDrive!
@@ -29,7 +30,7 @@ public class VisionDrive implements DriveMode{
     public void driveRobot()
     {
 
-        NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("snapshot").setNumber(1);
+//        NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("snapshot").setNumber(1);
 
         Robot.diagnostics.periodicVisionChange();
         if (Constants.ballFollowerOn) //sad thing
@@ -45,9 +46,7 @@ public class VisionDrive implements DriveMode{
 
         zValue = driveTrain.turnPID.getTurnOutput();
 
-        xValue = driveTrain.strafePID.getStrafeOutput();
-
-/*        if(driveTrain.strafePID.strafeController.isEnabled())
+        if(driveTrain.strafePID.strafeController.isEnabled())
         {
             xValue = driveTrain.strafePID.getStrafeOutput();
         }
@@ -55,7 +54,7 @@ public class VisionDrive implements DriveMode{
         {
             xValue = -robotMap.getLeftX();
         }
-        */
+        
 
         if(driveTrain.forwardPID.forwardController.isEnabled())
         {
@@ -84,6 +83,42 @@ public class VisionDrive implements DriveMode{
         }
         
     }
+
+    public void driveAuto()
+    {
+
+        if(Constants.tv==0)
+        {
+            if(tempTL==Constants.deployLong&&tempTY==Constants.deployTY&&(!Constants.ballManipulator))
+            {
+                Robot.manipulator.robotTime = DriverStation.getInstance().getMatchTime();
+                Constants.autoDeploy = true;
+            }
+            Robot.driveTrain.strafePID.strafeController.disable();
+            Robot.driveTrain.forwardPID.forwardController.disable();
+            Constants.lostTarget = true;
+            NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("snapshot").setNumber(1);
+        }
+        else
+        {
+            Robot.driveTrain.strafePID.strafeController.setSetpoint(0);
+            Robot.driveTrain.turnPID.turnController.setSetpoint(Constants.robotAngle);
+            Robot.driveTrain.turnPID.turnController.enable();
+            Robot.driveTrain.strafePID.strafeController.enable();
+            Robot.driveTrain.forwardPID.forwardController.disable();
+            Constants.lostTarget = false;
+        } 
+        
+        tempTL = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("tlong").getDouble(0);
+        tempTY = NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("ty").getDouble(0);
+    }
+
+
+
+
+
+
+
 
     public void searchTarget()
     {
@@ -128,25 +163,5 @@ public class VisionDrive implements DriveMode{
             Robot.manipulator.manipulatorMode.intakeAuto();
 //            System.out.println("no target");
         }
-    }
-
-    public void driveAuto()
-    {
-        if(Constants.tv==0)
-        {
-            Robot.driveTrain.strafePID.strafeController.disable();
-            Robot.driveTrain.forwardPID.forwardController.disable();
-            Constants.lostTarget = true;
-            NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("snapshot").setNumber(1);
-        }
-        else
-        {
-            Robot.driveTrain.strafePID.strafeController.setSetpoint(0);
-            Robot.driveTrain.turnPID.turnController.setSetpoint(Constants.robotAngle);
-            Robot.driveTrain.turnPID.turnController.enable();
-            Robot.driveTrain.strafePID.strafeController.enable();
-            Robot.driveTrain.forwardPID.forwardController.disable();
-            Constants.lostTarget = false;
-        }   
     }
 }

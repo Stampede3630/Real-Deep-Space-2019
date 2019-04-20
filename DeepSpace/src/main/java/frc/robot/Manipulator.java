@@ -4,6 +4,7 @@ public class Manipulator
 {
     ManipulatorMode manipulatorMode;
     RobotMap robotMap;
+    public double robotTime;
 
     public Manipulator()
     {
@@ -22,13 +23,21 @@ public class Manipulator
             {
                 manipulatorMode.engage(); //right bumper
             }
-            else if(robotMap.getTrigger()<=0)
+            else if(robotMap.getTrigger()<0)
             {
                 manipulatorMode.deploy(Constants.toRocket); //left trigger
             }
-            else if(robotMap.getTrigger()>=0)
+            else if(robotMap.getTrigger()>0)
             {
                 manipulatorMode.intake(); //right trigger
+            }
+            else if(Constants.autoDeploy)
+            {
+                manipulatorMode.deployAuto(robotTime);
+            }
+            else 
+            {
+                manipulatorMode.endAll();
             }
         }
     }

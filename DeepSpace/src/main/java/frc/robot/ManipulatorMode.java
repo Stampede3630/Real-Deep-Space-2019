@@ -16,4 +16,6 @@ public interface ManipulatorMode {
     public void engage();
     public void disengage();
     public void intakeAuto();
+    public void deployAuto(double robotTime);
+    public void endAll();
 }

@@ -53,26 +53,30 @@ public class Robot extends TimedRobot
   {
     choosers.letterButtons();
 
-
     diagnostics.toSmartDashboard();
-    pathChooser.stringToPath(pathSelected.getString(""));
-    diagnostics.getForwardMode();
-    diagnostics.ultrasonicSensorReading();
 
+    pathChooser.stringToPath(pathSelected.getString(""));
+
+    diagnostics.getForwardMode();
     
+    diagnostics.ultrasonicSensorReading(); 
 
     Schedulers.PeriodicTasks.process();
+    
+    diagnostics.limelightValues();
 
-//    System.out.println(DriverStation.getInstance().getAlliance().toString());
+    choosers.updatePath();
+    
+    choosers.setManipulatorMode();
+
   }
 
   
   @Override
   public void autonomousInit() 
   {
-    manipulator.robotMap.ahrs.reset();
 
-    //untested
+    manipulator.robotMap.ahrs.reset();
     
   }
 
@@ -80,22 +84,13 @@ public class Robot extends TimedRobot
   @Override
   public void autonomousPeriodic() 
   {
-    choosers.setDriveMode();
 
-    choosers.setManipulatorMode();
+    choosers.setDriveMode();
 
     driveTrain.drive();
 
     manipulator.manipulatorPeriodic();
 
-    choosers.letterButtons();
-
-    diagnostics.limelightValues();
-
-    diagnostics.getForwardMode();
-
-    choosers.updatePath();
-    
   }
 
   @Override
@@ -107,19 +102,13 @@ public class Robot extends TimedRobot
   @Override
   public void teleopPeriodic() 
   {
+
     choosers.setDriveMode();
-    
-    choosers.setManipulatorMode();
 
     driveTrain.drive();
 
     manipulator.manipulatorPeriodic();
 
-    choosers.letterButtons();
-
-    diagnostics.limelightValues();
-
-    choosers.updatePath();
   }
 
  
@@ -136,7 +125,6 @@ public class Robot extends TimedRobot
   @Override
   public void disabledPeriodic()
   {
-    //Schedulers.PeriodicTasks.removeAll();
 
     SmartDashboard.putBoolean("Big Red Button", isDeleted);
     if (isDeleted) 
@@ -149,5 +137,6 @@ public class Robot extends TimedRobot
 
       isDeleted = false;
     }
+    
   }
 }

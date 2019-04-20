@@ -8,13 +8,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Hatch implements ManipulatorMode {
     RobotMap robotMap;
     boolean manipulatorOut;
     Manipulator manipulator;
-    Timer circleTimer;
+    Timer deployTimer;
 
     public Hatch(Manipulator manipulator) 
     {
@@ -22,7 +23,13 @@ public class Hatch implements ManipulatorMode {
         this.manipulator = manipulator;
         manipulatorOut = false;
 
-        circleTimer = new Timer();
+        deployTimer = new Timer();
+    }
+
+    public void endAll()
+    {
+        robotMap.talonHatchL.set(0);
+        robotMap.talonHatchR.set(0);
     }
 
     public void engage() //slide out
@@ -41,12 +48,12 @@ public class Hatch implements ManipulatorMode {
             robotMap.talonHatchR.set(-0.5);
             robotMap.talonHatchL.set(0.5);
         }
-        else
+/*        else
         {
             robotMap.talonHatchR.set(0);
             robotMap.talonHatchL.set(0);
         }
-
+*/
     }
 
     public void deploy(boolean rocketMode) //left trigger
@@ -56,12 +63,12 @@ public class Hatch implements ManipulatorMode {
             robotMap.talonHatchR.set(0.8);
             robotMap.talonHatchL.set(-0.8);
         }
-        else
+/*       else
         {
             robotMap.talonHatchR.set(0);
             robotMap.talonHatchL.set(0);
         }
-
+*/
 
         /*if(robotMap.getTrigger()<=-0.75)
         {
@@ -88,6 +95,21 @@ public class Hatch implements ManipulatorMode {
     public void intakeAuto()
     {
 
+    }
+
+    public void deployAuto(double robotTime)
+    {
+        if(!(DriverStation.getInstance().getMatchTime()>=robotTime+2))
+        {
+            robotMap.talonHatchR.set(0.8);
+            robotMap.talonHatchL.set(-0.8);
+        }
+        else
+        {
+            robotMap.talonHatchR.set(0);
+            robotMap.talonHatchL.set(0);
+            Constants.autoDeploy = false;
+        }
     }
 
 }
