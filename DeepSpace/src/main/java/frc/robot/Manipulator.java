@@ -31,10 +31,12 @@ public class Manipulator
             {
                 manipulatorMode.intake(); //right trigger
             }
+            /*
             else if(Constants.autoDeploy)
             {
                 manipulatorMode.deployAuto(robotTime);
             }
+            */
             else 
             {
                 manipulatorMode.endAll();
