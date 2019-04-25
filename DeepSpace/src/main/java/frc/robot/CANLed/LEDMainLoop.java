@@ -64,7 +64,7 @@ public class LEDMainLoop implements ILoopable
             TaskList.myLEDColorSetter.Saturation = 1;
             TaskList.myLEDColorSetter.Value = 0.4f * multiplier;
         }
-        else if(color == DriverStation.Alliance.Red)
+/*        else if(color == DriverStation.Alliance.Red)
         {
             TaskList.myLEDColorSetter.Hue = 120;
             TaskList.myLEDColorSetter.Saturation = 1;
@@ -79,6 +79,7 @@ public class LEDMainLoop implements ILoopable
             TaskList.myLEDColorSetter.Value = 0.15f;
             modulusInt = 0;
         }
+        */
         else
         {
             TaskList.myLEDColorSetter.Value = 0;

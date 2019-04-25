@@ -86,7 +86,7 @@ public class Hatch implements ManipulatorMode {
 
     public void disengage() //slide in
     {
-        if(robotMap.bumperL.get() && (robotMap.hatchButton.get()) || robotMap.dumbHatchButton.get())
+        if(robotMap.bumperL.get() && (!robotMap.hatchButton.get()) && !robotMap.dumbHatchButton.get())
         {
             robotMap.hatchExtend.set(DoubleSolenoid.Value.kForward);
         }

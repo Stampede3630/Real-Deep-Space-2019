@@ -25,14 +25,24 @@ public class Diagnostics
         
         SmartDashboard.putNumber("ahrs", robotMap.ahrs.getYaw());
        
-        SmartDashboard.putBoolean("ball in", robotMap.ballButton.get());
+        SmartDashboard.putBoolean("ball in high", robotMap.ballButton.get());
 
         SmartDashboard.putBoolean("hatch in R", robotMap.dumbHatchButton.get());
         
         SmartDashboard.putBoolean("hatch in L", robotMap.hatchButton.get());
 
+        SmartDashboard.putBoolean("ball in low", robotMap.lowBallButton.get());
+
+        SmartDashboard.putNumber("distance in x", -Math.tan(degreesToRadians(Constants.tx))*((Constants.h1-Constants.h2)/Math.tan(degreesToRadians(Constants.ty-15))));
+
+
 //        SmartDashboard.putNumber("calculations", Math.tan(degreesToRadians(Constants.tx))*((Constants.h1-Constants.h2)/Math.tan(Constants.ty-15)));
         
+    }
+
+    public static double degreesToRadians(double theta) {
+        double radians = theta * (Math.PI / 180);
+        return radians;
     }
 
     public double getPSI()

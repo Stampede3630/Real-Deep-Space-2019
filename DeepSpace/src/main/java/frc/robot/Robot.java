@@ -2,6 +2,8 @@ package frc.robot;
 
 import com.ctre.phoenix.ILoopable;
 
+import edu.wpi.cscore.VideoSource;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.networktables.NetworkTableType;
@@ -52,8 +54,7 @@ public class Robot extends TimedRobot
   @Override
   public void robotPeriodic() 
   {
-    System.out.println(NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("tlong").getDouble(0));
-    System.out.println(Constants.ty);
+    
     choosers.letterButtons();
 
     diagnostics.toSmartDashboard();
@@ -99,7 +100,6 @@ public class Robot extends TimedRobot
   @Override
   public void teleopInit() 
   {
-    
   }
 
   @Override
@@ -121,6 +121,12 @@ public class Robot extends TimedRobot
 
 
 
+  }
+
+  @Override
+  public void disabledInit() 
+  {
+    
   }
 
 

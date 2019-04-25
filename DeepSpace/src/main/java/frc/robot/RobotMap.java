@@ -19,41 +19,40 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import com.ctre.phoenix.CANifier;
 public class RobotMap {
 	
+	public final Compressor mainC = new Compressor(0);
+	
+	public final DoubleSolenoid solenoidBack = new DoubleSolenoid(6,7);
+	public final DoubleSolenoid solenoidFront = new DoubleSolenoid(4,5);
+	public final DoubleSolenoid hatchExtend = new DoubleSolenoid(0,0,1); //0,2
 
     public final WPI_TalonSRX talonFL =  new WPI_TalonSRX (4); //4
-    public final WPI_TalonSRX talonFR =  new WPI_TalonSRX (3); //3
+    public final WPI_TalonSRX talonFR =  new WPI_TalonSRX (9); //3
     public final WPI_TalonSRX talonBL =  new WPI_TalonSRX (2); //2
 	public final WPI_TalonSRX talonBR =  new WPI_TalonSRX (1); //1
-	public final WPI_TalonSRX talonHatchR = new WPI_TalonSRX(5);
-	public final WPI_TalonSRX talonBallShooter = new WPI_TalonSRX(8); //6
-	public final WPI_TalonSRX talonHatchL = new WPI_TalonSRX(6);
-
-	public final WPI_TalonSRX talonBallIntake = new WPI_TalonSRX (7); //5, practice bot
-
-	//public final CANSparkMax talonBallIntake = new CANSparkMax(8, MotorType.kBrushless);
+	public final WPI_TalonSRX talonHatchR = new WPI_TalonSRX(3);
+	public final WPI_TalonSRX talonHatchL = new WPI_TalonSRX(5);
+	public final WPI_TalonSRX talonBallShooter = new WPI_TalonSRX(6); //6
+	//public final WPI_TalonSRX talonBallIntake = new WPI_TalonSRX (7); //5, practice bot ///COMMENT OUT FOR COMP
+	
+	public final CANSparkMax talonBallIntake = new CANSparkMax(8, MotorType.kBrushless);
 
     public final MecanumDrive drive = new MecanumDrive(talonFL, talonBL, talonFR, talonBR);
 
     public final AHRS ahrs = new AHRS (SPI.Port.kMXP);
   
 	public final DigitalInput ballButton = new DigitalInput(0);
-	public final DigitalInput lowBallButton = new DigitalInput(18);
-	public final DigitalInput hatchButton = new DigitalInput(1);
-	public final DigitalInput dumbHatchButton = new DigitalInput(2);//change?
+	public final DigitalInput lowBallButton = new DigitalInput(1);
+	public final DigitalInput hatchButton = new DigitalInput(2);
+	public final DigitalInput dumbHatchButton = new DigitalInput(3);//change?
 
 	public final AnalogInput pressureLevel = new AnalogInput(0); //3
 
-  	public final DoubleSolenoid hatchExtend = new DoubleSolenoid(1,0); //0,2
+ 
 //	public final DoubleSolenoid hatchDeploy = new DoubleSolenoid(2,3); // 1,3
-
-    public final Compressor mainC = new Compressor(0);
 
 	public final Ultrasonic ultrasonicSensor = new Ultrasonic(9,8);
 	
-
-	public final DoubleSolenoid solenoidBack = new DoubleSolenoid(6,7);
-	public final DoubleSolenoid solenoidFront = new DoubleSolenoid(4,5);
-	public final WPI_TalonSRX slideTalon = new WPI_TalonSRX(5);
+	//public final WPI_TalonSRX slideTalon = new WPI_TalonSRX(5);
 
 	public final CANifier canifier = new CANifier(0);
 

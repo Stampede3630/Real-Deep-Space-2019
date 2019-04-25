@@ -44,6 +44,7 @@ public class XpidSource implements PIDSource
 
         else 
         {
+            NetworkTableInstance.getDefault().getTable(Constants.limelight).getEntry("snapshot").setNumber(1);
             tempTx = Constants.tx;
             double toReturn = -Math.tan(degreesToRadians(Constants.tx))*((Constants.h1-Constants.h2)/Math.tan(degreesToRadians(Constants.ty-15)));
             return toReturn;
