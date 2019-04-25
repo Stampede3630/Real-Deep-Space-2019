@@ -7,7 +7,7 @@ public class PathChooser
 
     }
 
-    public void stringToPath(String mode) //0 - closest(intake), 1-leftmost 2-rightmost 3-closest(deploy)
+    public void stringToPath(String mode) //0 - closest(intake), 1-leftmost 2-rightmost 3-closest(deploy) (Largest from champs)
     {
         switch (mode) {
             case "LeftLS":
@@ -29,7 +29,7 @@ public class PathChooser
                 break;
             case "LeftFarRS":
                 Constants.robotAngle = Robot.choosers.reverseAngle(-150);
-                Constants.pipelineNumber = Constants.rightmost;
+                Constants.pipelineNumber = Constants.closestDeploy;
                 Constants.pipeline = "deploy";
                 Constants.ballFollowerOn = false;
                 Constants.toRocket = true;
@@ -44,7 +44,7 @@ public class PathChooser
             case "LeftNearRS":
                 Constants.robotAngle = Robot.choosers.reverseAngle(-30);
                 Constants.pipeline = "deploy";
-                Constants.pipelineNumber = Constants.leftmost;
+                Constants.pipelineNumber = Constants.closestDeploy;
                 Constants.ballFollowerOn = false;
                 Constants.toRocket = true;
                 break;
@@ -107,7 +107,7 @@ public class PathChooser
             case "RightFarRS":
                 Constants.robotAngle = Robot.choosers.reverseAngle(150);
                 Constants.pipeline = "deploy";
-                Constants.pipelineNumber = Constants.leftmost;
+                Constants.pipelineNumber = Constants.closestDeploy;
                 Constants.ballFollowerOn = false;
                 Constants.toRocket = true;
                 break;
@@ -121,7 +121,7 @@ public class PathChooser
             case "RightNearRS":
                 Constants.robotAngle = Robot.choosers.reverseAngle(30);
                 Constants.pipeline = "deploy";
-                Constants.pipelineNumber = Constants.rightmost;
+                Constants.pipelineNumber = Constants.closestDeploy;
                 Constants.ballFollowerOn = false;
                 Constants.toRocket = true;
                 break;

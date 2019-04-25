@@ -96,6 +96,15 @@ public class Diagnostics
         
     }
 
+    public void resetGyro ()
+    {
+        if(robotMap.startB.get())
+        {
+            robotMap.ahrs.reset();
+        }
+    }
+    
+
     /*public void flashLights()
     {
         if(!robotMap.hatchButton.get())

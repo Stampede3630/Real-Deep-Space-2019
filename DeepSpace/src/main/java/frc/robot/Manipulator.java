@@ -31,7 +31,7 @@ public class Manipulator
             {
                 manipulatorMode.intake(); //right trigger
             }
-            /*
+            /*m
             else if(Constants.autoDeploy)
             {
                 manipulatorMode.deployAuto(robotTime);

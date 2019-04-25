@@ -106,17 +106,21 @@ public class Choosers
 //            if(currentManipulator.equals("Ball"))
             if(currentManipulator.equals("cargo"))
             {
+                NetworkTableInstance.getDefault().getTable(Constants.ballLimelight).getEntry("pipeline").setNumber(Constants.closestIntake);
                 robotMap.hatchExtend.set(Value.kForward);
                 manipulator.manipulatorMode = new Ball(manipulator);
                 Constants.limelight = Constants.ballLimelight;
                 Constants.ballManipulator = true;
+                NetworkTableInstance.getDefault().getTable(Constants.hatchLimelight).getEntry("pipeline").setNumber(Constants.defaultPL);
 
             }
             else 
             {
+                NetworkTableInstance.getDefault().getTable(Constants.hatchLimelight).getEntry("pipeline").setNumber(Constants.hatchDriving);
                 manipulator.manipulatorMode = new Hatch(manipulator);
                 Constants.limelight = Constants.hatchLimelight;
                 Constants.ballManipulator = false;
+                NetworkTableInstance.getDefault().getTable(Constants.ballLimelight).getEntry("pipeline").setNumber(Constants.defaultPL);
             }
 
         }

@@ -81,7 +81,10 @@ public class Robot extends TimedRobot
   {
 
     manipulator.robotMap.ahrs.reset();
-    
+
+    NetworkTableInstance.getDefault().getTable(Constants.hatchLimelight).getEntry("pipeline").setNumber(Constants.hatchDriving);
+    NetworkTableInstance.getDefault().getTable(Constants.ballLimelight).getEntry("pipeline").setNumber(Constants.closestIntake);
+  
   }
 
   
