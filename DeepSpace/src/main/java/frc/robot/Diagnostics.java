@@ -92,7 +92,6 @@ public class Diagnostics
 
        // SmartDashboard.putBoolean("Hatch In", hatchIn);
         SmartDashboard.putNumber("inches from vex", sonicDistance);
-        Robot.hatchInBoolean.setBoolean(hatchIn);
         
     }
 

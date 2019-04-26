@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class Hatch implements ManipulatorMode {
     RobotMap robotMap;
-    boolean manipulatorOut;
+    boolean manipulatorOut, isIntaking;
     Manipulator manipulator;
     Timer deployTimer;
 
@@ -28,8 +28,14 @@ public class Hatch implements ManipulatorMode {
 
     public void endAll()
     {
-        robotMap.talonHatchL.set(0);
-        robotMap.talonHatchR.set(0);
+        if(deployTimer.get() > 1 || deployTimer.get() == 0 || isIntaking)
+        {
+            deployTimer.stop();
+            deployTimer.reset();
+            deployTimer.stop();
+            robotMap.talonHatchL.set(0);
+            robotMap.talonHatchR.set(0);
+        }
     }
 
     public void engage() //slide out
@@ -47,11 +53,15 @@ public class Hatch implements ManipulatorMode {
         {
             robotMap.talonHatchR.set(-0.5);
             robotMap.talonHatchL.set(0.5);
+            isIntaking = true;
+            
         }
         else
         {
             robotMap.talonHatchR.set(0);
             robotMap.talonHatchL.set(0);
+            isIntaking = false;
+            
         }
 
     }
@@ -62,7 +72,15 @@ public class Hatch implements ManipulatorMode {
         {
             robotMap.talonHatchR.set(0.8);
             robotMap.talonHatchL.set(-0.8);
+            isIntaking = false;
+            if(deployTimer.get() == 0)
+            {
+                deployTimer.start();
+            }
         }
+
+        
+        
 /*       else
         {
             robotMap.talonHatchR.set(0);

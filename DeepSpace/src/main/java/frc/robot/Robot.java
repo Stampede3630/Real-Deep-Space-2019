@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import frc.robot.CANLed.*;
@@ -25,7 +25,7 @@ public class Robot extends TimedRobot
   public static Diagnostics diagnostics;
   public static Choosers choosers;
   public static PathChooser pathChooser = new PathChooser();
-  public static NetworkTableEntry pathSelected, hatchBallSelected, hatchInBoolean;
+  public static NetworkTableEntry pathSelected, hatchBallSelected, hatchLeft, hatchRight;
   public static boolean isDeleted = false;
 
   @Override
@@ -40,9 +40,9 @@ public class Robot extends TimedRobot
     pathSelected = tab.add("PathSelected", "").withWidget("PathSelector").withSize(7,6).withPosition(3, 0).getEntry();
     hatchBallSelected = tab.add("hatchBallSelected","").withWidget("BigButtonsWidget").withSize(3,2).withPosition(0,0).getEntry();
 
-    hatchInBoolean = tab.add("Hatch In",false).withSize(3,2).withPosition(0,3).getEntry();
-
-
+    //hatchInBoolean = tab.add("Hatch In",false).withSize(3,2).withPosition(0,3).getEntry();
+    hatchLeft = tab.add("Hatch in L", choosers.robotMap.hatchButton.get()).withPosition(11,0).withSize(1,1).withWidget(BuiltInWidgets.kBooleanBox).getEntry();
+    hatchRight = tab.add("Hatch in R", choosers.robotMap.dumbHatchButton.get()).withPosition(11,1).withSize(1,1).withWidget(BuiltInWidgets.kBooleanBox).getEntry();
 
     for (ILoopable loop : TaskList.FullList) {
 			Schedulers.PeriodicTasks.add(loop);
@@ -74,6 +74,9 @@ public class Robot extends TimedRobot
     choosers.setManipulatorMode();
 
     diagnostics.resetGyro();
+
+    hatchRight.setBoolean(choosers.robotMap.hatchButton.get());
+    hatchLeft.setBoolean(choosers.robotMap.dumbHatchButton.get());
 
   }
 
