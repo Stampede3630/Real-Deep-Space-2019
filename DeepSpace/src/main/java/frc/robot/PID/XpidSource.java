@@ -42,10 +42,16 @@ public class XpidSource implements PIDSource
         */
 
 
-        else 
+        else if(!Constants.ballManipulator)
         {
             tempTx = Constants.tx;
             double toReturn = -Math.tan(degreesToRadians(Constants.tx))*((Constants.h1-Constants.h2)/Math.tan(degreesToRadians(Constants.ty-15)));
+            return toReturn;
+        }
+        else 
+        {
+            tempTx = Constants.tx;
+            double toReturn = -Math.tan(degreesToRadians(Constants.tx))*((Constants.h3-Constants.h2)/Math.tan(degreesToRadians(Constants.ty+35)));
             return toReturn;
         }
         
